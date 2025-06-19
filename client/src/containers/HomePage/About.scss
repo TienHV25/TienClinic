@@ -1,0 +1,30 @@
+.About-container{
+    height: auto;
+    background-image: url('../../assets/Doctor-Background.png');
+    .About-contain{
+        text-align: center;
+        padding: 40px 100px;
+        span{
+            font-size: 32px;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 20px;
+        }
+        .About-contain-info{
+            display: flex;
+            gap: 25px;
+
+            iframe {
+            width: 100%;          
+            max-width: 800px;     
+            height: 450px;       
+            border: none;
+            }
+
+            span{
+                font-size: 14px;
+                margin-top: 200px;
+            }
+        }
+    }
+}

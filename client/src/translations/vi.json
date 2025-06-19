@@ -1,0 +1,67 @@
+{
+    "homeheader":{
+       "speciality" : "Chuyên Khoa",
+       "searchdoctor" : "Tìm bác sĩ theo chuyên khoa",
+       "healthfacility":"Cơ Sở Y Tế",
+       "selectclinic":"Chọn bệnh viện phòng khám",
+       "doctor":"Bác Sĩ",
+       "selectdoctor":"Chọn bác sĩ giỏi",
+       "fee":"Gói Khám",
+       "checkhealth":"Khám sức khỏe tổng quát",
+       "support":"Hỗ Trợ",
+       "welcome":"Xin Chào,"
+    },
+    "banner":{
+        "healthcareplatform":"NỀN TẢNG Y TẾ",
+        "comprehensive":"CHĂM SÓC SỨC KHỎE TOÀN DIỆN",
+        "specialistconsultation":"Khám chuyên khoa",
+        "telemedicine":"Khám từ xa",
+        "generalcheckup":"Khám tổng quát",
+        "medicaltesting":"Xét nghiệm y học",
+        "mentalhealth":"Sức khỏe tinh thần",
+        "dentalcheckup":"Khám nha khoa"
+    },
+    "specialty":{
+        "cardiovascular":"Tim mạch",
+        "digest":"Tiêu hóa",
+        "ear_nose_throat":"Tai Mũi Họng",
+        "eye_specialist":"Chuyên khoa mắt",
+        "fetal_ultrasound":"Siêu âm thai nhi",
+        "general_dentistry":"Nha khoa tổng quát",
+        "mental_health":"Sức khỏe tâm thần",
+        "musculoskeletal":"Cơ xương",
+        "nerve":"Thần kinh",
+        "respiratory_lung":"Hô hấp - Phổi",
+        "spine":"Xương sống",
+        "thyroid":"Tuyến giáp",
+        "specialty":"Chuyên khoa",
+        "viewmore":"Xem Thêm"
+    },
+    "menu": {
+        "system": {
+            "header": "Hệ thống",
+            "system-administrator": {
+                "header": "Quản trị hệ thống",
+                "user-manage": "Quản lý người sử dụng",
+                "user-manage-redux": "Quản lý user bằng redux",
+                "register-package-group-or-account": "Đăng ký gói dịch vụ cho nhóm/tài khoản"
+            },
+            "system-parameter": {
+                "header": "Tham số hệ thống"
+            }
+        },
+        "admin": {
+            "manage-user": "Người dùng",
+            "manage-doctor": "Quản lý bác sĩ",
+            "manage-admin": "Quản lý admin",
+            "crud":"CRUD user",
+            "crud-redux":"CRUD Redux",
+            "clinic": "Phòng khám",
+            "manage-clinic":"Quản lý phòng khám",
+            "specialty":"Chuyên khoa",
+            "manage-specialty":"Quản lý chuyên khoa",
+            "handbook":"Cảm nang",
+            "manage-handbook":"Quản lý cẩm nang"
+        }
+    }
+}
