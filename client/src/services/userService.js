@@ -23,10 +23,15 @@ const handleUpdateUser = (userData) => {
    return axios.put('/api/update-user',userData);
 }
 
+const handleGetCode = (userType) => {
+   return axios.get(`/api/allcode/?type=${userType}`);
+}
+
 export {
    handleLoginApi,
    handleGetAllUser,
    handleCreateUser,
    handleDeleteUser,
-   handleUpdateUser 
+   handleUpdateUser,
+   handleGetCode
 }
