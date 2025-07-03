@@ -6,6 +6,7 @@ import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import * as actions from "../../../store/actions";
 import TableUser from './TableUser';
+import {adminActions,CommonUtils} from "../../../utils";
 
 
 class UserManageRedux extends Component {
@@ -19,6 +20,7 @@ class UserManageRedux extends Component {
            previewImgURL:'',
            isOpen: false,
            
+           id: '',
            email: '',
            password: '',
            firstName: '',
@@ -28,7 +30,9 @@ class UserManageRedux extends Component {
            gender: '',
            position: '',
            role: '',
-           avatar: ''
+           avatar: '',
+
+           adminAction: adminActions.CREATE
         }
     }
 
@@ -39,28 +43,36 @@ class UserManageRedux extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if(prevProps.genders !== this.props.genders) {
-            let gender = this.props.language === 'vi' ? this.props.genders[0].valueVi : this.props.genders[0].valueEn
+        if (prevProps.genders !== this.props.genders) {
+            const defaultGender = this.props.genders?.[0]?.keyMap || '';
             this.setState({
-                genderArr:this.props.genders,
-                gender: this.props.genders.length > 0 ? gender : ''
-            })
+                genderArr: this.props.genders,
+                gender: defaultGender,
+            });
         }
-        if(prevProps.positions !== this.props.positions) {
-            let position = this.props.language === 'vi' ? this.props.positions[0].valueVi : this.props.positions[0].valueEn
+
+        if (prevProps.positions !== this.props.positions) {
+            const defaultPosition = this.props.positions?.[0]?.keyMap || '';
             this.setState({
-                positionArr:this.props.positions,
-                position: this.props.positions.length > 0 ? position : ''
-            })
+                positionArr: this.props.positions,
+                position: defaultPosition,
+            });
         }
-        if(prevProps.roleIDs !== this.props.roleIDs) {
-            let role = this.props.language === 'vi' ? this.props.roleIDs[0].valueVi : this.props.roleIDs[0].valueEn
+
+        if (prevProps.roleIDs !== this.props.roleIDs) {
+            const defaultRole = this.props.roleIDs?.[0]?.keyMap || '';
             this.setState({
-                roleArr:this.props.roleIDs,
-                role: this.props.roleIDs.length > 0 ? role  : ''
-            })
+                roleArr: this.props.roleIDs,
+                role: defaultRole,
+            });
         }
-        if(prevProps.users !== this.props.users) {
+
+        if (
+            prevProps.users !== this.props.users &&
+            this.props.genders.length > 0 &&
+            this.props.positions.length > 0 &&
+            this.props.roleIDs.length > 0
+        ) {
             this.setState({
                 email: '',
                 password: '',
@@ -68,21 +80,26 @@ class UserManageRedux extends Component {
                 lastName: '',
                 phonenumber: '',
                 address: '',
-                gender: '',
-                position: '',
-                role: '',
-                avatar: ''
-            })
+                gender: this.props.genders[0].keyMap,
+                position: this.props.positions[0].keyMap,
+                role: this.props.roleIDs[0].keyMap,
+                previewImgURL: '',
+
+                adminAction: adminActions.CREATE
+            });
         }
     }
 
-    handleOnChangeImage = (event) => {
+
+    handleOnChangeImage = async (event) => {
         let data = event.target.files;
         let file = data[0];
         if(file){
+            let base64 = await CommonUtils.getBase64(file);
             let objectUrl = URL.createObjectURL(file);
             this.setState({
-                previewImgURL: objectUrl
+                previewImgURL: objectUrl,
+                avatar: base64
             })
 
         }
@@ -96,6 +113,8 @@ class UserManageRedux extends Component {
 
     checkValidateInput = () => {
         let isValid = true;
+        if(this.state.adminAction === adminActions.CREATE) 
+        {
         const arr =  ['email','password','firstName','lastName','phonenumber','address'];
         for(let i = 0; i < arr.length; i++) {
             if(!this.state[arr[i]]) {
@@ -103,6 +122,18 @@ class UserManageRedux extends Component {
                 alert(`Missing parameter input for ${arr[i]}`);
                 break;
             }
+        }
+        }
+        if(this.state.adminAction === adminActions.EDIT) 
+        {
+        const arr =  ['email','firstName','lastName','phonenumber','address'];
+        for(let i = 0; i < arr.length; i++) {
+            if(!this.state[arr[i]]) {
+                isValid = false;
+                alert(`Missing parameter input for ${arr[i]}`);
+                break;
+            }
+        }
         }
         return isValid;
     }
@@ -116,10 +147,44 @@ class UserManageRedux extends Component {
     }
 
     handleSaveUser = (data) => {
+     if(this.state.adminAction === adminActions.CREATE)
+     {
         let checkValidate = this.checkValidateInput();
         if(checkValidate === true) {
             this.props.createUserStartAdmin(data);
         }
+     }
+    if(this.state.adminAction === adminActions.EDIT) 
+    {
+        let checkValidate = this.checkValidateInput();
+        if(checkValidate === true) {
+            this.props.updateUserStartAdmin(data);
+        }
+    }
+    }
+
+    handleShowUserEdit = (user) => {
+        let  imageBase64 = '';
+        if(user.image)
+        {
+            imageBase64 = new Buffer(user.image, 'base64').toString('binary');
+        }
+        this.setState({
+            id: user.id,
+            email: user.email,
+            password: '',
+            firstName: user.firstName,
+            lastName: user.lastName,
+            phonenumber: user.phonenumber,
+            address: user.address,
+            gender: user.gender,
+            position: user.positionID,
+            role: user.roleID,
+            avatar: user.avatar,
+            previewImgURL:imageBase64,
+
+            adminAction: adminActions.EDIT
+        });
     }
  
     render() {
@@ -127,7 +192,7 @@ class UserManageRedux extends Component {
         let positions = this.state.positionArr;
         let roleIDs = this.state.roleArr;
 
-        let { email, password, firstName, lastName, 
+        let {  email, password, firstName, lastName, 
             phonenumber, address, gender, position, role } = this.state;
 
         return (
@@ -140,19 +205,19 @@ class UserManageRedux extends Component {
                             <form className="w-100">
                                 <div className="form-row row my-2">
                                     <div className="form-group col-md-3">
-                                        <FormattedMessage id="manage-user.add"/>
+                                        <FormattedMessage id={this.state.adminAction === adminActions.CREATE ? "manage-user.add" : "manage-user.edit"}/>
                                     </div>
                                 </div>
                                 <div className="form-row row my-2">
                                     <div className="form-group col-md-3">
                                     <label><FormattedMessage id="manage-user.email"/></label>
-                                    <input type="email" className="form-control" id="email"
+                                    <input type="email" className="form-control" id="email" disabled={this.state.adminAction === adminActions.CREATE ? false : true}
                                     value={email} onChange={(event) => this.onChangeInput(event)}/>
                                     </div>
 
                                     <div className="form-group col-md-3">
                                     <label><FormattedMessage id="manage-user.password"/></label>
-                                    <input type="password" className="form-control" id="password"
+                                    <input type="password" className="form-control" id="password" disabled={this.state.adminAction === adminActions.CREATE ? false : true}
                                     value={password} onChange={(event) => this.onChangeInput(event)}/>
                                     </div>
 
@@ -232,14 +297,16 @@ class UserManageRedux extends Component {
                                     </div>
                                 </div>
 
-                                <button type="submit" className="btn btn-primary mt-2"  onClick={(e) => {
-                                 e.preventDefault();
+                                <button type="submit" className={this.state.adminAction === adminActions.CREATE ? "btn btn-primary mt-2" : "btn btn-warning mt-2"}  onClick={(e) => {
+                                 e.preventDefault(); 
                                  this.handleSaveUser(this.state);
-                                }}><FormattedMessage id="manage-user.save"/></button>
+                                }}><FormattedMessage id={this.state.adminAction === adminActions.CREATE ? "manage-user.save" : "manage-user.save_change"}/></button>
 
                                 <div className='form-row row my-2'>
                                  <div className="form-group col-md-12">
-                                    <TableUser />
+                                    <TableUser 
+                                     handleShowUserEdit = {this.handleShowUserEdit}
+                                     />
                                  </div>
                                 </div>
                             </form>
@@ -276,6 +343,7 @@ const mapDispatchToProps = dispatch => {
         fetchPositionStartAdmin: (() => dispatch(actions.fetchPositionStart())),
         fetchRoleStartAdmin: (() => dispatch(actions.fetchRoleStart())),
         createUserStartAdmin: ((data) => dispatch(actions.createUserStart(data))),
+        updateUserStartAdmin: ((data) => dispatch(actions.updateUserStart(data))),
     };
 };
 

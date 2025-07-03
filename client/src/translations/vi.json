@@ -37,6 +37,14 @@
         "specialty":"Chuyên khoa",
         "viewmore":"Xem Thêm"
     },
+    "doctor":{
+        "title": "Bác sĩ nổi bật",
+        "viewmore": "Xem thêm"
+    },
+    "about":{
+        "title": "Tại sao nên khám sức khỏe định kỳ ?",
+        "information":"Khám sức khỏe định kỳ giúp phát hiện sớm các bệnh lý tiềm ẩn, từ đó điều trị kịp thời và hiệu quả.Đồng thời, đây cũng là cách bảo vệ sức khỏe chủ động, tiết kiệm chi phí và nâng cao chất lượng cuộc sống."
+    },
     "menu": {
         "system": {
             "header": "Hệ thống",
@@ -77,6 +85,8 @@
         "roleid":"Vai trò",
         "avatar":"Ảnh đại diện",
         "save":"Lưu",
-        "upload":"Tải ảnh"
+        "upload":"Tải ảnh",
+        "edit":"Sửa thông tin người dùng",
+        "save_change":"Lưu thay đổi"
     }
 }

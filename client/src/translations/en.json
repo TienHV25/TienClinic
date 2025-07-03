@@ -37,6 +37,14 @@
         "specialty":"Specialty",
         "viewmore":"View More"
     },
+    "doctor":{
+        "title": "Featured doctor",
+        "viewmore": "View more"
+    },
+    "about":{
+        "title": "Why should you have regular health checkups ?",
+        "information":"Regular health check-ups help detect potential health issues early, allowing for timely and effective treatment. At the same time, it's a proactive way to safeguard your well-being, save costs, and improve your quality of life."
+    },
     "menu": {
         "system": {
             "header": "System",
@@ -77,6 +85,8 @@
         "roleid":"Role ID",
         "avatar":"Avatar",
         "save":"Save",
-        "upload":"Upload"
+        "upload":"Upload",
+        "edit":"Edit user information",
+        "save_change":"Save change"
     }
 }

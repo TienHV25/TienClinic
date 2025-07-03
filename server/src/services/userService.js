@@ -137,7 +137,8 @@ let createNewUser = (data) => {
                     phonenumber: data.phonenumber,
                     gender: data.gender,
                     roleID: data.role,
-                    positionID: data.position
+                    positionID: data.position,
+                    image:data.avatar
                 }
               )
               resolve({
@@ -172,7 +173,11 @@ let updateUser = (data) => {
                         firstName: data.firstName,
                         lastName: data.lastName,
                         address: data.address,
-                        phonenumber: data.phonenumber
+                        phonenumber: data.phonenumber,
+                        gender: data.gender,
+                        roleID: data.role,
+                        positionID: data.position,
+                        image:data.avatar
                         },
                         {
                         where: {

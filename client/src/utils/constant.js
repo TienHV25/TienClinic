@@ -11,8 +11,8 @@ export const LANGUAGE = {
     EN: 'en'
 };
  
-export const manageActions = {
-    ADD: "ADD",
+export const adminActions = {
+    CREATE: "CREATE",
     EDIT: "EDIT",
     DELETE: "DELETE"
 };

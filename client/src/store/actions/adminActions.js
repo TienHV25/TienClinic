@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { handleGetCode,handleCreateUser,handleGetAllUser,handleDeleteUser } from '../../services/userService';
+import { handleGetCode,handleCreateUser,handleGetAllUser,handleDeleteUser,handleUpdateUser,handleGetTopDoctorHome } from '../../services/userService';
 import {  toast } from 'react-toastify';
 
 export const fetchGenderStart =  () => {
@@ -154,5 +154,58 @@ export const deleteUserSuccess = () => ({
 
 export const deleteUserFail = () => ({
     type: actionTypes.DELETE_USER_FAIL
+})
+
+export const updateUserStart =  (data) => {
+    return async (dispatch) => {
+        try {
+            let res = await handleUpdateUser(data);
+            if (res && res.errCode === 0) {
+                toast.success("Update user succeed !")
+                dispatch(updateUserSuccess());
+                dispatch(getAllUserStart());
+            } else {
+                dispatch(updateUserFail());
+            }
+        } catch (error) {
+            toast.error("Update user error !")
+            dispatch(updateUserFail());
+            console.error("Update user failed:", error);
+        }
+    }
+}
+
+export const updateUserSuccess = (data) => ({
+    type: actionTypes.UPDATE_USER_SUCCESS,
+    data: data
+})
+
+export const updateUserFail = () => ({
+    type: actionTypes.UPDATE_USER_FAIL
+})
+
+export const fetchDoctorStart =  () => {
+    return async (dispatch) => {
+        try {
+            let res = await handleGetTopDoctorHome('');
+            if (res && res.errCode === 0) {
+                dispatch(fetchDoctorSuccess(res.data));
+            } else {
+                dispatch(fetchDoctorFail());
+            }
+        } catch (error) {
+            dispatch(fetchDoctorFail());
+            console.error("Fetch doctor failed:", error);
+        }
+    }
+}
+
+export const fetchDoctorSuccess = (data) => ({
+    type: actionTypes.FETCH_DOCTOR_SUCCESS,
+    data: data
+})
+
+export const fetchDoctorFail = () => ({
+    type: actionTypes.FETCH_DOCTOR_FAIL
 })
 

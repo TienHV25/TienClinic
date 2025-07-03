@@ -27,11 +27,16 @@ const handleGetCode = (userType) => {
    return axios.get(`/api/allcode/?type=${userType}`);
 }
 
+const handleGetTopDoctorHome = (limit) => {
+   return axios.get(`/api/top-doctor-home/?limit=${limit}`);
+}
+
 export {
    handleLoginApi,
    handleGetAllUser,
    handleCreateUser,
    handleDeleteUser,
    handleUpdateUser,
-   handleGetCode
+   handleGetCode,
+   handleGetTopDoctorHome
 }

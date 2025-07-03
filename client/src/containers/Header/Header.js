@@ -12,7 +12,6 @@ class Header extends Component {
     handleChangeLanguage = (language) => {
       this.props.ChangeLanguageApp(language);
     }
-
     render() {
         const { processLogout,userInfo } = this.props;
         return (
