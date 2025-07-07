@@ -31,6 +31,18 @@ const handleGetTopDoctorHome = (limit) => {
    return axios.get(`/api/top-doctor-home/?limit=${limit}`);
 }
 
+const handleGetAllDoctors = () => {
+   return axios.get('/api/get-all-doctors');
+}
+
+const handleSaveInforDoctor = (data) => {
+   return axios.post('/api/save-info-doctors',data);
+}
+
+const handleGetDoctorById = (inputId) => {
+  return axios.get(`/api/get-detail-doctor-by-id?id=${inputId}`);
+}
+
 export {
    handleLoginApi,
    handleGetAllUser,
@@ -38,5 +50,8 @@ export {
    handleDeleteUser,
    handleUpdateUser,
    handleGetCode,
-   handleGetTopDoctorHome
+   handleGetTopDoctorHome,
+   handleGetAllDoctors,
+   handleSaveInforDoctor,
+   handleGetDoctorById
 }

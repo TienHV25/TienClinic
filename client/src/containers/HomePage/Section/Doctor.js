@@ -5,7 +5,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FormattedMessage } from 'react-intl';
-import * as actions from '../../../store/actions'
+import * as actions from '../../../store/actions';
+import { withRouter } from 'react-router-dom';
 
 
 const SampleNextArrow = (props) => {
@@ -50,6 +51,12 @@ class Doctor extends Component {
         }
     };
 
+    handleViewDetailDoctor = (item) => {
+       if (this.props.history) {
+         this.props.history.push(`/detail-doctor/${item.id}`);
+        }
+    }
+
     render() {
         let doctors = this.state.doctors;
         let settings = {
@@ -75,7 +82,7 @@ class Doctor extends Component {
                   imageBase64 = new Buffer(item.image,'base64').toString('binary');
                  }
                  return (
-                    <div className='img-customize' key={index}>
+                    <div className='img-customize' key={index} onClick={() => this.handleViewDetailDoctor(item)}>
                         {/* <img src={doctor} alt='Doctor' /> */}
                         <div className='img-doctor' style={{backgroundImage: `url(${imageBase64})`}}></div>
                         <h3>{this.props.language === 'vi' ? item.positionData.valueVi : item.positionData.valueEn}  {item.lastName} {item.firstName} </h3>
@@ -104,4 +111,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Doctor);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Doctor));

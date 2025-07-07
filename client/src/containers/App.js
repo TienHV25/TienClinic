@@ -6,6 +6,7 @@ import { history } from '../redux'
 import { ToastContainer } from 'react-toastify';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import CustomScrollbars from '../components/CustomScrollbars';
+import DetailDoctor from './Patients/Doctor/DetailDoctor.js';
 
 
 
@@ -53,6 +54,7 @@ class App extends Component {
                                 <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
                                 <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                 <Route path={path.HOMEPAGE} component={(HomePage)} />
+                                <Route path={path.DETAIL_DOCTOR} component={(DetailDoctor)} />
                             </Switch>
                          </CustomScrollbars>
                         </div>

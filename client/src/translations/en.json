@@ -39,7 +39,11 @@
     },
     "doctor":{
         "title": "Featured doctor",
-        "viewmore": "View more"
+        "viewmore": "View more",
+        "addinformation": "Create doctor information",
+        "selectdoctor": "Select doctor",
+        "informationdoctor": "Introductory information",
+        "save":"Save information"
     },
     "about":{
         "title": "Why should you have regular health checkups ?",

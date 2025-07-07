@@ -6,15 +6,10 @@ import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import Select from 'react-select';
+import { FormattedMessage } from 'react-intl';
 
 
 const mdParser = new MarkdownIt();
-
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
-];
 
 class DoctorManage extends Component {
 
@@ -24,16 +19,38 @@ class DoctorManage extends Component {
             contentHTML:'',
             contentMarkdown:'',
             selectedDoctor:'',
-            description: ''
+            description: '',
+            allDoctors: []
         }
     }
 
     componentDidMount() {
-      
+       this.props.fetchAllDoctorStartAdmin();
+    }
+
+    builtDataInputSelect = (inputData) => {
+        let result = [];
+        if(inputData && inputData.length > 0) {
+            inputData.map((item,index) => {
+                let object = {};
+
+                object.label = `${item.lastName} ${item.firstName}`;
+                object.value = item.id;
+                result.push(object);
+            })
+        }
+
+        return result;
+
     }
 
     componentDidUpdate(prevProps) {
-        
+        if(prevProps.allDoctors !== this.props.allDoctors) {
+            let dataSelect = this.builtDataInputSelect(this.props.allDoctors);
+            this.setState({
+                allDoctors: dataSelect
+            })
+        }
     }
 
     handleEditorChange = ({ html, text }) => {
@@ -44,7 +61,12 @@ class DoctorManage extends Component {
     }
 
     handleSaveContentMarkdown = () => {
-          console.log(this.state)
+        this.props.saveDoctorStartAdmin({
+            contentHTML: this.state.contentHTML,
+            contentMarkdown: this.state.contentMarkdown,	
+            description: this.state.description,
+            doctorId: this.state.selectedDoctor.value
+        });
     }
     
     handleChange = (selectedDoctor) => {
@@ -64,19 +86,19 @@ class DoctorManage extends Component {
         return (
         <div className='manage-doctor-container'>
         <div className='manage-doctor-title'>
-            Tạo thông tin bác sĩ
+            <FormattedMessage id="doctor.addinformation"/>
         </div>
         <div className='more-infor'>
             <div className='content-left form-group'>
-               <label>Chọn bác sĩ</label>
+               <label><FormattedMessage id="doctor.selectdoctor"/></label>
                <Select
                     value={this.state.selectedDoctor}
                     onChange={this.handleChange}
-                    options={options}
+                    options={this.state.allDoctors}
                 />
             </div>
             <div className='content-right form-group'>
-               <label>Thông tin giới thiệu</label>
+               <label><FormattedMessage id="doctor.informationdoctor"/></label>
                <textarea className='form-control' rows='4' onChange={(event) => this.handleOnChangeDESC(event)} value={this.state.description}>
 
                </textarea>
@@ -88,7 +110,7 @@ class DoctorManage extends Component {
         <button className='save-content-doctor'
         onClick={() => this.handleSaveContentMarkdown()}
         >
-            Lưu thông tin
+            <FormattedMessage id="doctor.save"/>
         </button>
         </div>
         )
@@ -98,14 +120,14 @@ class DoctorManage extends Component {
 
 const mapStateToProps = state => {
     return {
-      users: state.admin.users
+      allDoctors: state.admin.allDoctors
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-      getAllUserStartAdmin: (() => dispatch(actions.getAllUserStart())),
-      deleteUserStartAdmin: ((user) => dispatch(actions.deleteUserStart(user)))
+      fetchAllDoctorStartAdmin: (() => dispatch(actions.fetchAllDoctorStart())),
+      saveDoctorStartAdmin: ((data) => dispatch(actions.saveDoctorStart(data)))
     };
 };
 

@@ -39,7 +39,11 @@
     },
     "doctor":{
         "title": "Bác sĩ nổi bật",
-        "viewmore": "Xem thêm"
+        "viewmore": "Xem thêm",
+        "addinformation": "Tạo thông tin bác sĩ",
+        "selectdoctor": "Chọn bác sĩ",
+        "informationdoctor": "Thông tin giới thiệu",
+        "save":"Lưu thông tin"
     },
     "about":{
         "title": "Tại sao nên khám sức khỏe định kỳ ?",
