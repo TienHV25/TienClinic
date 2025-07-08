@@ -5,11 +5,19 @@ import logo from '../../assets/Logo.png';
 import { FormattedMessage } from 'react-intl';
 import {LANGUAGE} from '../../utils';
 import {changeLanguage} from '../../store/actions';
+import { withRouter } from 'react-router-dom';
 
 class HomeHeader extends Component {
    ChangeLanguage = (language) => {
       this.props.ChangeLanguageApp(language);
-    };
+   };
+
+   returnHome = () => {
+     if (this.props.history) {
+         this.props.history.push(`/home`);
+      }
+   };
+
     render() {
         return (
          <React.Fragment>
@@ -17,7 +25,7 @@ class HomeHeader extends Component {
              <div className='home-header-content'>
                 <div className='left-content'>
                     <i className='fas fa-bars'></i>
-                    <img src={logo} alt="TienClinic Logo" className='header-logo' />
+                    <img src={logo} alt="TienClinic Logo" className='header-logo' onClick={this.returnHome} />
                 </div>
                 <div className='center-content'>
                     <div className='content-child'>
@@ -108,4 +116,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HomeHeader));

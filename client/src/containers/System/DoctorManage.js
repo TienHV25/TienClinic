@@ -7,6 +7,8 @@ import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import Select from 'react-select';
 import { FormattedMessage } from 'react-intl';
+import { handleGetDoctorById } from "../../services/userService"
+import { adminActions } from '../../utils/constant';
 
 
 const mdParser = new MarkdownIt();
@@ -20,7 +22,7 @@ class DoctorManage extends Component {
             contentMarkdown:'',
             selectedDoctor:'',
             description: '',
-            allDoctors: []
+            hasOldData: false
         }
     }
 
@@ -49,7 +51,20 @@ class DoctorManage extends Component {
             let dataSelect = this.builtDataInputSelect(this.props.allDoctors);
             this.setState({
                 allDoctors: dataSelect
-            })
+            });
+        }
+        if (prevProps.saveDoctorSuccess !== this.props.saveDoctorSuccess && this.props.saveDoctorSuccess) {
+            this.setState({
+                contentHTML: '',
+                contentMarkdown: '',
+                selectedDoctor: '',
+                description: '',
+                hasOldData: false
+            }
+            , () => {
+            this.props.resetDoctorSuccessAdmin();
+            }
+            );
         }
     }
 
@@ -61,19 +76,48 @@ class DoctorManage extends Component {
     }
 
     handleSaveContentMarkdown = () => {
+        const { hasOldData, contentHTML, contentMarkdown, description, selectedDoctor } = this.state;
+
         this.props.saveDoctorStartAdmin({
-            contentHTML: this.state.contentHTML,
-            contentMarkdown: this.state.contentMarkdown,	
-            description: this.state.description,
-            doctorId: this.state.selectedDoctor.value
+            contentHTML,
+            contentMarkdown,	
+            description,
+            doctorId: selectedDoctor.value,
+            action: hasOldData ? adminActions.EDIT : adminActions.CREATE
         });
     }
     
-    handleChange = (selectedDoctor) => {
+    handleChange = async (selectedDoctor) => {
       this.setState({ 
         selectedDoctor
       } 
-      )
+      );
+      let res = await handleGetDoctorById(selectedDoctor.value);
+      if(res && res.errCode === 0 && res.data && res.data.Markdown) {
+        let markdown = res.data.Markdown;
+
+        if (markdown) {
+            this.setState({
+                contentHTML: markdown.contentHTML,
+                contentMarkdown: markdown.contentMarkdown,
+                description: markdown.description,
+                hasOldData: true   
+            })
+        } else {
+            this.setState({
+                contentHTML: '',
+                contentMarkdown: '',
+                description: '',
+                hasOldData: false 
+            });
+        }
+      } else if (res && res.errCode === 0 && res.data && !res.data.Markdown) {
+        this.setState({
+            contentHTML:'',
+            contentMarkdown:'',
+            description:''
+         })
+      }
     }
 
     handleOnChangeDESC = (event) => {
@@ -105,12 +149,12 @@ class DoctorManage extends Component {
             </div>
         </div>
         <div className='manage-doctor-editor'>
-           <MdEditor style={{ height: '500px' }} renderHTML={text => mdParser.render(text)} onChange={this.handleEditorChange} />
+           <MdEditor style={{ height: '500px' }} renderHTML={text => mdParser.render(text)} onChange={this.handleEditorChange} value={this.state.contentMarkdown} />
         </div>
         <button className='save-content-doctor'
         onClick={() => this.handleSaveContentMarkdown()}
         >
-            <FormattedMessage id="doctor.save"/>
+         {this.state.hasOldData ? <FormattedMessage id="doctor.edit"/> : <FormattedMessage id="doctor.save"/>}
         </button>
         </div>
         )
@@ -120,14 +164,16 @@ class DoctorManage extends Component {
 
 const mapStateToProps = state => {
     return {
-      allDoctors: state.admin.allDoctors
+      allDoctors: state.admin.allDoctors,
+      saveDoctorSuccess: state.admin.saveDoctorSuccess
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
       fetchAllDoctorStartAdmin: (() => dispatch(actions.fetchAllDoctorStart())),
-      saveDoctorStartAdmin: ((data) => dispatch(actions.saveDoctorStart(data)))
+      saveDoctorStartAdmin: ((data) => dispatch(actions.saveDoctorStart(data))),
+      resetDoctorSuccessAdmin: (() => dispatch(actions.resetDoctorSuccess())),
     };
 };
 

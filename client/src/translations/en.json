@@ -43,7 +43,8 @@
         "addinformation": "Create doctor information",
         "selectdoctor": "Select doctor",
         "informationdoctor": "Introductory information",
-        "save":"Save information"
+        "save":"Save information",
+        "edit":"Edit information"
     },
     "about":{
         "title": "Why should you have regular health checkups ?",

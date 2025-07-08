@@ -6,7 +6,8 @@ const initialState = {
     positions: [],
     users: [],
     doctors: [],
-    allDoctors: []
+    allDoctors: [],
+    saveDoctorSuccess: false
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -97,11 +98,18 @@ const adminReducer = (state = initialState, action) => {
             }
         case actionTypes.SAVE_DOCTOR_SUCCESS:
             return {
-                ...state
+                ...state,
+                saveDoctorSuccess: true
             }
         case actionTypes.SAVE_DOCTOR_FAIL:
             return {
-                ...state
+                ...state,
+                saveDoctorSuccess: false
+            }
+        case actionTypes.RESET_SAVE_DOCTOR_SUCCESS:
+            return {
+                ...state,
+                saveDoctorSuccess: false
             }
         default:
             return state;

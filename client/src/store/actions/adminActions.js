@@ -264,3 +264,7 @@ export const saveDoctorFail = () => ({
     type: actionTypes.SAVE_DOCTOR_FAIL
 })
 
+export const resetDoctorSuccess = () => ({
+    type: actionTypes.RESET_SAVE_DOCTOR_SUCCESS
+})
+

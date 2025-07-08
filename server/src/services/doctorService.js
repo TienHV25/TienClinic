@@ -51,20 +51,34 @@ let getAllDoctors = () => {
 let saveInforDoctor = (inputdata) => {
     return new Promise(async (resolve,reject) => {
         try {
-           if (!inputdata.doctorId || !inputdata.contentHTML || !inputdata.contentMarkdown) {
+           if (!inputdata.doctorId || !inputdata.contentHTML || !inputdata.contentMarkdown || !inputdata.action) {
             resolve({
              errCode : 1,
              message : "Misisng input parameter"
            })
            }
            else {
-             await db.Markdown.create({
+            if(inputdata.action === "CREATE") {
+              await db.Markdown.create({
                 contentHTML: inputdata.contentHTML,
                 contentMarkdown: inputdata.contentMarkdown,	
                 description: inputdata.description,
                 doctorId: inputdata.doctorId
              });
-
+            }else if(inputdata.action === "EDIT"){
+               await db.Markdown.update({
+                contentHTML: inputdata.contentHTML,
+                contentMarkdown: inputdata.contentMarkdown,	
+                description: inputdata.description
+                },
+                {
+                where: {
+                    doctorId: inputdata.doctorId
+                }
+                }
+            )
+            }
+            
             resolve({
              errCode : 0,
              message : "Save infor data successfully"

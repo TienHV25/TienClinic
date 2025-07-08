@@ -1,7 +1,5 @@
 .doctor-detail-container{
     height: 500px;
-    margin: 0 100px;
-    padding-top: 10px;
 
     .intro-doctor{
         display: flex;
@@ -32,6 +30,24 @@
         }
     }
     .detail-info-doctor{
-        margin-top: 30px;
+        background-color: rgb(249 249 249 / var(--tw-bg-opacity, 1));
+        padding: 10px 100px;
+        border-top: 1px solid rgb(204 204 204 / var(--tw-border-opacity, 1));
+        border-bottom: 1px solid rgb(204 204 204 / var(--tw-border-opacity, 1));
+
+        h2{
+            font-size: 17px;
+        }
+
+        h3{
+            font-size: 17px;
+        }
+
+        img{
+            width: 100%;
+        }
+    }
+    .comment-doctor{
+        height: 50px;
     }
 }
