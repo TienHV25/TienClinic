@@ -1,5 +1,10 @@
 import { where } from 'sequelize';
 import db from '../models/index';
+import moment from 'moment';
+require('dotenv').config();
+import { Op } from 'sequelize';
+
+const MAX_NUMBER_SCHEDULE = process.env.MAX_NUMBER_SCHEDULE;
 
 let getTopDoctorHome = (limit) => {
     return new Promise(async (resolve,reject) => 
@@ -127,9 +132,62 @@ let getDetailDoctorById = (id) => {
     })
 }
 
+let bulkCreateSchedule = (data) => {
+    return new Promise(async(resolve,reject) => {
+        try {
+        if(!data.arrSchedule){
+            resolve({
+                errCode : 1,
+                message: "Mising required parameters"
+            })
+        }
+        else{
+          let schedule = data.arrSchedule;
+          if(schedule && schedule.length > 0) {
+            let existingSchedules = await db.Schedule.findAll({
+                    where: {
+                        [Op.or]: schedule.map(item => ({
+                            doctorID: item.doctorID,
+                            date: item.date,
+                            timeType: item.timeType,
+                        }))
+                    }
+                });
+
+            if(existingSchedules && existingSchedules.length > 0) {
+                    let conflictingTimeType = existingSchedules[0].timeType;
+                    resolve({
+                        errCode: 2,
+                        message: "This doctor already has a schedule for this time slot",
+                        conflictingTimeType: conflictingTimeType
+                    });
+            }
+            if(existingSchedules.length === 0) {
+                schedule = schedule.map(item => {
+                item.maxNumber = MAX_NUMBER_SCHEDULE;
+                item.date = new Date(item.date);
+                return item;
+                })
+                await db.Schedule.bulkCreate(schedule);
+            }
+          }
+         
+          resolve({
+            errCode : 0,
+            essage: "Create schedule successfully"
+          })
+        }
+        } catch (error) {
+            reject(error);
+        }
+    }
+    )
+}
+
 module.exports = {
     getTopDoctorHome : getTopDoctorHome,
     getAllDoctors : getAllDoctors,
     saveInforDoctor : saveInforDoctor,
-    getDetailDoctorById : getDetailDoctorById
+    getDetailDoctorById : getDetailDoctorById,
+    bulkCreateSchedule : bulkCreateSchedule
 }

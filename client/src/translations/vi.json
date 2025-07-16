@@ -96,5 +96,11 @@
         "upload":"Tải ảnh",
         "edit":"Sửa thông tin người dùng",
         "save_change":"Lưu thay đổi"
+    },
+    "manage-schedule":{
+        "title": "Quản lý kế hoạch khám bệnh của bác sĩ",
+        "choose_doctor": "Chọn bác sĩ:",
+        "choose_date": "Chọn ngày:",
+        "save_schedule": "Lưu thay đổi"
     }
 }

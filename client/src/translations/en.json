@@ -96,5 +96,11 @@
         "upload":"Upload",
         "edit":"Edit user information",
         "save_change":"Save change"
+    },
+    "manage-schedule":{
+        "title": "Manage doctor's appointment schedule",
+        "choose_doctor": "Choose doctor:",
+        "choose_date": "Choose date:",
+        "save_schedule": "Save schedule"
     }
 }

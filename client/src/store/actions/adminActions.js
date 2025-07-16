@@ -1,5 +1,6 @@
 import actionTypes from './actionTypes';
-import { handleGetCode,handleCreateUser,handleGetAllUser,handleDeleteUser,handleUpdateUser,handleGetTopDoctorHome,handleGetAllDoctors,handleSaveInforDoctor } from '../../services/userService';
+import { handleGetCode,handleCreateUser,handleGetAllUser,handleDeleteUser,handleUpdateUser,
+    handleGetTopDoctorHome,handleGetAllDoctors,handleSaveInforDoctor } from '../../services/userService';
 import {  toast } from 'react-toastify';
 
 export const fetchGenderStart =  () => {
@@ -266,5 +267,30 @@ export const saveDoctorFail = () => ({
 
 export const resetDoctorSuccess = () => ({
     type: actionTypes.RESET_SAVE_DOCTOR_SUCCESS
+})
+
+export const fetchAllScheduleTimes =  () => {
+    return async (dispatch) => {
+        try {
+            let res = await handleGetCode('TIME');
+            if (res && res.errCode === 0) {
+                dispatch(fetchAllScheduleTimesSuccess(res.data));
+            } else {
+                dispatch(fetchAllScheduleTimesFail());
+            }
+        } catch (error) {
+            dispatch(fetchAllScheduleTimesFail());
+            console.error("Fetch all doctor failed:", error);
+        }
+    }
+}
+
+export const fetchAllScheduleTimesSuccess = (data) => ({
+    type: actionTypes.FETCH_ALLCODE_SCHEDULE_TIMES_SUCCESS,
+    data: data
+})
+
+export const fetchAllScheduleTimesFail = () => ({
+    type: actionTypes.FETCHALLCODE_SCHEDULE_TIMES_FAIL
 })
 
