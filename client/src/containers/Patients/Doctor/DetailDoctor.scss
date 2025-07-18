@@ -1,53 +1,260 @@
-.doctor-detail-container{
-    height: 500px;
+.doctor-detail-container {
+    height: auto; // Changed from fixed height for better responsiveness
+    min-height: 500px;
 
-    .intro-doctor{
+    .intro-doctor {
         display: flex;
         align-items: center;
         justify-content: center;
         height: 150px;
-        .content-left{
+        padding: 0 20px; // Added padding for mobile
+
+        // Mobile: Stack vertically and reduce height
+        @media (max-width: 768px) {
+            flex-direction: column;
+            height: auto;
+            padding: 20px 10px;
+            text-align: center;
+        }
+
+        .content-left {
             width: 120px;
             height: 120px;
             background: center center no-repeat;
             background-size: cover;
             border-radius: 50%;
             margin: 10px 20px;
-         
+
+            // Mobile: Smaller size and center margin
+            @media (max-width: 768px) {
+                width: 100px;
+                height: 100px;
+                margin: 10px auto;
+            }
+
+            // Small mobile: Even smaller
+            @media (max-width: 480px) {
+                width: 80px;
+                height: 80px;
+                margin: 10px auto;
+            }
         }
-        .content-right{
+
+        .content-right {
             width: 80%;
             display: flex;
             flex-direction: column;
             padding-left: 10px;
-            .up{
+
+            // Mobile: Full width and center padding
+            @media (max-width: 768px) {
+                width: 100%;
+                padding-left: 0;
+                padding-top: 15px;
+            }
+
+            .up {
                 font-size: 20px;
                 font-weight: 600;
+
+                // Mobile: Smaller font
+                @media (max-width: 768px) {
+                    font-size: 18px;
+                }
+
+                // Small mobile: Even smaller
+                @media (max-width: 480px) {
+                    font-size: 16px;
+                }
             }
-            .down{
+
+            .down {
                 padding-top: 10px;
+
+                // Mobile: Better line height
+                @media (max-width: 768px) {
+                    font-size: 14px;
+                    line-height: 1.4;
+                }
+
+                // Small mobile: Smaller text
+                @media (max-width: 480px) {
+                    font-size: 13px;
+                }
             }
         }
     }
-    .detail-info-doctor{
+
+    .schedule-doctor {
+        margin: 0 100px;
+        display: flex;
+        height: 200px;
+
+        // Tablet: Reduce margin
+        @media (max-width: 1024px) {
+            margin: 0 50px;
+        }
+
+        // Mobile: Stack vertically, remove fixed height, and reduce margin
+        @media (max-width: 768px) {
+            flex-direction: column;
+            height: auto;
+            margin: 0 20px;
+        }
+
+        // Small mobile: Even smaller margin
+        @media (max-width: 480px) {
+            margin: 0 10px;
+        }
+
+        .content-left {
+            width: 50%;
+
+            // Mobile: Full width
+            @media (max-width: 768px) {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+
+        .content-right {
+            width: 50%;
+
+            // Mobile: Full width
+            @media (max-width: 768px) {
+                width: 100%;
+            }
+        }
+    }
+
+    .detail-info-doctor {
         background-color: rgb(249 249 249 / var(--tw-bg-opacity, 1));
         padding: 10px 100px;
         border-top: 1px solid rgb(204 204 204 / var(--tw-border-opacity, 1));
         border-bottom: 1px solid rgb(204 204 204 / var(--tw-border-opacity, 1));
 
-        h2{
-            font-size: 17px;
+        // Tablet: Reduce padding
+        @media (max-width: 1024px) {
+            padding: 10px 50px;
         }
 
-        h3{
-            font-size: 17px;
+        // Mobile: Much smaller padding
+        @media (max-width: 768px) {
+            padding: 15px 20px;
         }
 
-        img{
+        // Small mobile: Even smaller padding
+        @media (max-width: 480px) {
+            padding: 10px 15px;
+        }
+
+        h2 {
+            font-size: 17px;
+
+            // Mobile: Slightly smaller
+            @media (max-width: 768px) {
+                font-size: 16px;
+            }
+        }
+
+        h3 {
+            font-size: 17px;
+
+            // Mobile: Slightly smaller
+            @media (max-width: 768px) {
+                font-size: 15px;
+            }
+        }
+
+        img {
             width: 100%;
+            height: auto; // Added for proper responsive images
+            border-radius: 8px; // Added for better appearance
+            margin: 10px 0; // Added spacing around images
+        }
+
+        // Additional responsive text formatting
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+
+            @media (max-width: 768px) {
+                font-size: 14px;
+                line-height: 1.5;
+                margin-bottom: 10px;
+            }
+        }
+
+        ul, ol {
+            padding-left: 20px;
+            margin-bottom: 15px;
+
+            @media (max-width: 768px) {
+                padding-left: 15px;
+                font-size: 14px;
+            }
+        }
+
+        // Handle tables responsively
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+
+            @media (max-width: 768px) {
+                font-size: 12px;
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
         }
     }
-    .comment-doctor{
+
+    .comment-doctor {
         height: 50px;
+
+        // Mobile: Auto height and padding
+        @media (max-width: 768px) {
+            height: auto;
+            padding: 15px 20px;
+        }
+
+        // Small mobile: Smaller padding
+        @media (max-width: 480px) {
+            padding: 10px 15px;
+        }
+    }
+}
+
+// Additional responsive utilities
+@media (max-width: 768px) {
+    // Hide elements on mobile if needed
+    .hide-mobile {
+        display: none !important;
+    }
+    
+    // Show only on mobile
+    .show-mobile {
+        display: block !important;
+    }
+}
+
+// Show only on desktop
+.show-desktop {
+    display: block;
+    
+    @media (max-width: 768px) {
+        display: none !important;
+    }
+}
+
+// Responsive container for the entire page
+.responsive-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    
+    @media (max-width: 768px) {
+        padding: 0 10px;
     }
 }

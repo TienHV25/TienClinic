@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import HomeHeader from "../../HomePage/HomeHeader";
 import "./DetailDoctor.scss";
 import {handleGetDoctorById} from '../../../services/userService'
+import DoctorSchedule from './DoctorSchedule';
 
 
 
@@ -51,7 +52,12 @@ class DetailDoctor extends Component {
                     </div>
                 </div>
                 <div className='schedule-doctor'>
-                    
+                    <div className='content-left'>
+                      <DoctorSchedule doctorID={this.props.match.params.id}/>
+                    </div>
+                    <div className='content-right'>
+
+                    </div>
                 </div>
                 <div className='detail-info-doctor'>
                            <div dangerouslySetInnerHTML={{__html:  detailDoctor?.Markdown?.contentHTML}}>

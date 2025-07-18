@@ -44,7 +44,9 @@
         "selectdoctor": "Select doctor",
         "informationdoctor": "Introductory information",
         "save":"Save information",
-        "edit":"Edit information"
+        "edit":"Edit information",
+        "schedule":"Appointment Schedule",
+        "no-schedule-noti":"The doctor has no available appointments at this time. Please select another time !"
     },
     "about":{
         "title": "Why should you have regular health checkups ?",

@@ -44,7 +44,9 @@
         "selectdoctor": "Chọn bác sĩ",
         "informationdoctor": "Thông tin giới thiệu",
         "save":"Lưu thông tin",
-        "edit":"Sửa thông tin"
+        "edit":"Sửa thông tin",
+        "schedule":"Lịch khám",
+        "no-schedule-noti":"Bác sĩ không có lịch hẹn trong thời gian này, vui lòng chọn thời gian khác !"
     },
     "about":{
         "title": "Tại sao nên khám sức khỏe định kỳ ?",
