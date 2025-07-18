@@ -86,14 +86,22 @@ class DoctorSchedule extends Component {
                        <i className='fas fa-calendar-alt'></i><span><FormattedMessage id="doctor.schedule"/></span>
                     </div>
                     <div className='time-content'>
-                        {allAvalableTime && allAvalableTime.length > 0 ? allAvalableTime.map((item,index) => {
-                            return (
-                                <button key={index}>{language === 'vi' ? item.timeTypeData.valueVi : item.timeTypeData.valueEn}</button>
-                            )
-                        })
-                        :
-                         <div><span><FormattedMessage id="doctor.no-schedule-noti"/></span></div>
-                        }
+                        <>
+                            <div className='time-content-button'>
+                                {allAvalableTime && allAvalableTime.length > 0 ? allAvalableTime.map((item,index) => {
+                                    return (
+                                        <button key={index}>{language === 'vi' ? item.timeTypeData.valueVi : item.timeTypeData.valueEn}</button>
+                                    )
+                                })
+                                :
+                                <div className='no-schedule'><span><FormattedMessage id="doctor.no-schedule-noti"/></span></div>
+                                }
+                            </div>
+
+                            <div className='book-fee'>
+                                <span><FormattedMessage id="doctor.choose"/> <i className='far fa-hand-point-up'></i> <FormattedMessage id="doctor.book-schedule"/></span>
+                            </div>
+                        </>
                     </div>
                 </div>
             </div>
