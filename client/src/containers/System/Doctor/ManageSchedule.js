@@ -102,7 +102,7 @@ class ManageSchedule extends Component {
             return;
         }
 
-        let formatedDate = moment(currentDate).toISOString()
+        let formatedDate = moment(currentDate).startOf('day').toISOString()
         
         if(rangeTime && rangeTime.length > 0) {
             let selectedTime = rangeTime.filter(item => item.isSelected === true)

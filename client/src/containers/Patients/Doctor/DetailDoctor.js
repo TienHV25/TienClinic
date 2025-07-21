@@ -4,6 +4,7 @@ import HomeHeader from "../../HomePage/HomeHeader";
 import "./DetailDoctor.scss";
 import {handleGetDoctorById} from '../../../services/userService'
 import DoctorSchedule from './DoctorSchedule';
+import DoctorExtralnfor from './DoctorExtralnfor';
 
 
 
@@ -56,7 +57,7 @@ class DetailDoctor extends Component {
                       <DoctorSchedule doctorID={this.props.match.params.id}/>
                     </div>
                     <div className='content-right'>
-
+                       <DoctorExtralnfor doctorID={this.props.match.params.id} />
                     </div>
                 </div>
                 <div className='detail-info-doctor'>

@@ -294,3 +294,78 @@ export const fetchAllScheduleTimesFail = () => ({
     type: actionTypes.FETCHALLCODE_SCHEDULE_TIMES_FAIL
 })
 
+export const fetchDoctorPriceStart =  () => {
+    return async (dispatch) => {
+        try {
+            let res = await handleGetCode('PRICE');
+            if (res && res.errCode === 0) {
+                dispatch(fetchDoctorPriceSuccess(res.data));
+            } else {
+                dispatch(fetchDoctorPriceFail());
+            }
+        } catch (error) {
+            dispatch(fetchDoctorPriceFail());
+            console.error("Fetch doctor price failed:", error);
+        }
+    }
+}
+
+export const fetchDoctorPriceSuccess = (data) => ({
+    type: actionTypes.FETCH_DOCTOR_PRICE_SUCCESS,
+    data: data
+})
+
+export const fetchDoctorPriceFail = () => ({
+    type: actionTypes.FETCH_DOCTOR_PRICE_FAIL
+})
+
+export const fetchDoctorPaymentStart =  () => {
+    return async (dispatch) => {
+        try {
+            let res = await handleGetCode('PAYMENT');
+            if (res && res.errCode === 0) {
+                dispatch(fetchDoctorPaymentSuccess(res.data));
+            } else {
+                dispatch(fetchDoctorPaymentFail());
+            }
+        } catch (error) {
+            dispatch(fetchDoctorPaymentFail());
+            console.error("Fetch doctor payment failed:", error);
+        }
+    }
+}
+
+export const fetchDoctorPaymentSuccess = (data) => ({
+    type: actionTypes.FETCH_DOCTOR_PAYMENT_SUCCESS,
+    data: data
+})
+
+export const fetchDoctorPaymentFail = () => ({
+    type: actionTypes.FETCH_DOCTOR_PAYMENT_FAIL
+})
+
+export const fetchDoctorProvinceStart =  () => {
+    return async (dispatch) => {
+        try {
+            let res = await handleGetCode('PROVINCE');
+            if (res && res.errCode === 0) {
+                dispatch(fetchDoctorProvinceSuccess(res.data));
+            } else {
+                dispatch(fetchDoctorProvinceFail());
+            }
+        } catch (error) {
+            dispatch(fetchDoctorProvinceFail());
+            console.error("Fetch doctor province failed:", error);
+        }
+    }
+}
+
+export const fetchDoctorProvinceSuccess = (data) => ({
+    type: actionTypes.FETCH_DOCTOR_PROVINCE_SUCCESS,
+    data: data
+})
+
+export const fetchDoctorProvinceFail = () => ({
+    type: actionTypes.FETCH_DOCTOR_PROVINCE_FAIL
+})
+
