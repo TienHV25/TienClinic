@@ -66,6 +66,22 @@
         "hide-price": "Hide price table",
         "payment-methods-text": "The clinic has the following payment methods:"
     },
+    "booking": {
+        "modal-title": "Appointment Booking Information",
+        "time-booking": "Appointment time:",
+        "examination-price": "Examination price:",
+        "full-name": "Full Name:",
+        "phone-number": "Phone Number:",
+        "email": "Email Address:",
+        "address": "Contact Address:",
+        "reason": "Reason for visit:",
+        "book-for": "Booking for:",
+        "gender": "Gender:",
+        "confirm": "Confirm",
+        "cancel": "Cancel",
+        "show":"View doctor information",
+        "hide":"Hide doctor information"
+    },
     "about":{
         "title": "Why should you have regular health checkups ?",
         "information":"Regular health check-ups help detect potential health issues early, allowing for timely and effective treatment. At the same time, it's a proactive way to safeguard your well-being, save costs, and improve your quality of life."

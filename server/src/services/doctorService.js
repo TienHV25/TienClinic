@@ -284,12 +284,55 @@ let getExtraInforDoctorById = (doctorId) =>{
     })
 }
 
+let getProfileDoctorById = (doctorId) =>{
+    return new Promise(async (resolve,reject) => {
+        try {
+        if(!doctorId) {
+          resolve({
+            errCode : 1,
+            message: "Mising required parameters"
+          })
+        } else {
+            let data = await db.User.findOne({
+                attributes:{
+                  exclude: ['password']
+                },
+                where: {id:doctorId},
+                include: [
+                    {model: db.Markdown,attributes: ['description']},
+                    {model: db.Allcode, as: 'positionData', attributes: ['valueEn','valueVi']},
+                    {model: db.Doctor_infor,attributes:{ exclude: ['id','doctorId']},include:[
+                        {model: db.Allcode, as: 'priceIdData', attributes: ['valueEn','valueVi']},
+                        {model: db.Allcode, as: 'provinceIdData', attributes: ['valueEn','valueVi']},
+                        {model: db.Allcode, as: 'paymentIdData', attributes: ['valueEn','valueVi']}
+                    ]},
+                    ],
+                    raw: false,
+                    nest: true
+            });
+            if(data && data.image) {
+                data.image = new Buffer(data.image,'base64').toString('binary');
+            };
+            if(!data) data = [];
+            resolve({
+                errCode: 0,
+                message: 'Get doctor infor successfully',
+                data: data
+            })
+        }
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
 module.exports = {
     getTopDoctorHome : getTopDoctorHome,
     getAllDoctors : getAllDoctors,
     saveInforDoctor : saveInforDoctor,
     getDetailDoctorById : getDetailDoctorById,
     bulkCreateSchedule : bulkCreateSchedule,
-    getScheduleByDate: getScheduleByDate,
-    getExtraInforDoctorById: getExtraInforDoctorById
+    getScheduleByDate : getScheduleByDate,
+    getExtraInforDoctorById : getExtraInforDoctorById,
+    getProfileDoctorById : getProfileDoctorById
 }

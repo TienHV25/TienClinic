@@ -66,6 +66,22 @@
         "hide-price": "Ẩn bảng giá",
         "payment-methods-text": "Phòng khám có các hình thức thanh toán:"
     },
+    "booking": {
+        "modal-title": "Thông tin đặt lịch khám",
+        "time-booking": "Thời gian đặt lịch:",
+        "examination-price": "Giá khám:",
+        "full-name": "Họ Tên:",
+        "phone-number": "Số điện thoại:",
+        "email": "Địa chỉ Email:",
+        "address": "Địa chỉ liên hệ:",
+        "reason": "Lý do khám:",
+        "book-for": "Đặt cho ai:",
+        "gender": "Giới tính:",
+        "confirm": "Xác nhận",
+        "cancel": "Hủy",
+        "show":"Xem thông tin bác sĩ",
+        "hide":"Ẩn thông tin bác sĩ"
+    },
     "about":{
         "title": "Tại sao nên khám sức khỏe định kỳ ?",
         "information":"Khám sức khỏe định kỳ giúp phát hiện sớm các bệnh lý tiềm ẩn, từ đó điều trị kịp thời và hiệu quả.Đồng thời, đây cũng là cách bảo vệ sức khỏe chủ động, tiết kiệm chi phí và nâng cao chất lượng cuộc sống."
