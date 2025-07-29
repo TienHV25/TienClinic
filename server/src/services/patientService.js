@@ -1,6 +1,7 @@
 import { where } from 'sequelize';
 import db from '../models/index';
 require('dotenv').config();
+import emailService from './emailService';
 
 let postBookAppointment = (data) => {
     return new Promise(async (resolve,reject) => {
@@ -11,6 +12,14 @@ let postBookAppointment = (data) => {
             message : "Misisng input parameter"
            })
          }else{
+             
+            await emailService.sendEmail({
+                receiverEmail: data?.email,
+                patientName: 'Lê Anh Vũ',
+                time:'8:00 - 9:00 - Thứ ba - 29-07-2025',
+                doctorName:'Song Trí Dũng'
+            })
+
             let user = await db.User.findOrCreate({
                 where: { email: data?.email},
                 defaults: {
