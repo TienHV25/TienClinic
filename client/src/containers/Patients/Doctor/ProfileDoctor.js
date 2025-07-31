@@ -26,6 +26,10 @@ class ProfileDoctor extends Component {
             if (this.props.handlePrice && price) {
                 this.props.handlePrice(price); 
             }
+
+            if (this.props.handleGetDoctorName) {
+                this.props.handleGetDoctorName(res.data);
+            }
         }
         )
         }

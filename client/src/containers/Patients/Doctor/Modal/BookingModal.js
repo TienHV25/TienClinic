@@ -26,6 +26,8 @@ class BookingModal extends Component {
           doctorId:'',
           price : '',
           timeType:'',
+          timeBooking:'',
+          doctorName: '',
           isShowInfo:false
         }
     }
@@ -40,8 +42,16 @@ class BookingModal extends Component {
             prevProps.dataScheduleTimeModal !== this.props.dataScheduleTimeModal &&
             this.props.dataScheduleTimeModal?.doctorID)
         {
+            let timeBooking = this.props.language === 'vi' ? this.props.dataScheduleTimeModal?.timeTypeData?.valueVi :
+                     this.props.dataScheduleTimeModal?.timeTypeData?.valueEn;
+            let weekday = this.capitalizeFirstLetter(moment
+                            (this.props.dataScheduleTimeModal?.date).locale(this.props.language === 'vi' ? 'vi' : 'en').format('dddd'));
+            let dayBooking = this.props.language === 'vi' ? moment(this.props.dataScheduleTimeModal?.date).format('DD-MM-YYYY') :
+                            moment(this.props.dataScheduleTimeModal?.date).format('YYYY-MM-DD');
+            let timeTypeString = `${timeBooking} - ${weekday} - ${dayBooking}`;
             this.setState({
                 doctorId: this.props.dataScheduleTimeModal.doctorID,
+                timeBooking: timeTypeString,
                 timeType:  this.props.dataScheduleTimeModal.timeType
             })
         }    
@@ -100,7 +110,7 @@ class BookingModal extends Component {
     };
 
     handleSubmit = async () => {
-      let date = moment(this.state.birthday).format('YYYY-MM-DD')
+      let date = moment(this.state.birthday).format('YYYY-MM-DD');
       let res = await postBookingAppointment({
           fullName:this.state.fullName,
           phoneNumber:this.state.phoneNumber,
@@ -110,7 +120,10 @@ class BookingModal extends Component {
           date:date,
           gender:this.state.gender,
           doctorId:this.state.doctorId,
-          timeType: this.state.timeType
+          timeType: this.state.timeType,
+          timeBooking: this.state.timeBooking,
+          doctorName: this.state.doctorName,
+          language: this.props.language
       })
 
       if(res && res.errCode === 0){
@@ -132,7 +145,16 @@ class BookingModal extends Component {
       }
     }
 
+    handleGetDoctorName = (data) => {
+        let doctorName = `${data?.lastName} ${data?.firstName}`
+        this.setState({
+            ...this.state,
+            doctorName: doctorName
+        })
+    }
+
     render() {
+        console.log(this.props.dataScheduleTimeModal)
         let formatPrice = this.formatPrice(this.state.price)
         let formattedDate = this.props.language === 'vi' ? moment(this.props.dataScheduleTimeModal?.date).format('DD-MM-YYYY') :
                             moment(this.props.dataScheduleTimeModal?.date).format('YYYY-MM-DD');
@@ -164,6 +186,7 @@ class BookingModal extends Component {
                                        handlePrice={this.handlePrice}
                                        isShowDescriptionDoctor={this.state.isShowInfo}
                                        handleShowInfoDoctor={this.handleShowInfoDoctor}
+                                       handleGetDoctorName={this.handleGetDoctorName}
                          />
                          <span><FormattedMessage id="booking.time-booking" /> {time} - {weekday} - {formattedDate}</span>
                     </div>

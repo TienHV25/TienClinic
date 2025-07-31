@@ -2,6 +2,13 @@ import { where } from 'sequelize';
 import db from '../models/index';
 require('dotenv').config();
 import emailService from './emailService';
+import {v4 as uuidv4 } from 'uuid';
+
+let buildUrlEmail = (doctorID,token) => {
+    let result = '';
+    result = `${process.env.URL_REACT}/verify-booking?token=${token}&doctorID=${doctorID}`
+    return result;
+}
 
 let postBookAppointment = (data) => {
     return new Promise(async (resolve,reject) => {
@@ -12,12 +19,16 @@ let postBookAppointment = (data) => {
             message : "Misisng input parameter"
            })
          }else{
+
+            let token = uuidv4();
              
             await emailService.sendEmail({
                 receiverEmail: data?.email,
-                patientName: 'Lê Anh Vũ',
-                time:'8:00 - 9:00 - Thứ ba - 29-07-2025',
-                doctorName:'Song Trí Dũng'
+                patientName: data?.fullName,
+                time:data?.timeBooking,
+                language:data?.language,
+                doctorName:data?.doctorName,
+                redirectLink: buildUrlEmail(data?.doctorId,token)
             })
 
             let user = await db.User.findOrCreate({
@@ -33,10 +44,11 @@ let postBookAppointment = (data) => {
                     where: { patienID: user[0]?.id},
                     defaults: {
                     statusID: 'S1',
-                    doctorID: data?.doctorID,
+                    doctorID: data?.doctorId,
                     patienID: user[0]?.id,
                     date: data?.date,
-                    timeType: data?.timeType
+                    timeType: data?.timeType,
+                    token: token
                     }
                 })
             }
@@ -52,6 +64,45 @@ let postBookAppointment = (data) => {
     }) 
 }
 
+let postVerifyBookAppointment = (data) => {
+    return new Promise(async (resolve,reject) => {
+        try {
+            if(!data.token || !data.doctorId){
+                resolve({
+                errCode : 1,
+                message : "Misisng input parameter"
+            }) 
+        }else{
+            let appointment = await db.Booking.findOne({
+                where: {
+                    doctorID:data.doctorId,
+                    token:data.token,
+                    statusID: 'S1'
+                },
+                raw: false
+            })
+
+            if(appointment){
+                await appointment.update({
+                    statusID: 'S2'
+                })
+                resolve({
+                    errCode : 0,
+                    message : "Update the appointment succeed!"
+                }) 
+            }else{
+                resolve({
+                    errCode : 2,
+                    message : "Appointment has been activated or deos not exists"
+                }) 
+            }
+        }}catch (error) {
+            reject(error);
+        }
+    })
+}
+
 module.exports = {
-    postBookAppointment: postBookAppointment
+    postBookAppointment: postBookAppointment,
+    postVerifyBookAppointment: postVerifyBookAppointment
 }
