@@ -371,7 +371,8 @@ class DoctorManage extends Component {
            
         </div>
         <div className='manage-doctor-editor'>
-           <MdEditor style={{ height: '500px' }} renderHTML={text => mdParser.render(text)} onChange={this.handleEditorChange} value={this.state.contentMarkdown} />
+           <MdEditor style={{ height: '500px' }} renderHTML={text => mdParser.render(text)} 
+                     onChange={this.handleEditorChange} value={this.state.contentMarkdown} />
         </div>
         <button className='save-content-doctor'
         onClick={() => this.handleSaveContentMarkdown()}

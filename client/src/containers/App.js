@@ -8,7 +8,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import CustomScrollbars from '../components/CustomScrollbars';
 import DetailDoctor from './Patients/Doctor/DetailDoctor.js';
 import Doctor from '../routes/Doctor.js';
-
+import VerifyEmail from './Patients/VerifyEmail.js';
 
 
 
@@ -57,6 +57,7 @@ class App extends Component {
                                 <Route path={path.DOCTOR} component={userIsAuthenticated(Doctor)} />
                                 <Route path={path.HOMEPAGE} component={(HomePage)} />
                                 <Route path={path.DETAIL_DOCTOR} component={(DetailDoctor)} />
+                                <Route path={path.VERIFY_EMIAL_BOOKING} component={(VerifyEmail)} />
                             </Switch>
                          </CustomScrollbars>
                         </div>
