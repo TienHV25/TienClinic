@@ -26,13 +26,15 @@ class DoctorManage extends Component {
             selectedPrice:'',
             selectedPayment:'',
             selectedProvince:'',
+            selectedSpecialty:'',
             nameClinic: '',
             addressClinic: '',
             note: '',
             allDoctors: [],
             allPrice: [],
             allPayment: [],
-            allProvince: []
+            allProvince: [],
+            specialty: []
         }
     }
 
@@ -41,6 +43,7 @@ class DoctorManage extends Component {
        this.props.fetchDoctorPriceStartAdmin();
        this.props.fetchDoctorPaymentStartAdmin();
        this.props.fetchDoctorProvinceStartAdmin();
+       this.props.fetchSpecialtyStartAdmin();
     }
 
     builtDataInputSelectAllDoctor = (inputData) => {
@@ -103,6 +106,21 @@ class DoctorManage extends Component {
         return result;
     }
 
+    builtDataInputSelectSpecialty = (inputData) => {
+        let result = [];
+        if(inputData && inputData.length > 0) {
+            inputData.map((item,index) => {
+                let object = {};
+
+                object.label = item.name;
+                object.value = item.id;
+                result.push(object);
+            })
+        }
+
+        return result;
+    }
+
     componentDidUpdate(prevProps) {
         if(prevProps.allDoctors !== this.props.allDoctors) {
             let dataSelect = this.builtDataInputSelectAllDoctor(this.props.allDoctors);
@@ -119,6 +137,7 @@ class DoctorManage extends Component {
                 selectedPrice:'',
                 selectedPayment:'',
                 selectedProvince:'',
+                selectedSpecialty:'',
                 nameClinic: '',
                 addressClinic: '',
                 note: '',
@@ -150,14 +169,22 @@ class DoctorManage extends Component {
                 allProvince: provinceSelect
             });
         }
+        if(prevProps.specialty !== this.props.specialty ||
+        prevProps.language !== this.props.language) {
+           let specialtySelect = this.builtDataInputSelectSpecialty(this.props.specialty);
+            this.setState({
+                specialty: specialtySelect
+            });
+        }
        if(
             prevProps.language !== this.props.language &&
-            (this.state.selectedPrice || this.state.selectedPayment || this.state.selectedProvince)
+            (this.state.selectedPrice || this.state.selectedPayment || this.state.selectedProvince || this.props.selectedSpecialty)
         ) 
         {
             const priceSelect    = this.builtDataInputSelectPrice(this.props.doctorPrice);
             const paymentSelect  = this.builtDataInputSelectPayment(this.props.doctorPayment);
             const provinceSelect = this.builtDataInputSelectProvince(this.props.doctorProvince);
+            const specialtySelect = this.builtDataInputSelectSpecialty(this.props.specialty);
 
             const updatedSelectedPrice = this.state.selectedPrice
                 ? priceSelect.find(item => item.value === this.state.selectedPrice.value)
@@ -168,14 +195,19 @@ class DoctorManage extends Component {
             const updatedSelectedProvince = this.state.selectedProvince
                 ? provinceSelect.find(item => item.value === this.state.selectedProvince.value)
                 : '';
+            const updatedSelectedSpecialty = this.state.selectedSpecialty
+                ? specialtySelect.find(item => item.value === this.state.selectedSpecialty.value)
+                : '';
 
             this.setState({
                 allPrice: priceSelect,
                 allPayment: paymentSelect,
                 allProvince: provinceSelect,
+                specialty:    specialtySelect,
                 selectedPrice: updatedSelectedPrice,
                 selectedPayment: updatedSelectedPayment,
-                selectedProvince: updatedSelectedProvince
+                selectedProvince: updatedSelectedProvince,
+                selectedSpecialty: updatedSelectedSpecialty
             });
         }
     }
@@ -189,7 +221,7 @@ class DoctorManage extends Component {
 
     handleSaveContentMarkdown = () => {
         const { hasOldData, contentHTML, contentMarkdown, description, selectedDoctor,
-            selectedPrice,selectedPayment,selectedProvince,nameClinic,addressClinic,note } = this.state;
+            selectedPrice,selectedPayment,selectedProvince,selectedSpecialty,nameClinic,addressClinic,note } = this.state;
 
         this.props.saveDoctorStartAdmin({
             contentHTML,
@@ -199,6 +231,7 @@ class DoctorManage extends Component {
             priceId: selectedPrice.value,
             paymentId: selectedPayment.value,
             provinceId: selectedProvince.value,
+            specialtyId:selectedSpecialty.value,
             nameClinic,
             addressClinic,
             note,
@@ -212,13 +245,11 @@ class DoctorManage extends Component {
       } 
       );
       let res = await handleGetDoctorById(selectedDoctor.value);
-    //   console.log(res)
       if(res && res.errCode === 0 && res.data && res.data.Markdown) {
         let markdown = res.data.Markdown;
         let doctor_infor = res.data.Doctor_infor; 
 
         if (markdown && doctor_infor) {
-            console.log(doctor_infor.paymentId)
             this.setState({
                 contentHTML: markdown.contentHTML,
                 contentMarkdown: markdown.contentMarkdown,
@@ -226,6 +257,7 @@ class DoctorManage extends Component {
                 selectedPrice: this.state.allPrice.find(item => item.value === doctor_infor.priceId),
                 selectedPayment: this.state.allPayment.find(item => item.value === doctor_infor.paymentId),
                 selectedProvince: this.state.allProvince.find(item => item.value === doctor_infor.provinceId),
+                selectedSpecialty: this.state.specialty.find(item => item.value === doctor_infor.specialtyId),
                 nameClinic: doctor_infor.nameClinic,
                 addressClinic: doctor_infor.addressClinic,
                 note: doctor_infor.note,
@@ -239,6 +271,7 @@ class DoctorManage extends Component {
                 selectedPrice:'',
                 selectedPayment:'',
                 selectedProvince:'',
+                selectedSpecialty:'',
                 nameClinic: '',
                 addressClinic: '',
                 note: '',
@@ -253,6 +286,7 @@ class DoctorManage extends Component {
             selectedPrice:'',
             selectedPayment:'',
             selectedProvince:'',
+            selectedSpecialty:'',
             nameClinic: '',
             addressClinic: '',
             note: '',
@@ -277,6 +311,13 @@ class DoctorManage extends Component {
     handleChangeProvince = async (selectedProvince) => {
       this.setState({ 
         selectedProvince
+      } 
+      );
+    }
+
+    handleChangeSpecialty = async (selectedSpecialty) => {
+      this.setState({ 
+        selectedSpecialty
       } 
       );
     }
@@ -347,8 +388,17 @@ class DoctorManage extends Component {
                      />
                 </div>
            </div>
-
+          
             <div className="row">
+                <div className='col-4 form-group'>
+                    <label><FormattedMessage id="doctor.selectspecialty"/></label>
+                     <Select
+                        value={this.state.selectedSpecialty}
+                        onChange={this.handleChangeSpecialty}
+                        options={this.state.specialty}
+                        placeholder={<FormattedMessage id="doctor.selectspecialty-placeholder"/>}
+                     />
+                </div>
                 <div className='col-4 form-group'>
                     <label><FormattedMessage id="doctor.nameclinic"/></label>
                     <input className='form-control' value={this.state.nameClinic} 
@@ -393,6 +443,7 @@ const mapStateToProps = state => {
       doctorPrice: state.admin.doctorPrice,
       doctorPayment: state.admin.doctorPayment,
       doctorProvince: state.admin.doctorProvince,
+      specialty: state.admin.specialty,
     };
 };
 
@@ -404,6 +455,7 @@ const mapDispatchToProps = dispatch => {
       fetchDoctorPriceStartAdmin: (() => dispatch(actions.fetchDoctorPriceStart())),
       fetchDoctorPaymentStartAdmin: (() => dispatch(actions.fetchDoctorPaymentStart())),
       fetchDoctorProvinceStartAdmin: (() => dispatch(actions.fetchDoctorProvinceStart())),
+      fetchSpecialtyStartAdmin: (() => dispatch(actions.fetchSpecialtyStart())),
     };
 };
 

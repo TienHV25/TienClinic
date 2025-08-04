@@ -49,6 +49,8 @@
         "selectpayment-placeholder": "Select payment",
         "selectprovince": "Select province:",
         "selectprovince-placeholder": "Select province",
+        "selectspecialty": "Select specialty:",
+        "selectspecialty-placeholder": "Select specialty",
         "nameclinic":"Clinic Name:",
         "addressclinic":"Clinic address:",
         "note":"Note:",

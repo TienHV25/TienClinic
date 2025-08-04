@@ -1,6 +1,6 @@
 import actionTypes from './actionTypes';
 import { handleGetCode,handleCreateUser,handleGetAllUser,handleDeleteUser,handleUpdateUser,
-    handleGetTopDoctorHome,handleGetAllDoctors,handleSaveInforDoctor } from '../../services/userService';
+    handleGetTopDoctorHome,handleGetAllDoctors,handleSaveInforDoctor,getAllSpecialty } from '../../services/userService';
 import {  toast } from 'react-toastify';
 
 export const fetchGenderStart =  () => {
@@ -334,6 +334,31 @@ export const fetchDoctorPaymentStart =  () => {
         }
     }
 }
+
+export const fetchSpecialtyStart =  () => {
+    return async (dispatch) => {
+        try {
+            let res = await getAllSpecialty();
+            if (res && res.errCode === 0) {
+                dispatch(fetchSpecialtySuccess(res.data));
+            } else {
+                dispatch(fetchSpecialtyFail());
+            }
+        } catch (error) {
+            dispatch(fetchSpecialtyFail());
+            console.error("Fetch specialty failed:", error);
+        }
+    }
+}
+
+export const fetchSpecialtySuccess = (data) => ({
+    type: actionTypes.FETCH_SPECIALTY_SUCCESS,
+    data: data
+})
+
+export const fetchSpecialtyFail = () => ({
+    type: actionTypes.FETCH_SPECIALTY_FAIL
+})
 
 export const fetchDoctorPaymentSuccess = (data) => ({
     type: actionTypes.FETCH_DOCTOR_PAYMENT_SUCCESS,

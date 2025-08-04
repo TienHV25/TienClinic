@@ -57,8 +57,8 @@ let saveInforDoctor = (inputdata) => {
     return new Promise(async (resolve,reject) => {
         try {
            if (!inputdata.doctorId || !inputdata.contentHTML || !inputdata.contentMarkdown || !inputdata.action
-               || !inputdata.priceId || !inputdata.paymentId || !inputdata.provinceId || !inputdata.nameClinic || 
-               !inputdata.addressClinic 
+               || !inputdata.priceId || !inputdata.paymentId || !inputdata.provinceId || !inputdata.nameClinic 
+               || !inputdata.addressClinic  || !inputdata.specialtyId
             ) {
             resolve({
              errCode : 1,
@@ -79,6 +79,7 @@ let saveInforDoctor = (inputdata) => {
                 priceId:  inputdata.priceId,
                 paymentId: inputdata.paymentId,
                 provinceId: inputdata.provinceId,
+                specialtyId:inputdata.specialtyId,
                 nameClinic: inputdata.nameClinic,
                 addressClinic: inputdata.addressClinic,
                 note: inputdata.note
@@ -99,6 +100,7 @@ let saveInforDoctor = (inputdata) => {
                     priceId: inputdata.priceId, 
                     paymentId: inputdata.paymentId,
                     provinceId: inputdata.provinceId,
+                    specialtyId:inputdata.specialtyId,
                     nameClinic: inputdata.nameClinic,
                     addressClinic: inputdata.addressClinic,
                     note: inputdata.note
@@ -144,7 +146,7 @@ let getDetailDoctorById = (id) => {
                 where: {id:id},
                 include: [
                     {model: db.Markdown,attributes: ['description','contentMarkdown','contentHTML']},
-                    {model: db.Doctor_infor,attributes: ['priceId','paymentId','provinceId','nameClinic','addressClinic','note']},
+                    {model: db.Doctor_infor,attributes: ['priceId','paymentId','provinceId','specialtyId','nameClinic','addressClinic','note']},
                     {model: db.Allcode, as: 'positionData', attributes: ['valueEn','valueVi']},
                 ],
                 raw: false,
