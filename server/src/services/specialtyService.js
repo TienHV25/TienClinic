@@ -1,3 +1,4 @@
+import { where } from 'sequelize';
 import db from '../models/index';
 
 
@@ -47,8 +48,67 @@ let getAllSpecialty = () => {
     })
 }
 
+let getDoctorOfSpecialty = (specialtyId) => {
+    return new Promise(async (resolve,reject) => {
+        try {
+        if(!specialtyId){
+            resolve({
+            errCode : 1,
+            message : "Misisng input parameter !",
+        })
+        }else{
+            let data = await db.Doctor_infor.findAll({
+            where:{
+                specialtyId: specialtyId
+            }
+           })
+            resolve({
+            errCode : 0,
+            message : "Create specialty succedd !",
+            data: data 
+        })
+        }
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+let getSpecialtyDetail = (id) => {
+    return new Promise(async (resolve,reject) => {
+        try {
+        if(!id){
+            resolve({
+            errCode : 1,
+            message : "Misisng input parameter !",
+        })
+        }else{
+            let data = await db.Specialty.findOne({
+            where:{
+                id: id
+            }
+           })
+            if(data && data.length > 0){
+                data.map(item => {item.image = new Buffer(item.image,'base64').toString('binary')
+                return item
+                })
+            }
+            resolve({
+            errCode : 0,
+            message : "Create specialty succedd !",
+            data: data 
+        })
+        }
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
 
 module.exports = {
     createSpecialty: createSpecialty,
-    getAllSpecialty: getAllSpecialty
+    getAllSpecialty: getAllSpecialty,
+    getDoctorOfSpecialty: getDoctorOfSpecialty,
+    getSpecialtyDetail: getSpecialtyDetail
 }
