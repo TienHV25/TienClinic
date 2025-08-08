@@ -71,6 +71,11 @@ const createNewSpecialty = (data) => {
    return axios.post('/api/create-new-specialty',data);
 }
 
+const createNewClinic = (data) => {
+   return axios.post('/api/create-new-clinic',data);
+}
+
+
 const getAllSpecialty = () => {
    return axios.get('/api/get-specialty');
 }
@@ -103,5 +108,6 @@ export {
    createNewSpecialty,
    getAllSpecialty,
    getDoctorOfSpecialty,
-   getSpecialtyDetail
+   getSpecialtyDetail,
+   createNewClinic
 }

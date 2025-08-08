@@ -6,6 +6,7 @@ import DoctorManage from '../containers/System/DoctorManage';
 import UserManageRedux from '../containers/System//Admin/UserManageRedux';
 import Header from '../containers/Header/Header';
 import ManageSpecialty from '../containers/System/Specialty/ManageSpecialty';
+import ManageClinic from '../containers/System/Clinic/ManageClinic';
 
 class System extends Component {
     render() {
@@ -14,12 +15,13 @@ class System extends Component {
         <React.Fragment>
             {this.props.isLoggedIn && <Header />}
             <div className="system-container">
-                <div className="system-list">
+                <div className="system-list"> 
                     <Switch>
                         <Route path="/system/user-manage" component={UserManage} />
                         <Route path="/system/user-manage-redux" component={UserManageRedux} />
                         <Route path="/system/doctor-manage" component={DoctorManage} />
                         <Route path="/system/specialty-manage" component={ManageSpecialty} />
+                        <Route path="/system/clinic-manage" component={ManageClinic} />
                         <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                     </Switch>
                 </div>
