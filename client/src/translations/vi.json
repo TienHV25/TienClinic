@@ -22,20 +22,21 @@
         "dentalcheckup":"Khám nha khoa"
     },
     "specialty":{
-        "cardiovascular":"Tim mạch",
-        "digest":"Tiêu hóa",
-        "ear_nose_throat":"Tai Mũi Họng",
-        "eye_specialist":"Chuyên khoa mắt",
-        "fetal_ultrasound":"Siêu âm thai nhi",
-        "general_dentistry":"Nha khoa tổng quát",
-        "mental_health":"Sức khỏe tâm thần",
-        "musculoskeletal":"Cơ xương",
-        "nerve":"Thần kinh",
-        "respiratory_lung":"Hô hấp - Phổi",
-        "spine":"Xương sống",
-        "thyroid":"Tuyến giáp",
         "specialty":"Chuyên khoa",
-        "viewmore":"Xem Thêm"
+        "viewmore":"Xem Thêm",
+        "specialty_manage":"Quản lý chuyên khoa",
+        "specialty_name":"Tên chuyên khoa",
+        "specialty_image":"Ảnh chuyên khoa",
+        "save":"Lưu"
+    },
+    "clinic":{
+        "clinic":"Cơ sở y tế",
+        "viewmore":"Xem Thêm",
+        "clinic_manage":"Quản lý phòng khám",
+        "clinic_name":"Tên phòng khám",
+        "clinic_address":"Địa chỉ phòng khám",
+        "clinic_image":"Ảnh phòng khám",
+        "save":"Lưu"
     },
     "doctor":{
         "title": "Bác sĩ nổi bật",
@@ -51,6 +52,8 @@
         "selectprovince-placeholder": "Chọn tỉnh thành",
         "selectspecialty": "Chọn chuyên khoa:",
         "selectspecialty-placeholder": "Chọn chuyên khoa",
+        "selectclinic": "Chọn phòng khám:",
+        "selectclinic-placeholder": "Chọn phòng khám",
         "nameclinic":"Tên phòng khám:",
         "addressclinic":"Địa chỉ phòng khám:",
         "note":"Ghi chú:",

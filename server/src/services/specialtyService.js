@@ -1,5 +1,6 @@
 import { where } from 'sequelize';
 import db from '../models/index';
+const { Buffer } = require('buffer');
 
 
 let createSpecialty = (data) => {
@@ -33,7 +34,7 @@ let getAllSpecialty = () => {
         try {
         let data = await db.Specialty.findAll()
         if(data && data.length > 0){
-           data.map(item => {item.image = new Buffer(item.image,'base64').toString('binary')
+           data = data.map(item => {item.image = Buffer.from(item.image,'base64').toString('binary')
            return item
            })
         }
@@ -89,7 +90,7 @@ let getSpecialtyDetail = (id) => {
             }
            })
             if(data && data.length > 0){
-                data.map(item => {item.image = new Buffer(item.image,'base64').toString('binary')
+                data = data.map(item => {item.image = Buffer.from(item.image,'base64').toString('binary')
                 return item
                 })
             }

@@ -22,6 +22,7 @@ import Login from './Auth/Login';
 import System from '../routes/System';
 import HomePage from './HomePage/HomePage';
 import DetailSpecialty from './Patients/Specialty/DetailSpecialty.js';
+import DetailClinic from './Patients/Clinic/DetailClinic.js';
 
 
 class App extends Component {
@@ -59,6 +60,7 @@ class App extends Component {
                                 <Route path={path.HOMEPAGE} component={(HomePage)} />
                                 <Route path={path.DETAIL_DOCTOR} component={(DetailDoctor)} />
                                 <Route path={path.DETAIL_SPECIALTY} component={(DetailSpecialty)} />
+                                <Route path={path.DETAIL_CLINIC} component={(DetailClinic)} />
                                 <Route path={path.VERIFY_EMIAL_BOOKING} component={(VerifyEmail)} />
                             </Switch>
                          </CustomScrollbars>

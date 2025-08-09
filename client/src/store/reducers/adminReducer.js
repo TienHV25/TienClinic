@@ -10,7 +10,8 @@ const initialState = {
     saveDoctorSuccess: false,
     allScheduleTimes: [],
     doctorPrice: [],
-    specialtyspecialty: [],
+    specialty: [],
+    clinic: [],
     doctorPayment: [],
     doctorProvince: [],
 }
@@ -153,6 +154,16 @@ const adminReducer = (state = initialState, action) => {
             }
         case actionTypes.FETCH_SPECIALTY_FAIL:
             state.specialty = [];
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_CLINIC_SUCCESS:
+            state.clinic = action.data;
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_CLINIC_FAIL:
+            state.clinic = [];
             return {
                 ...state
             }

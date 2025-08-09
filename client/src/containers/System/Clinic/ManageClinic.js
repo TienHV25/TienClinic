@@ -72,22 +72,22 @@ class ManageClinic extends Component {
     render() {
         return (
           <div className='manage-clinic-container'>
-            <div className='ms-title'>Quản lý phòng khám</div>
+            <div className='ms-title'><FormattedMessage id={"clinic.clinic_manage"} /></div>
             <div className='add-new-clinic row'>
                  <div className='col-6 form-group'>
-                    <label>Tên phòng khám:</label>
+                    <label><FormattedMessage id={"clinic.clinic_name"} />:</label>
                     <input className='form-control' type='text' value={this.state.name}
                         onChange={(event) => this.handleOnChangeInput(event,'name')}
                     />
                  </div>
                  <div className='col-6 form-group'>
-                    <label>Ảnh phòng khám:</label>
+                    <label><FormattedMessage id={"clinic.clinic_image"} />:</label>
                     <input className='form-control-file' type='file'
                         onChange={(event) => this.handleOnChangeImage(event)}
                      />
                  </div>
                 <div className='col-6 form-group'>
-                    <label>Địa chỉ phòng khám:</label>
+                    <label><FormattedMessage id={"clinic.clinic_address"} />:</label>
                     <input className='form-control' type='text' value={this.state.address}
                         onChange={(event) => this.handleOnChangeInput(event,'address')}
                     />
@@ -99,7 +99,7 @@ class ManageClinic extends Component {
                 <div className='col-12'>
                     <button className='btn-save-clinic'
                         onClick={() => this.handleSaveNewclinic()}>
-                        Save
+                        <FormattedMessage id={"clinic.save"} />
                     </button>
                 </div>
             </div>

@@ -80,12 +80,32 @@ const getAllSpecialty = () => {
    return axios.get('/api/get-specialty');
 }
 
+const getAllClinic = () => {
+   return axios.get('/api/get-clinic');
+}
+
 const getDoctorOfSpecialty = (specialtyId) => {
    return axios.get(`/api/get-specialty-doctor/?specialtyId=${specialtyId}`);
 }
 
+const getDoctorOfClinic = (clinicId) => {
+   return axios.get(`/api/get-clinic-doctor/?clinicId=${clinicId}`);
+}
+
 const getSpecialtyDetail = (id) => {
    return axios.get(`/api/get-specialty-detail/?id=${id}`);
+}
+
+const getClinicDetail = (id) => {
+   return axios.get(`/api/get-clinic-detail/?id=${id}`);
+}
+
+const geocodeAddress = (address) => {
+   return axios.get(`/api/geocode?address=${encodeURIComponent(address)}`);
+}
+
+const getSpecialtyDoctorById = (id) => {
+   return axios.get(`/api/get-specialty-by-doctor-id?doctorId=${id}`);
 }
 
 export {
@@ -107,7 +127,12 @@ export {
    postVerifyBookAppointment,
    createNewSpecialty,
    getAllSpecialty,
+   getAllClinic,
    getDoctorOfSpecialty,
+   getDoctorOfClinic,
    getSpecialtyDetail,
-   createNewClinic
+   createNewClinic,
+   getClinicDetail,
+   geocodeAddress,
+   getSpecialtyDoctorById
 }

@@ -21,21 +21,22 @@
         "mentalhealth":"Mental Health",
         "dentalcheckup":"Dental Checkup"
     },
-     "specialty":{
-        "cardiovascular":"Cardiovascular",
-        "digest":"Digest",
-        "ear_nose_throat":"Ear Nose Throat",
-        "eye_specialist":"Eye Specialist",
-        "fetal_ultrasound":"Fetal Ultrasound",
-        "general_dentistry":"General Dentistry",
-        "mental_health":"Mental Health",
-        "musculoskeletal":"Musculoskeletal",
-        "nerve":"Nerve",
-        "respiratory_lung":"Respiratory - Lung",
-        "spine":"Spine",
-        "thyroid":"Thyroid",
-        "specialty":"Specialty",
-        "viewmore":"View More"
+     "specialty": {
+        "specialty": "Specialty",
+        "viewmore": "View More",
+        "specialty_manage": "Manage Specialties",
+        "specialty_name": "Specialty Name",
+        "specialty_image": "Specialty Image",
+        "save": "Save"
+    },
+    "clinic": {
+        "clinic": "Clinic",
+        "viewmore": "View More",
+        "clinic_manage": "Manage Clinics",
+        "clinic_name": "Clinic Name",
+        "clinic_address": "Clinic Address",
+        "clinic_image": "Clinic Image",
+        "save": "Save"
     },
     "doctor":{
         "title": "Featured doctor",
@@ -51,6 +52,8 @@
         "selectprovince-placeholder": "Select province",
         "selectspecialty": "Select specialty:",
         "selectspecialty-placeholder": "Select specialty",
+        "selectclinic": "Select clinic:",
+        "selectclinic-placeholder": "Select clinic",
         "nameclinic":"Clinic Name:",
         "addressclinic":"Clinic address:",
         "note":"Note:",

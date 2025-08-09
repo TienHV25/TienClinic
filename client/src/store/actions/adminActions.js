@@ -1,6 +1,7 @@
 import actionTypes from './actionTypes';
 import { handleGetCode,handleCreateUser,handleGetAllUser,handleDeleteUser,handleUpdateUser,
-    handleGetTopDoctorHome,handleGetAllDoctors,handleSaveInforDoctor,getAllSpecialty } from '../../services/userService';
+    handleGetTopDoctorHome,handleGetAllDoctors,handleSaveInforDoctor,getAllSpecialty, 
+    getAllClinic} from '../../services/userService';
 import {  toast } from 'react-toastify';
 
 export const fetchGenderStart =  () => {
@@ -358,6 +359,31 @@ export const fetchSpecialtySuccess = (data) => ({
 
 export const fetchSpecialtyFail = () => ({
     type: actionTypes.FETCH_SPECIALTY_FAIL
+})
+
+export const fetchClinicStart =  () => {
+    return async (dispatch) => {
+        try {
+            let res = await getAllClinic();
+            if (res && res.errCode === 0) {
+                dispatch(fetchClinicSuccess(res.data));
+            } else {
+                dispatch(fetchClinicFail());
+            }
+        } catch (error) {
+            dispatch(fetchClinicFail());
+            console.error("Fetch clinic failed:", error);
+        }
+    }
+}
+
+export const fetchClinicSuccess = (data) => ({
+    type: actionTypes.FETCH_CLINIC_SUCCESS,
+    data: data
+})
+
+export const fetchClinicFail = () => ({
+    type: actionTypes.FETCH_CLINIC_FAIL
 })
 
 export const fetchDoctorPaymentSuccess = (data) => ({

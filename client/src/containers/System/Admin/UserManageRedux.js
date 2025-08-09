@@ -7,6 +7,7 @@ import 'react-image-lightbox/style.css';
 import * as actions from "../../../store/actions";
 import TableUser from './TableUser';
 import {adminActions,CommonUtils} from "../../../utils";
+const { Buffer } = require('buffer');
 
 
 class UserManageRedux extends Component {
@@ -167,7 +168,7 @@ class UserManageRedux extends Component {
         let  imageBase64 = '';
         if(user.image)
         {
-            imageBase64 = new Buffer(user.image, 'base64').toString('binary');
+            imageBase64 = Buffer.from(user.image, 'base64').toString('binary');
         }
         this.setState({
             id: user.id,

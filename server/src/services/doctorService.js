@@ -3,6 +3,7 @@ import db from '../models/index';
 import moment from 'moment';
 require('dotenv').config();
 import { Op } from 'sequelize';
+const { Buffer } = require('buffer');
 
 const MAX_NUMBER_SCHEDULE = process.env.MAX_NUMBER_SCHEDULE;
 
@@ -58,7 +59,7 @@ let saveInforDoctor = (inputdata) => {
         try {
            if (!inputdata.doctorId || !inputdata.contentHTML || !inputdata.contentMarkdown || !inputdata.action
                || !inputdata.priceId || !inputdata.paymentId || !inputdata.provinceId || !inputdata.nameClinic 
-               || !inputdata.addressClinic  || !inputdata.specialtyId
+               || !inputdata.addressClinic  || !inputdata.specialtyId || !inputdata.clinicId
             ) {
             resolve({
              errCode : 1,
@@ -80,6 +81,7 @@ let saveInforDoctor = (inputdata) => {
                 paymentId: inputdata.paymentId,
                 provinceId: inputdata.provinceId,
                 specialtyId:inputdata.specialtyId,
+                clinicId:inputdata.clinicId,
                 nameClinic: inputdata.nameClinic,
                 addressClinic: inputdata.addressClinic,
                 note: inputdata.note
@@ -101,6 +103,7 @@ let saveInforDoctor = (inputdata) => {
                     paymentId: inputdata.paymentId,
                     provinceId: inputdata.provinceId,
                     specialtyId:inputdata.specialtyId,
+                    clinicId:inputdata.clinicId,
                     nameClinic: inputdata.nameClinic,
                     addressClinic: inputdata.addressClinic,
                     note: inputdata.note
@@ -146,7 +149,7 @@ let getDetailDoctorById = (id) => {
                 where: {id:id},
                 include: [
                     {model: db.Markdown,attributes: ['description','contentMarkdown','contentHTML']},
-                    {model: db.Doctor_infor,attributes: ['priceId','paymentId','provinceId','specialtyId','nameClinic','addressClinic','note']},
+                    {model: db.Doctor_infor,attributes: ['priceId','paymentId','provinceId','specialtyId','clinicId','nameClinic','addressClinic','note']},
                     {model: db.Allcode, as: 'positionData', attributes: ['valueEn','valueVi']},
                 ],
                 raw: false,
@@ -154,7 +157,7 @@ let getDetailDoctorById = (id) => {
             }
             )
             if(data && data.image) {
-                data.image = new Buffer(data.image,'base64').toString('binary');
+                data.image = Buffer.from(data.image,'base64').toString('binary');
             }
             if(!data) data = [];
             resolve({
@@ -313,7 +316,7 @@ let getProfileDoctorById = (doctorId) =>{
                     nest: true
             });
             if(data && data.image) {
-                data.image = new Buffer(data.image,'base64').toString('binary');
+                data.image = Buffer.from(data.image,'base64').toString('binary');
             };
             if(!data) data = [];
             resolve({
@@ -328,6 +331,33 @@ let getProfileDoctorById = (doctorId) =>{
     })
 }
 
+let getSpecialtyDoctorById = (id) => {
+    return new Promise(async (resolve,reject) => {
+            try {
+            if(!id){
+                resolve({
+                errCode : 1,
+                message : "Misisng input parameter !",
+            })
+            }else{
+                let data = await db.Doctor_infor.findAll({
+                where:{
+                    doctorId: id
+                }
+               })
+                resolve({
+                errCode : 0,
+                message : "Get specialty succedd !",
+                data: data 
+            })
+            }
+            } catch (error) {
+                reject(error);
+            }
+    })
+}
+
+
 module.exports = {
     getTopDoctorHome : getTopDoctorHome,
     getAllDoctors : getAllDoctors,
@@ -336,5 +366,6 @@ module.exports = {
     bulkCreateSchedule : bulkCreateSchedule,
     getScheduleByDate : getScheduleByDate,
     getExtraInforDoctorById : getExtraInforDoctorById,
-    getProfileDoctorById : getProfileDoctorById
+    getProfileDoctorById : getProfileDoctorById,
+    getSpecialtyDoctorById : getSpecialtyDoctorById
 }

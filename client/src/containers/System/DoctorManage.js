@@ -27,6 +27,7 @@ class DoctorManage extends Component {
             selectedPayment:'',
             selectedProvince:'',
             selectedSpecialty:'',
+            selectedClinic:'',
             nameClinic: '',
             addressClinic: '',
             note: '',
@@ -34,7 +35,8 @@ class DoctorManage extends Component {
             allPrice: [],
             allPayment: [],
             allProvince: [],
-            specialty: []
+            specialty: [],
+            clinic: []
         }
     }
 
@@ -44,6 +46,7 @@ class DoctorManage extends Component {
        this.props.fetchDoctorPaymentStartAdmin();
        this.props.fetchDoctorProvinceStartAdmin();
        this.props.fetchSpecialtyStartAdmin();
+       this.props.fetchClinicStartAdmin();
     }
 
     builtDataInputSelectAllDoctor = (inputData) => {
@@ -121,6 +124,22 @@ class DoctorManage extends Component {
         return result;
     }
 
+    builtDataInputSelectClinic = (inputData) => {
+        let result = [];
+        if(inputData && inputData.length > 0) {
+            inputData.map((item,index) => {
+                let object = {};
+
+                object.label = item.name;
+                object.value = item.id;
+                result.push(object);
+            })
+        }
+
+        return result;
+    }
+
+
     componentDidUpdate(prevProps) {
         if(prevProps.allDoctors !== this.props.allDoctors) {
             let dataSelect = this.builtDataInputSelectAllDoctor(this.props.allDoctors);
@@ -176,15 +195,24 @@ class DoctorManage extends Component {
                 specialty: specialtySelect
             });
         }
-       if(
-            prevProps.language !== this.props.language &&
-            (this.state.selectedPrice || this.state.selectedPayment || this.state.selectedProvince || this.props.selectedSpecialty)
-        ) 
+        if(prevProps.clinic !== this.props.clinic ||
+        prevProps.language !== this.props.language) {
+           let clinicSelect = this.builtDataInputSelectClinic(this.props.clinic);
+            this.setState({
+                clinic: clinicSelect
+            });
+        }
+        if(
+                prevProps.language !== this.props.language &&
+                (this.state.selectedPrice || this.state.selectedPayment || this.state.selectedProvince 
+                    || this.props.selectedSpecialty || this.state.selectedClinic)
+          ) 
         {
             const priceSelect    = this.builtDataInputSelectPrice(this.props.doctorPrice);
             const paymentSelect  = this.builtDataInputSelectPayment(this.props.doctorPayment);
             const provinceSelect = this.builtDataInputSelectProvince(this.props.doctorProvince);
             const specialtySelect = this.builtDataInputSelectSpecialty(this.props.specialty);
+            const clinicSelect   = this.builtDataInputSelectClinic(this.props.clinic);
 
             const updatedSelectedPrice = this.state.selectedPrice
                 ? priceSelect.find(item => item.value === this.state.selectedPrice.value)
@@ -198,6 +226,9 @@ class DoctorManage extends Component {
             const updatedSelectedSpecialty = this.state.selectedSpecialty
                 ? specialtySelect.find(item => item.value === this.state.selectedSpecialty.value)
                 : '';
+            const updatedSelectedClinic = this.state.selectedClinic
+                ? clinicSelect.find(item => item.value === this.state.selectedClinic.value)
+                : '';
 
             this.setState({
                 allPrice: priceSelect,
@@ -207,7 +238,8 @@ class DoctorManage extends Component {
                 selectedPrice: updatedSelectedPrice,
                 selectedPayment: updatedSelectedPayment,
                 selectedProvince: updatedSelectedProvince,
-                selectedSpecialty: updatedSelectedSpecialty
+                selectedSpecialty: updatedSelectedSpecialty,
+                selectedClinic:     updatedSelectedClinic
             });
         }
     }
@@ -221,7 +253,7 @@ class DoctorManage extends Component {
 
     handleSaveContentMarkdown = () => {
         const { hasOldData, contentHTML, contentMarkdown, description, selectedDoctor,
-            selectedPrice,selectedPayment,selectedProvince,selectedSpecialty,nameClinic,addressClinic,note } = this.state;
+            selectedPrice,selectedPayment,selectedProvince,selectedSpecialty,selectedClinic,nameClinic,addressClinic,note } = this.state;
 
         this.props.saveDoctorStartAdmin({
             contentHTML,
@@ -232,6 +264,7 @@ class DoctorManage extends Component {
             paymentId: selectedPayment.value,
             provinceId: selectedProvince.value,
             specialtyId:selectedSpecialty.value,
+            clinicId: selectedClinic.value,
             nameClinic,
             addressClinic,
             note,
@@ -258,6 +291,7 @@ class DoctorManage extends Component {
                 selectedPayment: this.state.allPayment.find(item => item.value === doctor_infor.paymentId),
                 selectedProvince: this.state.allProvince.find(item => item.value === doctor_infor.provinceId),
                 selectedSpecialty: this.state.specialty.find(item => item.value === doctor_infor.specialtyId),
+                selectedClinic: this.state.clinic.find(item => item.value === doctor_infor.clinicId),
                 nameClinic: doctor_infor.nameClinic,
                 addressClinic: doctor_infor.addressClinic,
                 note: doctor_infor.note,
@@ -272,6 +306,7 @@ class DoctorManage extends Component {
                 selectedPayment:'',
                 selectedProvince:'',
                 selectedSpecialty:'',
+                selectedClinic:'',
                 nameClinic: '',
                 addressClinic: '',
                 note: '',
@@ -287,6 +322,7 @@ class DoctorManage extends Component {
             selectedPayment:'',
             selectedProvince:'',
             selectedSpecialty:'',
+            selectedClinic:'',
             nameClinic: '',
             addressClinic: '',
             note: '',
@@ -318,6 +354,13 @@ class DoctorManage extends Component {
     handleChangeSpecialty = async (selectedSpecialty) => {
       this.setState({ 
         selectedSpecialty
+      } 
+      );
+    }
+
+    handleChangeClinic = async (selectedClinic) => {
+      this.setState({ 
+        selectedClinic
       } 
       );
     }
@@ -400,11 +443,23 @@ class DoctorManage extends Component {
                      />
                 </div>
                 <div className='col-4 form-group'>
+                    <label><FormattedMessage id="doctor.selectclinic"/></label>
+                     <Select
+                        value={this.state.selectedClinic}
+                        onChange={this.handleChangeClinic}
+                        options={this.state.clinic}
+                        placeholder={<FormattedMessage id="doctor.selectclinic-placeholder"/>}
+                     />
+                </div>
+                <div className='col-4 form-group'>
                     <label><FormattedMessage id="doctor.nameclinic"/></label>
                     <input className='form-control' value={this.state.nameClinic} 
                     onChange={(event) => this.handleOnChangeText(event,'nameClinic')}
                     />
                 </div>
+           </div>
+
+            <div className="row">
                 <div className='col-4 form-group'>
                     <label><FormattedMessage id="doctor.addressclinic"/></label>
                     <input className='form-control' value={this.state.addressClinic} 
@@ -417,7 +472,8 @@ class DoctorManage extends Component {
                     onChange={(event) => this.handleOnChangeText(event,'note')}
                     />
                 </div>
-           </div>
+
+            </div>
            
         </div>
         <div className='manage-doctor-editor'>
@@ -444,6 +500,7 @@ const mapStateToProps = state => {
       doctorPayment: state.admin.doctorPayment,
       doctorProvince: state.admin.doctorProvince,
       specialty: state.admin.specialty,
+      clinic: state.admin.clinic,
     };
 };
 
@@ -456,6 +513,7 @@ const mapDispatchToProps = dispatch => {
       fetchDoctorPaymentStartAdmin: (() => dispatch(actions.fetchDoctorPaymentStart())),
       fetchDoctorProvinceStartAdmin: (() => dispatch(actions.fetchDoctorProvinceStart())),
       fetchSpecialtyStartAdmin: (() => dispatch(actions.fetchSpecialtyStart())),
+      fetchClinicStartAdmin: (() => dispatch(actions.fetchClinicStart())),
     };
 };
 
