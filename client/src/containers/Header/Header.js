@@ -6,7 +6,7 @@ import { adminMenu,doctorMenu } from './menuApp';
 import './Header.scss';
 import {LANGUAGE, USER_ROLE} from '../../utils';
 import { FormattedMessage } from 'react-intl';
-
+import { push } from "connected-react-router";
 
 class Header extends Component {
 
@@ -53,7 +53,7 @@ class Header extends Component {
                     <div className={this.props.language === 'vi' ? "language-vi active" : "language-vi" }><span onClick={() => this.handleChangeLanguage(LANGUAGE.VI)}>VN</span></div>
                     <div className={this.props.language === 'en' ? "language-en active" : "language-en" }><span onClick={() => this.handleChangeLanguage(LANGUAGE.EN)}>EN</span></div>
                     {/* nút logout */}
-                    <div className="btn btn-logout" onClick={processLogout} title='Log Out'>
+                    <div className="btn btn-logout"  onClick={() => this.props.navigate('/home')}  title='Log Out'>
                         <i className="fas fa-sign-out-alt"></i>
                     </div>
                 </div>
@@ -73,6 +73,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        navigate: (path) => dispatch(push(path)),
         processLogout: () => dispatch(actions.processLogout()),
         ChangeLanguageApp: ((language) => dispatch(actions.changeLanguage(language)))
     };

@@ -20,6 +20,7 @@ let initWebRoutes = (app) => {
    router.get('/delete-crud', homeController.deleteCRUD);
 
    router.post('/api/login',userController.handleLogin);
+   router.post('/api/register', userController.handleRegisterApi);
    router.get(`/api/get-all-users`,userController.handleGetAllUser);
    router.post('/api/create-new-user',userController.handleCreateNewUser);
    router.put('/api/update-user',userController.handleUpdateUser);

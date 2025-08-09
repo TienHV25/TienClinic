@@ -4,6 +4,10 @@ const handleLoginApi = (email,password) => {
    return axios.post('/api/login',{email,password});
 }
 
+const handleRegisterApi = (userData) => {
+   return axios.post('/api/register',userData);
+}
+
 const handleGetAllUser = (userId) => {
    return axios.get(`/api/get-all-users/?id=${userId}`);
 }
@@ -110,6 +114,7 @@ const getSpecialtyDoctorById = (id) => {
 
 export {
    handleLoginApi,
+   handleRegisterApi,
    handleGetAllUser,
    handleCreateUser,
    handleDeleteUser,

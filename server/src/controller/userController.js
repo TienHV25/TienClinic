@@ -22,6 +22,20 @@ let handleLogin = async (req,res) => {
     )
 };
 
+let handleRegisterApi = async (req, res) => {
+    try {
+        let userData = await userService.createNewUser(req.body);
+        return res.status(200).json(userData);
+    } catch (error) {
+        console.log('Error in handleRegisterApi:', error);
+        return res.status(500).json({
+            errCode: -1,
+            message: 'Error from server'
+        });
+    }
+};
+
+
 let handleGetAllUser = async (req,res) => {
     let id = req.query.id;
     if(!id) {
@@ -74,6 +88,7 @@ let getAllCode = async (req,res) => {
 
 module.exports = {
     handleLogin : handleLogin,
+    handleRegisterApi: handleRegisterApi,
     handleGetAllUser : handleGetAllUser,
     handleCreateNewUser : handleCreateNewUser,
     handleUpdateUser : handleUpdateUser,

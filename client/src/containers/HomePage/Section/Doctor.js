@@ -79,7 +79,6 @@ class Doctor extends Component {
   };
 
   render() {
-    console.log(this.state.specialties)
     let { doctors, specialties } = this.state;
     let settings = {
       dots: false,

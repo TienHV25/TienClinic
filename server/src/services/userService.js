@@ -125,7 +125,13 @@ let createNewUser = (data) => {
                  errCode: 1,
                  message: "Email has already exists"
                })
-            } else {
+            } else if(!data.email || !data.password || !data.firstName || !data.lastName){
+                resolve({
+                 errCode: 2,
+                 message: "Missing email or password"
+               })
+            }
+            else {
               let hashPassWord = await hashPassword(data.password);
               await db.User.create(
                 {
@@ -136,7 +142,7 @@ let createNewUser = (data) => {
                     address: data.address,
                     phonenumber: data.phonenumber,
                     gender: data.gender,
-                    roleID: data.role,
+                    roleID: 'R3',
                     positionID: data.position,
                     image:data.avatar
                 }

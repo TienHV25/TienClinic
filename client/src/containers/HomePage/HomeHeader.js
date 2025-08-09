@@ -6,8 +6,18 @@ import { FormattedMessage } from 'react-intl';
 import {LANGUAGE} from '../../utils';
 import {changeLanguage} from '../../store/actions';
 import { withRouter } from 'react-router-dom';
+import * as actions from "../../store/actions";
+import { OverlayTrigger, Popover } from 'react-bootstrap';
+import { push } from "connected-react-router";
 
 class HomeHeader extends Component {
+   constructor(props) {
+    super(props);
+      this.state = {
+        show:false
+      };
+   }
+
    ChangeLanguage = (language) => {
       this.props.ChangeLanguageApp(language);
    };
@@ -18,13 +28,43 @@ class HomeHeader extends Component {
       }
    };
 
-    render() {
+   handleLogin = () => {
+     if (this.props.history) {
+         this.props.history.push(`/login`);
+      }
+   };
+
+   popoverUser = () => (
+      <Popover id="popover-basic" className="header-popover">
+         <Popover.Body>
+            <div className="popover-item" onClick={this.props.processLogout}>
+            <i className="fas fa-sign-out-alt"></i> Đăng xuất
+            </div>
+         </Popover.Body>
+      </Popover>
+   );
+
+   popoverAdmin = () => (
+      <Popover id="popover-basic" className="header-popover">
+         <Popover.Body>
+            <div className="popover-item" onClick={this.props.processLogout}>
+            <i className="fas fa-sign-out-alt"></i> Đăng xuất
+            </div>
+            <div className="popover-item" onClick={() => this.props.navigate('/system')}>
+            <i className="fas fa-cog"></i> Quản lý hệ thống
+            </div>
+         </Popover.Body>
+      </Popover>
+   );
+
+   render() {
+        let {userInfo} = this.props;
+        let {show} = this.state;
         return (
          <React.Fragment>
            <div className='home-header-container'>
              <div className='home-header-content'>
                 <div className='left-content'>
-                    <i className='fas fa-bars'></i>
                     <img src={logo} alt="TienClinic Logo" className='header-logo' onClick={this.returnHome} />
                 </div>
                 <div className='center-content'>
@@ -46,10 +86,40 @@ class HomeHeader extends Component {
                     </div>
                 </div>
                 <div className='right-content'>
-                        <div className='support'>
-                           <i className='fas fa-question-circle'></i>
-                           <FormattedMessage id="homeheader.support"/>
-                        </div>
+                       {userInfo ? 
+                        (userInfo.roleID === 'R1' ? (
+                              <OverlayTrigger
+                                 trigger="click"
+                                 placement="bottom"
+                                 overlay={this.popoverAdmin()}
+                                 show={show}
+                                 onToggle={() => this.setState({ show: !show })}
+                              >
+                                 <div className='text-welcome'>
+                                 <span><FormattedMessage id="homeheader.welcome" /> {userInfo?.firstName} !</span>
+                                 <i className="fas fa-sort-down"></i>
+                                 </div>
+                              </OverlayTrigger>
+                           ) : (
+                              <OverlayTrigger
+                                 trigger="click"
+                                 placement="bottom"
+                                 overlay={this.popoverUser()}
+                                 show={show}
+                                 onToggle={() => this.setState({ show: !show })}
+                              >
+                                 <div className='text-welcome'>
+                                 <span><FormattedMessage id="homeheader.welcome" /> {userInfo?.firstName} !</span>
+                                 <i className="fas fa-sort-down"></i>
+                                 </div>
+                              </OverlayTrigger>
+                           ))
+                           : (
+                           <div className='login' onClick={this.handleLogin}>
+                              <i className="fas fa-sign-in-alt"></i>
+                              <FormattedMessage id="homeheader.login" />
+                           </div>
+                        )}
                         <div className='flag'>
                            <div className={this.props.language === 'vi' ? 'language-vi active' : 'language-vi'}><span onClick={() => this.ChangeLanguage(LANGUAGE.VI)}>VN</span></div>
                            <div className={this.props.language === 'en' ? 'language-en active' : 'language-en'}><span onClick={() => this.ChangeLanguage(LANGUAGE.EN)}>EN</span></div>
@@ -106,12 +176,15 @@ class HomeHeader extends Component {
 const mapStateToProps = state => {
     return {
         isLoggedIn: state.user.isLoggedIn,
-        language: state.app.language
+        language: state.app.language,
+        userInfo : state.user.userInfo   
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+      navigate: (path) => dispatch(push(path)),
+      processLogout: () => dispatch(actions.processLogout()),
       ChangeLanguageApp: ((language) => dispatch(changeLanguage(language)))
     };
 };

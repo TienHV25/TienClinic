@@ -23,7 +23,7 @@ import System from '../routes/System';
 import HomePage from './HomePage/HomePage';
 import DetailSpecialty from './Patients/Specialty/DetailSpecialty.js';
 import DetailClinic from './Patients/Clinic/DetailClinic.js';
-
+import SignUp from './Auth/SignUp.js';
 
 class App extends Component {
 
@@ -55,6 +55,7 @@ class App extends Component {
                             <Switch>
                                 <Route path={path.HOME} exact component={(Home)} />
                                 <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
+                                <Route path={path.SIGNUP} component={userIsNotAuthenticated(SignUp)} />
                                 <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                 <Route path={path.DOCTOR} component={userIsAuthenticated(Doctor)} />
                                 <Route path={path.HOMEPAGE} component={(HomePage)} />
