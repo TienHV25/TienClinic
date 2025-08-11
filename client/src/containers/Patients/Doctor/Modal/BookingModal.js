@@ -54,6 +54,10 @@ class BookingModal extends Component {
                 timeBooking: timeTypeString,
                 timeType:  this.props.dataScheduleTimeModal.timeType
             })
+            this.setState({
+                fullName: `${this.props.userInfo.lastName} ${this.props.userInfo.firstName} `,
+                email: this.props.userInfo.email
+            })
         }    
     }
 
@@ -110,7 +114,7 @@ class BookingModal extends Component {
     };
 
     handleSubmit = async () => {
-      let date = moment(this.state.birthday).format('YYYY-MM-DD');
+      let date =  moment(this.props.dataScheduleTimeModal?.date).format('YYYY-MM-DD');
       let res = await postBookingAppointment({
           fullName:this.state.fullName,
           phoneNumber:this.state.phoneNumber,
@@ -127,7 +131,7 @@ class BookingModal extends Component {
       })
 
       if(res && res.errCode === 0){
-        toast.success("Booking new appointment succeed !");
+        toast.success(res.message);
         this.toggle();
         this.setState( {
           fullName:'',
@@ -140,8 +144,9 @@ class BookingModal extends Component {
           doctorId:'',
           timeType:'',
         })
-      }else{
-        toast.error("Booking new appointment error !");
+      }
+      else{
+        toast.error(res.message);
       }
     }
 
@@ -154,7 +159,6 @@ class BookingModal extends Component {
     }
 
     render() {
-        console.log(this.props.dataScheduleTimeModal)
         let formatPrice = this.formatPrice(this.state.price)
         let formattedDate = this.props.language === 'vi' ? moment(this.props.dataScheduleTimeModal?.date).format('DD-MM-YYYY') :
                             moment(this.props.dataScheduleTimeModal?.date).format('YYYY-MM-DD');
@@ -200,7 +204,7 @@ class BookingModal extends Component {
                             </label>
                             <input className='form-control' 
                               value={this.state.fullName}
-                              onChange={(event) => this.handleOnchangeInput(event,'fullName')}/>
+                              disabled={true}/>
                         </div>
                         <div className='col-6 form-group'>
                             <label>
@@ -216,7 +220,7 @@ class BookingModal extends Component {
                             </label>
                             <input className='form-control'  
                              value={this.state.email}
-                             onChange={(event) => this.handleOnchangeInput(event,'email')}/>
+                             disabled={true}/>
                         </div>
                         <div className='col-6 form-group'>
                             <label>
@@ -284,7 +288,8 @@ class BookingModal extends Component {
 const mapStateToProps = state => {
     return {
         language: state.app.language,
-        genders: state.admin.genders
+        genders: state.admin.genders,
+        userInfo: state.user.userInfo
     };
 };
 

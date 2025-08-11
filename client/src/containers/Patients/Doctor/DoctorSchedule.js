@@ -6,6 +6,7 @@ import localization from 'moment/locale/vi';
 import {getScheduleDoctorByDate} from '../../../services/userService';
 import { FormattedMessage } from 'react-intl';
 import BookingModal from './Modal/BookingModal';
+import { push } from "connected-react-router";
 
 
 class DoctorSchedule extends Component {
@@ -22,7 +23,7 @@ class DoctorSchedule extends Component {
     
     setArray = () => {
         let arrDate = []
-        for (let i = 0; i < 7; i++) {
+        for (let i = 1; i < 8; i++) {
             let object = {};
             let date = moment(new Date()).add(i, 'days');
             if(this.props.language === 'vi')
@@ -70,10 +71,15 @@ class DoctorSchedule extends Component {
     }
 
     handleModal = (time) => {
-        this.setState({
+        if(this.props.userInfo?.email){
+            this.setState({
             isOpenModal : true,
             dataScheduleTimeModal: time
-        })
+           })
+           
+        }else {
+            this.props.navigate('/login')
+        }
     }
 
     handleToggle = () => {
@@ -134,12 +140,14 @@ class DoctorSchedule extends Component {
 
 const mapStateToProps = state => {
     return {
-        language: state.app.language
+        language: state.app.language,
+        userInfo: state.user.userInfo
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        navigate: (path) => dispatch(push(path)),
     };
 };
 

@@ -7,9 +7,8 @@ import * as actions from "../../../store/actions";
 import DatePicker from "../../../components/Input/DatePicker";
 import moment from 'moment';
 import {  toast } from 'react-toastify';
-import { dateFormat } from '../../../utils';
-import { saveBulkScheduleDoctor } from '../../../services/userService';
-
+import { saveBulkScheduleDoctor,handleGetDoctorById } from '../../../services/userService';
+import { USER_ROLE } from '../../../utils';
 
 class ManageSchedule extends Component {
      
@@ -17,7 +16,7 @@ class ManageSchedule extends Component {
         super(props);
         this.state = {
             selectedDoctor:'',
-            currentDate: new Date(),
+            currentDate: moment().add(1, 'day').toDate(),
             rangeTime: []
         }
     }
@@ -37,18 +36,38 @@ class ManageSchedule extends Component {
                 object.value = item.id;
                 result.push(object);
             })
-        }
+        }else if(inputData) {
+            let object = {};
 
+            object.label = `${inputData.lastName} ${inputData.firstName}`;
+            object.value = inputData.id;
+            result.push(object);
+        }
         return result;
 
     }
 
-    componentDidUpdate(prevProps) {
+    async componentDidUpdate(prevProps) {
         if(prevProps.allDoctors !== this.props.allDoctors) {
-            let dataSelect = this.builtDataInputSelect(this.props.allDoctors);
-            this.setState({
-                allDoctors: dataSelect
-            });
+            if(this.props.userInfo.roleID === USER_ROLE.ADMIN)
+            {
+               let dataSelect = this.builtDataInputSelect(this.props.allDoctors);
+                this.setState({
+                    allDoctors: dataSelect
+                });
+            } else if(this.props.userInfo.roleID === USER_ROLE.DOCTOR){
+                let idDoctor = '';
+                for (const item of this.props.allDoctors){
+                    if(this.props.userInfo.email === item.email){
+                       idDoctor = item.id
+                    }
+                }
+                let res = await handleGetDoctorById(idDoctor);
+                let dataSelect = this.builtDataInputSelect(res.data);
+                    this.setState({
+                        allDoctors: dataSelect
+                    });
+            }
         }
         if(prevProps.allScheduleTimes !== this.props.allScheduleTimes) {
             let data = this.props.allScheduleTimes;
@@ -203,6 +222,7 @@ const mapStateToProps = state => {
         allDoctors: state.admin.allDoctors,
         allScheduleTimes: state.admin.allScheduleTimes,
         language: state.app.language,
+        userInfo : state.user.userInfo   
     };
 };
 

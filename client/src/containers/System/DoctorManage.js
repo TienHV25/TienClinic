@@ -10,7 +10,6 @@ import { FormattedMessage } from 'react-intl';
 import { handleGetDoctorById } from "../../services/userService"
 import { adminActions } from '../../utils/constant';
 
-
 const mdParser = new MarkdownIt();
 
 class DoctorManage extends Component {
@@ -388,12 +387,12 @@ class DoctorManage extends Component {
         <div className='more-infor'>
             <div className='content-left form-group'>
                <label><FormattedMessage id="doctor.selectdoctor"/></label>
-               <Select
-                    value={this.state.selectedDoctor}
-                    onChange={this.handleChange}
-                    options={this.state.allDoctors}
-                    placeholder={<FormattedMessage id="doctor.selectdoctor-placeholder"/>}
-                />
+                <Select
+                        value={this.state.selectedDoctor}
+                        onChange={this.handleChange}
+                        options={this.state.allDoctors}
+                        placeholder={<FormattedMessage id="doctor.selectdoctor-placeholder"/>}
+                    />
             </div>
             <div className='content-right form-group'>
                <label><FormattedMessage id="doctor.informationdoctor"/></label>
@@ -501,6 +500,7 @@ const mapStateToProps = state => {
       doctorProvince: state.admin.doctorProvince,
       specialty: state.admin.specialty,
       clinic: state.admin.clinic,
+      userInfo : state.user.userInfo   
     };
 };
 

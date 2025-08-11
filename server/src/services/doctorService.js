@@ -357,6 +357,42 @@ let getSpecialtyDoctorById = (id) => {
     })
 }
 
+let getPatientByDocotorId = (doctorID,date) => {
+    return new Promise(async (resolve,reject) => {
+        try {
+          if(!doctorID || !date) {
+            resolve({
+                errCode : 1,
+                message: "Mising input parameters"
+            })
+          } else {
+            let data = await db.Booking.findAll({
+                attributes:{
+                  exclude: ['token']
+                },
+                where: {doctorID:doctorID,date:date,statusID:'S2'},
+                include: [
+                    {model: db.User, as: 'patientData',attributes: ['address','phonenumber','gender','firstName','lastName'],include:[
+                        {model: db.Allcode, as: 'genderData', attributes: ['valueEn','valueVi']},
+                    ]},
+                    {model: db.Allcode, as: 'timeTypeDataBooking',attributes: ['valueEn','valueVi']}
+                ],
+                raw: false,
+                nest: true
+            }
+            )
+            if(!data) data = [];
+            resolve({
+                errCode : 0,
+                data: data
+            })
+          }
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
 
 module.exports = {
     getTopDoctorHome : getTopDoctorHome,
@@ -367,5 +403,6 @@ module.exports = {
     getScheduleByDate : getScheduleByDate,
     getExtraInforDoctorById : getExtraInforDoctorById,
     getProfileDoctorById : getProfileDoctorById,
-    getSpecialtyDoctorById : getSpecialtyDoctorById
+    getSpecialtyDoctorById : getSpecialtyDoctorById,
+    getPatientByDocotorId : getPatientByDocotorId
 }

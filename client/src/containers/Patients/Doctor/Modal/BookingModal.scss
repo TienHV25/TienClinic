@@ -1,8 +1,12 @@
 .booking-modal-container{
+        padding: 20px 30px;
+        max-width: 600px;
+        margin: 0 auto; 
+        box-sizing: border-box;
     .booking-modal-content{
-        height: 650px;
         display: flex;
         flex-direction: column;
+        gap: 15px;
 
         .booking-modal-header{
             padding: 10px;

@@ -23,9 +23,13 @@
         "enterPassword": "Enter password",
         "enterConfirmPassword": "Re-enter password",
         "firstname": "First name:",
-        "enterFirstname": "Enter first name:",
+        "enterFirstname": "Enter first name",
         "lastname": "Last name:",
-        "enterLastname": "Enter last name:"
+        "enterLastname": "Enter last name",
+        "logout": "Log out",
+        "manage-system": "Manage system",
+        "manage-schedule": "Manage schedule",
+        "manage-patient": "Manage patient"
     },
      "banner":{
         "healthcareplatform":"HEALTHCARE PLATFORM",
@@ -135,7 +139,8 @@
             "manage-handbook":"Manage Handlebook"
         },
         "doctor": {
-            "manage-schedule": "Manage doctor's schedule"
+            "manage-schedule": "Manage doctor's schedule",
+            "manage-patient": "Manage patient list"
         }
     },
      "manage-user":{

@@ -112,6 +112,10 @@ const getSpecialtyDoctorById = (id) => {
    return axios.get(`/api/get-specialty-by-doctor-id?doctorId=${id}`);
 }
 
+const getPatientByDocotorId  = (doctoroID,date) => {
+   return axios.get(`/api/get-patient-by-doctor-id?doctorID=${doctoroID}&date=${date}`);
+}
+
 export {
    handleLoginApi,
    handleRegisterApi,
@@ -139,5 +143,6 @@ export {
    createNewClinic,
    getClinicDetail,
    geocodeAddress,
-   getSpecialtyDoctorById
+   getSpecialtyDoctorById,
+   getPatientByDocotorId 
 }
