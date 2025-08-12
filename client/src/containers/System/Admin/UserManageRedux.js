@@ -199,7 +199,7 @@ class UserManageRedux extends Component {
         return (
             <div className='users-redux-container'>
                <div className='users-redux-content'>
-                  <div className='title text-center'>Manage users redux</div>
+                  <div className='title text-center'>Manage users</div>
                   <div className='users-redux-body'>
                     <div className='container'>
                           <div className='row'>

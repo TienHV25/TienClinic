@@ -1,7 +1,7 @@
 import actionTypes from './actionTypes';
 import { handleGetCode,handleCreateUser,handleGetAllUser,handleDeleteUser,handleUpdateUser,
     handleGetTopDoctorHome,handleGetAllDoctors,handleSaveInforDoctor,getAllSpecialty, 
-    getAllClinic} from '../../services/userService';
+    getAllClinic,getAllHandbookTests} from '../../services/userService';
 import {  toast } from 'react-toastify';
 
 export const fetchGenderStart =  () => {
@@ -189,10 +189,10 @@ export const updateUserFail = () => ({
     type: actionTypes.UPDATE_USER_FAIL
 })
 
-export const fetchDoctorStart =  () => {
+export const fetchDoctorStart =  (limit) => {
     return async (dispatch) => {
         try {
-            let res = await handleGetTopDoctorHome('');
+            let res = await handleGetTopDoctorHome(limit);
             if (res && res.errCode === 0) {
                 dispatch(fetchDoctorSuccess(res.data));
             } else {
@@ -418,5 +418,30 @@ export const fetchDoctorProvinceSuccess = (data) => ({
 
 export const fetchDoctorProvinceFail = () => ({
     type: actionTypes.FETCH_DOCTOR_PROVINCE_FAIL
+})
+
+export const fetchTestsStart =  () => {
+    return async (dispatch) => {
+        try {
+            let res = await getAllHandbookTests();
+            if (res && res.errCode === 0) {
+                dispatch(fetchTestsSuccess(res.data));
+            } else {
+                dispatch(fetchTestsFail());
+            }
+        } catch (error) {
+            dispatch(fetchTestsFail());
+            console.error("Fetch tests failed:", error);
+        }
+    }
+}
+
+export const fetchTestsSuccess = (data) => ({
+    type: actionTypes.FETCH_TESTS_SUCCESS,
+    data: data
+})
+
+export const fetchTestsFail = () =>({
+    type: actionTypes.FETCH_TESTS_FAIL
 })
 

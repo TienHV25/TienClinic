@@ -14,6 +14,7 @@ const initialState = {
     clinic: [],
     doctorPayment: [],
     doctorProvince: [],
+    tests: [],
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -174,6 +175,16 @@ const adminReducer = (state = initialState, action) => {
             }
         case actionTypes.FETCH_DOCTOR_PROVINCE_FAIL:
             state.doctorProvince = [];
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_TESTS_SUCCESS:
+            state.tests = action.data;
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_TESTS_FAIL:
+            state.tests = [];
             return {
                 ...state
             }

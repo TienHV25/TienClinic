@@ -37,7 +37,7 @@ class Specialty extends Component {
         }
     }
     async componentDidMount(){
-        let res = await getAllSpecialty();
+        let res = await getAllSpecialty(this.props.limit);
         if(res && res.errCode === 0){
             this.setState({
                 dataSpecialty:res.data
@@ -65,7 +65,7 @@ class Specialty extends Component {
             <div className='section-content'>
               <div className='section-header'>
                 <h3><FormattedMessage id="specialty.specialty"/></h3>
-                <span><FormattedMessage id="specialty.viewmore"/></span>
+                <span onClick={() => this.props.history.push('/all-specialty')}><FormattedMessage id="specialty.viewmore"/></span>
               </div>
              <Slider {...settings}>
                 {dataSpecialty && dataSpecialty.length && dataSpecialty.map((item,index) => {

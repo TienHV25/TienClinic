@@ -3,13 +3,6 @@ export const adminMenu = [
         name: 'menu.admin.manage-user', 
         menus: [
             {
-                name: 'menu.admin.crud' , link: '/system/user-manage'  
-                // subMenus: [
-                //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
-                //     { name: 'menu.system.system-administrator.user-manage-redux', link: '/system/user-manage-redux' }
-                // ]
-            },
-            {
                 name: 'menu.admin.crud-redux' , link: '/system/user-manage-redux'  
                 // subMenus: [
                 //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
@@ -18,13 +11,6 @@ export const adminMenu = [
             },
             {
                 name: 'menu.admin.manage-doctor' , link: '/system/doctor-manage' 
-                // subMenus: [
-                //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
-                //     { name: 'menu.system.system-administrator.user-manage-redux', link: '/system/user-manage-redux' }
-                // ]
-            },
-            {
-                name: 'menu.admin.manage-admin' , link: '/system/admin-manage' 
                 // subMenus: [
                 //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
                 //     { name: 'menu.system.system-administrator.user-manage-redux', link: '/system/user-manage-redux' }
@@ -68,6 +54,9 @@ export const adminMenu = [
                 //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
                 //     { name: 'menu.system.system-administrator.user-manage-redux', link: '/system/user-manage-redux' }
                 // ]
+            },
+             {
+                name: 'menu.admin.manage-handbook-tests' , link: '/system/handbook-tests'  
             },
         ]
     },

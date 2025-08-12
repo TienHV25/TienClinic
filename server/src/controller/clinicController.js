@@ -15,7 +15,9 @@ let createClinic = async (req,res) => {
 
 let getAllClinic = async (req,res) => {
      try {
-        let infors = await clinicService.getAllClinic();
+        let limit = +req.query.limit;
+        if(!limit) limit = 10;
+        let infors = await clinicService.getAllClinic(limit);
         return res.status(200).json(infors);
      } catch (error) {
         console.log(error)

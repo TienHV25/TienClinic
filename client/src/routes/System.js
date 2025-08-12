@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from 'react-router-dom';
-import UserManage from '../containers/System/UserManage';
 import DoctorManage from '../containers/System/DoctorManage';
 import UserManageRedux from '../containers/System//Admin/UserManageRedux';
 import Header from '../containers/Header/Header';
 import ManageSpecialty from '../containers/System/Specialty/ManageSpecialty';
 import ManageClinic from '../containers/System/Clinic/ManageClinic';
+import ManageHanbook from '../containers/System/Handbook/ManageHanbook'
+import ManageHanbookTests from '../containers/System/Handbook/ManageHanbookTests';
 
 class System extends Component {
     render() {
@@ -17,11 +18,12 @@ class System extends Component {
             <div className="system-container">
                 <div className="system-list"> 
                     <Switch>
-                        <Route path="/system/user-manage" component={UserManage} />
                         <Route path="/system/user-manage-redux" component={UserManageRedux} />
                         <Route path="/system/doctor-manage" component={DoctorManage} />
                         <Route path="/system/specialty-manage" component={ManageSpecialty} />
                         <Route path="/system/clinic-manage" component={ManageClinic} />
+                        <Route path="/system/handbook-manage" component={ManageHanbook} />
+                        <Route path="/system/handbook-tests" component={ManageHanbookTests} />
                         <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                     </Switch>
                 </div>

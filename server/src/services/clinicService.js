@@ -29,10 +29,10 @@ let createClinic = (data) => {
     })
 }
 
-let getAllClinic = () => {
+let getAllClinic = (limit) => {
     return new Promise(async (resolve,reject) => {
         try {
-        let data = await db.Clinic.findAll()
+        let data = await db.Clinic.findAll({limit:limit})
         if(data && data.length > 0){
            data = data.map(item => {item.image = Buffer.from(item.image,'base64').toString('binary')
            return item

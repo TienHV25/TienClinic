@@ -38,7 +38,7 @@ class Clinic extends Component {
         }
     }
     async componentDidMount(){
-        let res = await getAllClinic();
+        let res = await getAllClinic(this.props.limit);
         if(res && res.errCode === 0){
             this.setState({
                 dataClinic:res.data
@@ -66,7 +66,7 @@ class Clinic extends Component {
             <div className='section-content'>
               <div className='section-header'>
                 <h3><FormattedMessage id={"clinic.clinic"} /></h3>
-                <span><FormattedMessage id={"clinic.viewmore"} /></span>
+                <span onClick={() => this.props.history.push('/all-clinic')}><FormattedMessage id={"clinic.viewmore"} /></span>
               </div>
              <Slider {...settings}>
                  {dataClinic && dataClinic.length && dataClinic.map((item,index) => {

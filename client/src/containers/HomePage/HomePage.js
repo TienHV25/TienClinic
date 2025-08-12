@@ -15,13 +15,24 @@ class HomePage extends Component {
        
         return (
            <div>
-             <HomeHeader isShowBanner = {true} />
-             <Specialty/>
-             <Clinic/>
-             <Doctor/>
-             <Handlebook/>
-             <About/>
-             <HomeFooter/>
+            <HomeHeader isShowBanner = {true} />
+            <div id="Specialty" className="section">
+                <Specialty limit={8} />
+            </div>
+            
+            <div id="Clinic" className="section">
+                <Clinic limit={8} />
+            </div>
+            
+            <div id="Doctor" className="section">
+                <Doctor limit={8} />
+            </div>
+            
+            <div id="Handlebook" className="section">
+                <Handlebook limit={8} />
+            </div>
+            <About/>
+            <HomeFooter/>
            </div>
         );
     }

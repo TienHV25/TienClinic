@@ -10,8 +10,6 @@ import DetailDoctor from './Patients/Doctor/DetailDoctor.js';
 import Doctor from '../routes/Doctor.js';
 import VerifyEmail from './Patients/VerifyEmail.js';
 
-
-
 import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authentication';
 
 import { path } from '../utils'
@@ -24,6 +22,9 @@ import HomePage from './HomePage/HomePage';
 import DetailSpecialty from './Patients/Specialty/DetailSpecialty.js';
 import DetailClinic from './Patients/Clinic/DetailClinic.js';
 import SignUp from './Auth/SignUp.js';
+import AllDoctor from './HomePage/Section/AllDoctor.js';
+import AllSpecialty from './HomePage/Section/AllSpecialty.js';
+import AllClinic from './HomePage/Section/AllClinic.js';
 
 class App extends Component {
 
@@ -63,6 +64,9 @@ class App extends Component {
                                 <Route path={path.DETAIL_SPECIALTY} component={(DetailSpecialty)} />
                                 <Route path={path.DETAIL_CLINIC} component={(DetailClinic)} />
                                 <Route path={path.VERIFY_EMIAL_BOOKING} component={(VerifyEmail)} />
+                                <Route path={path.ALL_DOCTOR} component={AllDoctor} />
+                                <Route path={path.ALL_SPECIALTY} component={AllSpecialty} />
+                                <Route path={path.ALL_CLINIC} component={AllClinic} />
                             </Switch>
                          </CustomScrollbars>
                         </div>

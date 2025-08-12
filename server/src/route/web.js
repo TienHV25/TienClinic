@@ -6,6 +6,7 @@ import patientController from "../controller/patientController.js";
 import specialtyController from "../controller/specialtyController.js";
 import clinicController from "../controller/clinicController.js";
 import mapController from "../controller/mapController.js";
+import handbookController from "../controller/handbookController.js";
 
 let router = express.Router();
 
@@ -53,6 +54,13 @@ let initWebRoutes = (app) => {
    router.get('/api/get-clinic-detail',clinicController.getClinicDetail);
    
    router.get('/api/geocode',mapController.geocodeAddress);
+
+   router.post('/api/create-handbook-test', handbookController.createHandbookTest);
+   router.get('/api/get-handbook-tests', handbookController.getAllHandbookTests);
+   router.get('/api/get-handbook-test-detail', handbookController.getHandbookTestDetail);
+   router.post('/api/create-new-handbook',handbookController.createHandbook);
+   router.get('/api/get-handbook',handbookController.getAllHandbook);
+   router.get('/api/get-handbook-detail',handbookController.getHandbookDetail);
 
    return app.use("/",router);
 

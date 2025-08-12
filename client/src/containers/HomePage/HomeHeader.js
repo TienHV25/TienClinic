@@ -87,6 +87,15 @@ class HomeHeader extends Component {
         }
     };
 
+    scrollToSection = (id) => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            console.warn('Không tìm thấy section id=', id);
+        }
+    };
+
     render() {
         let { userInfo } = this.props;
         let { show } = this.state;
@@ -100,20 +109,20 @@ class HomeHeader extends Component {
                         </div>
 
                         <div className='center-content'>
-                            <div className='content-child'>
+                            <div className='content-child' onClick={() => this.scrollToSection("Specialty")}>
                                 <div><b><FormattedMessage id="homeheader.speciality"/></b></div>
                                 <div className='sub-title'><FormattedMessage id="homeheader.searchdoctor"/></div>
                             </div>
-                            <div className='content-child'>
+                            <div className='content-child' onClick={() => this.scrollToSection("Clinic")}>
                                 <div><b><FormattedMessage id="homeheader.healthfacility"/></b></div>
                                 <div className='sub-title'><FormattedMessage id="homeheader.selectclinic"/></div>
                             </div>
-                            <div className='content-child'>
+                            <div className='content-child' onClick={() => this.scrollToSection("Doctor")}>
                                 <div><b><FormattedMessage id="homeheader.doctor"/></b></div>
                                 <div className='sub-title'><FormattedMessage id="homeheader.selectdoctor"/></div>
                             </div>
-                            <div className='content-child'>
-                                <div><b><FormattedMessage id="homeheader.fee"/></b></div>
+                            <div className='content-child' onClick={() => this.scrollToSection("Handlebook")}>
+                                <div><b><FormattedMessage id="homeheader.handlebook"/></b></div>
                                 <div className='sub-title'><FormattedMessage id="homeheader.checkhealth"/></div>
                             </div>
                         </div>
@@ -163,29 +172,21 @@ class HomeHeader extends Component {
                     </div>
                     <div className='content-down'>
                         <div className='options'>
-                            <div className='option-child'>
-                                <div className='icon-child'><i className='far fa-hospital'></i></div>
+                            <div className='option-child' onClick={() => this.props.navigate('/all-specialty')}>
+                                <div className='icon-child'><i className="fas fa-wheelchair"></i></div>
                                 <div className='text-child'><FormattedMessage id="banner.specialistconsultation"/></div>
                             </div>
-                            <div className='option-child'>
-                                <div className='icon-child'><i className='fas fa-mobile-alt'></i></div>
-                                <div className='text-child'><FormattedMessage id="banner.telemedicine"/></div>
+                            <div className='option-child' onClick={() => this.props.navigate('/all-clinic')}>
+                                <div className='icon-child'><i className='far fa-hospital'></i></div>
+                                <div className='text-child'><FormattedMessage id="banner.facilityconsultation"/></div>
                             </div>
-                            <div className='option-child'>
-                                <div className='icon-child'><i className='fas fa-procedures'></i></div>
-                                <div className='text-child'><FormattedMessage id="banner.generalcheckup"/></div>
-                            </div>
-                            <div className='option-child'>
-                                <div className='icon-child'><i className="fa-solid fa-microscope"></i></div>
-                                <div className='text-child'><FormattedMessage id="banner.medicaltesting"/></div>
-                            </div>
-                            <div className='option-child'>
+                            <div className='option-child' onClick={() => this.props.navigate('/all-doctor')}>
                                 <div className='icon-child'><i className='fas fa-user-md'></i></div>
-                                <div className='text-child'><FormattedMessage id="banner.mentalhealth"/></div>
+                                <div className='text-child'><FormattedMessage id="banner.doctorconsultation"/></div>
                             </div>
-                            <div className='option-child'>
-                                <div className='icon-child'><i className="fa-solid fa-tooth"></i></div>
-                                <div className='text-child'><FormattedMessage id="banner.dentalcheckup"/></div>
+                            <div className='option-child' onClick={() => this.props.navigate('/all-clinic')}>
+                                <div className='icon-child'><i className="fas fa-book-medical"></i></div>
+                                <div className='text-child'><FormattedMessage id="banner.medicalhandbook"/></div>
                             </div>
                         </div>
                     </div>

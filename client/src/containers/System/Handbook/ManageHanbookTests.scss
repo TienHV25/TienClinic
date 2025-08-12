@@ -1,0 +1,50 @@
+.manage-handbook-container {
+    padding:  20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    height: auto;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+    .ms-title {
+        text-align: center;
+        margin: 20px 0;
+        text-transform: uppercase;
+        font-size: 20px;
+        font-weight: 700;
+        color: #2c3e50;
+        letter-spacing: 1px;
+    }
+
+    .add-new-handbook {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        .btn-save-handbook {
+            border: none;
+            background: linear-gradient(135deg, #6fc5ec, #3ba9d5);
+            color: white;
+            padding: 10px 16px;
+            min-width: 100px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.25s ease-in-out;
+            cursor: pointer;
+
+            &:hover {
+                background: linear-gradient(135deg, #3ba9d5, #1f8bb7);
+                transform: translateY(-2px);
+                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            }
+
+            &:active {
+                transform: translateY(0);
+                box-shadow: none;
+            }
+        }
+    }
+}

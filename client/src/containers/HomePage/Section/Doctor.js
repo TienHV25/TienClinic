@@ -36,7 +36,9 @@ class Doctor extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchDoctorApp();
+    if(this.props.limit) {
+        this.props.fetchDoctorApp(this.props.limit);
+    }
   }
 
   async componentDidUpdate(prevProps) {
@@ -95,7 +97,7 @@ class Doctor extends Component {
         <div className='doctor-content'>
           <div className='doctor-header'>
             <h3><FormattedMessage id="doctor.title" /></h3>
-            <span><FormattedMessage id="doctor.viewmore" /></span>
+            <span onClick={() => this.props.history.push('/all-doctor')}><FormattedMessage id="doctor.viewmore" /></span>
           </div>
 
           <Slider {...settings}>
@@ -150,7 +152,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchDoctorApp: () => dispatch(actions.fetchDoctorStart())
+    fetchDoctorApp: (limit) => dispatch(actions.fetchDoctorStart(limit))
   };
 };
 

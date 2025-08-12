@@ -80,12 +80,12 @@ const createNewClinic = (data) => {
 }
 
 
-const getAllSpecialty = () => {
-   return axios.get('/api/get-specialty');
+const getAllSpecialty = (limit) => {
+   return axios.get(`/api/get-specialty?limit=${limit}`);
 }
 
-const getAllClinic = () => {
-   return axios.get('/api/get-clinic');
+const getAllClinic = (limit) => {
+   return axios.get(`/api/get-clinic?limit=${limit}`);
 }
 
 const getDoctorOfSpecialty = (specialtyId) => {
@@ -116,6 +116,30 @@ const getPatientByDocotorId  = (doctoroID,date) => {
    return axios.get(`/api/get-patient-by-doctor-id?doctorID=${doctoroID}&date=${date}`);
 }
 
+const createHandbookTest = (data) => {
+  return axios.post('/api/create-handbook-test', data);
+};
+
+const getAllHandbookTests = () => {
+  return axios.get('/api/get-handbook-tests');
+};
+
+const getHandbookTestDetail = (testId) => {
+  return axios.get(`/api/get-handbook-test-detail?id=${testId}`);
+};
+
+const createHandbook = (data) => {
+   return axios.post('/api/create-new-handbook',data);
+}
+
+const getAllHandbook = (limit) => {
+   return axios.get(`/api/get-handbook?limit=${limit}`);
+}
+
+const getHandbookDetail = (id) => {
+   return axios.get(`/api/get-handbook-detail/?id=${id}`);
+}
+
 export {
    handleLoginApi,
    handleRegisterApi,
@@ -144,5 +168,11 @@ export {
    getClinicDetail,
    geocodeAddress,
    getSpecialtyDoctorById,
-   getPatientByDocotorId 
+   getPatientByDocotorId,
+   createHandbookTest,
+   getAllHandbookTests,
+   getHandbookTestDetail,
+   createHandbook,
+   getAllHandbook,
+   getHandbookDetail
 }

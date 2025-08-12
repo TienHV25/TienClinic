@@ -1,13 +1,14 @@
 {
    "homeheader": {
+        "homepage": "Trang chủ",
         "speciality": "Chuyên Khoa",
         "searchdoctor": "Tìm bác sĩ theo chuyên khoa",
         "healthfacility": "Cơ Sở Y Tế",
         "selectclinic": "Chọn bệnh viện phòng khám",
         "doctor": "Bác Sĩ",
         "selectdoctor": "Chọn bác sĩ giỏi",
-        "fee": "Gói Khám",
-        "checkhealth": "Khám sức khỏe tổng quát",
+        "handlebook": "Cẩm nang",
+        "checkhealth": "Cẩm nang sức khỏe",
         "login": "Đăng Nhập",
         "email": "Email:",
         "password": "Mật khẩu:",
@@ -34,10 +35,10 @@
     "banner":{
         "healthcareplatform":"NỀN TẢNG Y TẾ",
         "comprehensive":"CHĂM SÓC SỨC KHỎE TOÀN DIỆN",
-        "specialistconsultation":"Khám chuyên khoa",
-        "telemedicine":"Khám từ xa",
-        "generalcheckup":"Khám tổng quát",
-        "medicaltesting":"Xét nghiệm y học",
+        "specialistconsultation":"Khám theo chuyên khoa",
+        "facilityconsultation":"Khám theo cơ sở ",
+        "doctorconsultation":"Khám theo bác sĩ",
+        "medicalhandbook":"Cẩm nang y học",
         "mentalhealth":"Sức khỏe tinh thần",
         "dentalcheckup":"Khám nha khoa"
     },
@@ -56,6 +57,14 @@
         "clinic_name":"Tên phòng khám",
         "clinic_address":"Địa chỉ phòng khám",
         "clinic_image":"Ảnh phòng khám",
+        "save":"Lưu"
+    },
+    "handbook":{
+        "handbook_manage":"Quản lý cẩm nang",
+        "handbook_name":"Tên cẩm nang",
+        "handbook_image":"Ảnh cẩm nang",
+        "handbook_test":"Chọn bài test",
+        "selecttest-placeholder":"Chọn bài test",
         "save":"Lưu"
     },
     "doctor":{
@@ -130,13 +139,14 @@
             "manage-doctor": "Quản lý bác sĩ",
             "manage-admin": "Quản lý admin",
             "crud":"CRUD user",
-            "crud-redux":"CRUD Redux",
+            "crud-redux":"Quản lý user",
             "clinic": "Phòng khám",
             "manage-clinic":"Quản lý phòng khám",
             "specialty":"Chuyên khoa",
             "manage-specialty":"Quản lý chuyên khoa",
             "handbook":"Cảm nang",
-            "manage-handbook":"Quản lý cẩm nang"
+            "manage-handbook":"Quản lý cẩm nang",
+            "manage-handbook-tests":"Quản lý bài test"
         },
         "doctor": {
             "manage-schedule": "Quản lý kế hoạch khám bệnh",

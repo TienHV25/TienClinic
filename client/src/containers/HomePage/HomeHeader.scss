@@ -59,6 +59,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            cursor: pointer;
             .content-child{
                 .sub-title{
                     font-weight: 400;
@@ -219,7 +220,7 @@
         .options{
             text-align: center;
             display: flex;
-            gap: 50px;
+            gap: 70px;
             justify-content: center;
             .option-child{
               width: 100px;

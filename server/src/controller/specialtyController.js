@@ -14,8 +14,10 @@ let createSpecialty = async (req,res) => {
 }
 
 let getAllSpecialty = async (req,res) => {
+    let limit = +req.query.limit;
+    if(!limit) limit = 10;
      try {
-        let infors = await specialtyService.getAllSpecialty();
+        let infors = await specialtyService.getAllSpecialty(limit);
         return res.status(200).json(infors);
      } catch (error) {
         console.log(error)
