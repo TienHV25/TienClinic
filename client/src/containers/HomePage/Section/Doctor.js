@@ -102,11 +102,7 @@ class Doctor extends Component {
 
           <Slider {...settings}>
             {doctors.length > 0 && doctors.map((doctor, index) => {
-              let imageBase64 = '';
-              if (doctor.image) {
-                imageBase64 = Buffer.from(doctor.image, 'base64').toString('binary');
-              }
-
+            
               let doctorSpecialties = specialties.filter(s => s.doctorId === doctor.id);
 
               return (
@@ -116,7 +112,7 @@ class Doctor extends Component {
                 >
                   <div
                     className='img-doctor'
-                    style={{ backgroundImage: `url(${imageBase64})` }}
+                    style={{ backgroundImage: `url(${doctor.image})` }}
                     onClick={() => this.handleViewDetailDoctor(doctor)}
                   ></div>
 

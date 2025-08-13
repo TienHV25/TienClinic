@@ -1,19 +1,19 @@
 const doctorService = require('../services/doctorService');
 
-let getTopDoctorHome = async (req,res) => {
-    let limit = +req.query.limit;
-    if(!limit) limit = 10;
+let getTopDoctorHome = async (req, res) => {
     try {
-        let doctors = await doctorService.getTopDoctorHome(limit);
-        return res.status(200).json(doctors);
+        let limit = +req.query.limit || 10;
+        let keyword = req.query.keyword || null;
 
+        let doctors = await doctorService.getTopDoctorHome(limit, keyword);
+        return res.status(200).json(doctors);
     } catch (error) {
-       return res.status(500).json({
-         errCode: -1,
-         message: 'Error from server...'
-       })
+        return res.status(500).json({
+            errCode: -1,
+            message: 'Error from server...'
+        });
     }
-}
+};
 
 let getAllDoctors = async(req,res) => {
     try {
@@ -126,6 +126,19 @@ let getPatientByDocotorId = async(req,res) => {
     }
 }
 
+let confirmPatientAppointment = async(req, res) => {
+    try {
+        let result = await doctorService.confirmPatientAppointment(req.body);
+        return res.status(200).json(result);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            errCode: -1,
+            message: "Error from server"
+        });
+    }
+}
+
 module.exports = {
     getTopDoctorHome : getTopDoctorHome,
     getAllDoctors : getAllDoctors,
@@ -136,5 +149,6 @@ module.exports = {
     getExtraInforDoctorById : getExtraInforDoctorById,
     getProfileDoctorById : getProfileDoctorById,
     getSpecialtyDoctorById : getSpecialtyDoctorById,
-    getPatientByDocotorId : getPatientByDocotorId
+    getPatientByDocotorId : getPatientByDocotorId,
+    confirmPatientAppointment : confirmPatientAppointment
 }

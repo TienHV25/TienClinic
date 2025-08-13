@@ -1,4 +1,5 @@
 import db from '../models/index.js';
+const { Op } = require('sequelize');
 
 let createHandbookTest = (data) => {
     return new Promise(async (resolve, reject) => {
@@ -137,25 +138,37 @@ let createHandbook = (data) => {
     })
 }
 
-let getAllHandbook = (limit) => {
-    return new Promise(async (resolve,reject) => {
+let getAllHandbook = (limit, keyword) => {
+    return new Promise(async (resolve, reject) => {
         try {
-        let data = await db.Handbook.findAll({limit:limit})
-        if(data && data.length > 0){
-           data = data.map(item => {item.image = Buffer.from(item.image,'base64').toString('binary')
-           return item
-           })
-        }
-        resolve({
-            errCode : 0,
-            message : "Create handbook succedd !",
-            data: data 
-        })
+            let whereCondition = {};
+            if (keyword) {
+                const keywordNormalized = keyword.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
+                whereCondition.name = { [Op.like]: `%${keywordNormalized}%` };
+            }
+
+            let data = await db.Handbook.findAll({
+                where: whereCondition,
+                limit: limit || undefined
+            });
+
+            if (data && data.length > 0) {
+                data = data.map(item => {
+                    item.image = Buffer.from(item.image, 'base64').toString('binary');
+                    return item;
+                });
+            }
+
+            resolve({
+                errCode: 0,
+                message: "Get handbook success!",
+                data: data
+            });
         } catch (error) {
             reject(error);
         }
-    })
-}
+    });
+};
 
 let getHandbookDetail = (id) => {
     return new Promise(async (resolve,reject) => {

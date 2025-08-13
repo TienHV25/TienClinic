@@ -28,7 +28,8 @@ class BookingModal extends Component {
           timeType:'',
           timeBooking:'',
           doctorName: '',
-          isShowInfo:false
+          isShowInfo:false,
+          isLoading: false
         }
     }
 
@@ -113,42 +114,49 @@ class BookingModal extends Component {
         });
     };
 
-    handleSubmit = async () => {
-      let date =  moment(this.props.dataScheduleTimeModal?.date).format('YYYY-MM-DD');
-      let res = await postBookingAppointment({
-          fullName:this.state.fullName,
-          phoneNumber:this.state.phoneNumber,
-          email:this.state.email,
-          address:this.state.address,
-          reason:this.state.reason,
-          date:date,
-          gender:this.state.gender,
-          doctorId:this.state.doctorId,
-          timeType: this.state.timeType,
-          timeBooking: this.state.timeBooking,
-          doctorName: this.state.doctorName,
-          language: this.props.language
-      })
+   handleSubmit = async () => {
+    this.setState({ isLoading: true });
+    try {
+        let date = moment(this.props.dataScheduleTimeModal?.date).format('YYYY-MM-DD');
+        let res = await postBookingAppointment({
+            fullName: this.state.fullName,
+            phoneNumber: this.state.phoneNumber,
+            email: this.state.email,
+            address: this.state.address,
+            reason: this.state.reason,
+            date: date,
+            gender: this.state.gender,
+            doctorId: this.state.doctorId,
+            timeType: this.state.timeType,
+            timeBooking: this.state.timeBooking,
+            doctorName: this.state.doctorName,
+            language: this.props.language
+        });
 
-      if(res && res.errCode === 0){
-        toast.success(res.message);
-        this.toggle();
-        this.setState( {
-          fullName:'',
-          phoneNumber:'',
-          email:'',
-          address:'',
-          reason:'',
-          birthday:'',
-          gender:'',
-          doctorId:'',
-          timeType:'',
-        })
-      }
-      else{
-        toast.error(res.message);
-      }
+        if (res && res.errCode === 0) {
+            toast.success(res.message);
+            this.toggle();
+            this.setState({
+                fullName: '',
+                phoneNumber: '',
+                email: '',
+                address: '',
+                reason: '',
+                birthday: '',
+                gender: '',
+                doctorId: '',
+                timeType: '',
+            });
+        } else {
+            toast.error(res.message || 'Có lỗi xảy ra, vui lòng thử lại.');
+        }
+    } catch (error) {
+        console.error("Lỗi khi đặt lịch:", error);
+        toast.error("Không thể kết nối đến máy chủ. Vui lòng thử lại.");
+    } finally {
+        this.setState({ isLoading: false });
     }
+   };
 
     handleGetDoctorName = (data) => {
         let doctorName = `${data?.lastName} ${data?.firstName}`
@@ -168,6 +176,7 @@ class BookingModal extends Component {
                    this.props.dataScheduleTimeModal?.timeTypeData?.valueEn;
         let {genders,language} = this.props;
         return (
+         <>
            <Modal className='booking-modal-container' 
            isOpen= {this.props.isOpenModal} 
            toggle={() => {this.toggle()}} 
@@ -281,6 +290,13 @@ class BookingModal extends Component {
                 </div>
             </div>
            </Modal>
+            {this.state.isLoading && (
+                <div className="loading-overlay">
+                    <div className="spinner"></div>
+                    <span>Đang xử lý, vui lòng chờ...</span>
+                </div>
+            )}
+         </>
         )
     }
 }

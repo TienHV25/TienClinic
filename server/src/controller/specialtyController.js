@@ -13,20 +13,21 @@ let createSpecialty = async (req,res) => {
      }
 }
 
-let getAllSpecialty = async (req,res) => {
-    let limit = +req.query.limit;
-    if(!limit) limit = 10;
-     try {
-        let infors = await specialtyService.getAllSpecialty(limit);
+let getAllSpecialty = async (req, res) => {
+    try {
+        let limit = +req.query.limit || 10;
+        let keyword = req.query.keyword || null;
+
+        let infors = await specialtyService.getAllSpecialty(limit, keyword);
         return res.status(200).json(infors);
-     } catch (error) {
-        console.log(error)
+    } catch (error) {
+        console.log(error);
         return res.status(500).json({
             errCode: -1,
             message: "Error from server"
-        })
-     }
-}
+        });
+    }
+};
 
 let getDoctorOfSpecialty = async(req,res) => {
    try {

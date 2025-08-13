@@ -2,38 +2,65 @@ import { where } from 'sequelize';
 import db from '../models/index';
 import moment from 'moment';
 require('dotenv').config();
-import { Op } from 'sequelize';
+import { Op, fn, col } from 'sequelize';
 const { Buffer } = require('buffer');
+import emailService from './emailService';
 
 const MAX_NUMBER_SCHEDULE = process.env.MAX_NUMBER_SCHEDULE;
 
-let getTopDoctorHome = (limit) => {
-    return new Promise(async (resolve,reject) => 
-    {
-       try {
-        let users = await db.User.findAll({
-            limit: limit,
-            order: [[ "createdAt","DESC"]],
-            attributes:{
-                exclude: ['password']
-            },
-            where: {roleID:'R2'},
-            include: [
-                {model: db.Allcode, as: 'positionData', attributes: ['valueEn','valueVi']},
-                {model: db.Allcode, as: 'genderData', attributes: ['valueEn','valueVi']},
-            ],
-            raw: true,
-            nest: true
-        })
-          resolve({
-             errCode: 0,
-             data: users
-          })
-       } catch (error) {
-          reject(error);
-       }
-    })
-}
+let getTopDoctorHome = (limit, keyword) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let whereCondition = { roleID: 'R2' };
+            if (keyword) {
+                const keywordLower = keyword.toLowerCase();
+                whereCondition[Op.or] = [
+                    where(fn('LOWER', col('firstName')), {
+                        [Op.like]: `%${keywordLower}%`
+                    }),
+                    where(fn('LOWER', col('lastName')), {
+                        [Op.like]: `%${keywordLower}%`
+                    }),
+                    where(
+                        fn('LOWER', fn('CONCAT', col('lastName'), ' ', col('firstName'))),
+                        {
+                            [Op.like]: `%${keywordLower}%`
+                        }
+                    )
+                ];
+            }
+
+            let users = await db.User.findAll({
+                limit: limit || undefined,
+                order: [["createdAt", "DESC"]],
+                attributes: {
+                    exclude: ['password']
+                },
+                where: whereCondition,
+                include: [
+                    { model: db.Allcode, as: 'positionData', attributes: ['valueEn', 'valueVi'] },
+                    { model: db.Allcode, as: 'genderData', attributes: ['valueEn', 'valueVi'] },
+                ],
+                raw: true,
+                nest: true
+            });
+
+            if (users && users.length > 0) {
+                users = users.map(item => {
+                    item.image = Buffer.from(item.image, 'base64').toString('binary');
+                    return item;
+                });
+            }
+
+            resolve({
+                errCode: 0,
+                data: users
+            });
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
 
 let getAllDoctors = () => {
     return new Promise(async (resolve,reject) => {
@@ -372,7 +399,7 @@ let getPatientByDocotorId = (doctorID,date) => {
                 },
                 where: {doctorID:doctorID,date:date,statusID:'S2'},
                 include: [
-                    {model: db.User, as: 'patientData',attributes: ['address','phonenumber','gender','firstName','lastName'],include:[
+                    {model: db.User, as: 'patientData',attributes: ['address','phonenumber','gender','firstName','lastName','email'],include:[
                         {model: db.Allcode, as: 'genderData', attributes: ['valueEn','valueVi']},
                     ]},
                     {model: db.Allcode, as: 'timeTypeDataBooking',attributes: ['valueEn','valueVi']}
@@ -393,6 +420,43 @@ let getPatientByDocotorId = (doctorID,date) => {
     })
 }
 
+let confirmPatientAppointment = (inputData) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!inputData.email || !inputData.billImage || !inputData.id) {
+                resolve({
+                    errCode: 1,
+                    message: "Missing required parameters"
+                });
+                return;
+            }
+
+            
+            await db.Booking.update(
+                { statusID: 'S3' },
+                { where: { id: inputData.id } }
+            );
+
+            let emailData = {
+                receiverEmail: inputData.email,
+                patientName: inputData.patientName,
+                language: inputData.language,
+                billImage: inputData.billImage
+            };
+
+            await emailService.sendBillEmail(emailData);
+
+            resolve({
+                errCode: 0,
+                message: "Confirm appointment and send bill successfully"
+            });
+
+        } catch (error) {
+            console.error('Error in confirmPatientAppointment:', error);
+            reject(error);
+        }
+    });
+}
 
 module.exports = {
     getTopDoctorHome : getTopDoctorHome,
@@ -404,5 +468,6 @@ module.exports = {
     getExtraInforDoctorById : getExtraInforDoctorById,
     getProfileDoctorById : getProfileDoctorById,
     getSpecialtyDoctorById : getSpecialtyDoctorById,
-    getPatientByDocotorId : getPatientByDocotorId
+    getPatientByDocotorId : getPatientByDocotorId,
+    confirmPatientAppointment : confirmPatientAppointment
 }

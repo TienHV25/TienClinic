@@ -16,7 +16,8 @@ export const path = {
     ALL_CLINIC: '/all-clinic',
     ALL_HANDBOOK: '/all-handbook',
     HANDBOOK_TEST: '/handbook-test/:id',
-    HANDBOOK_TEST_RESULT: '/handbook-test-result'
+    HANDBOOK_TEST_RESULT: '/handbook-test-result',
+    SEARCH: '/search'
 };
 
 export const LANGUAGE = {

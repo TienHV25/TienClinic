@@ -177,5 +177,12 @@
         "choose_doctor": "Chọn bác sĩ:",
         "choose_date": "Chọn ngày:",
         "save_schedule": "Lưu thay đổi"
+    },
+    "manage-patient":{
+        "modal-title": "Gửi hóa đơn khám bệnh",
+        "email": "Email bệnh nhân",
+        "bill": "Chọn file đơn thuốc",
+        "confirm": "Xác nhận",
+        "cancel": "Hủy"
     }
 }

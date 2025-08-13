@@ -4,9 +4,12 @@ import "./ManagePatient.scss";
 import { FormattedMessage } from 'react-intl';
 import DatePicker from "../../../components/Input/DatePicker";
 import moment from 'moment';
-import { getPatientByDocotorId } from "../../../services/userService";
+import { getPatientByDocotorId, confirmPatientAppointment } from "../../../services/userService";
 import { USER_ROLE } from '../../../utils';
 import * as actions from "../../../store/actions";
+import { Modal } from 'reactstrap';
+import {CommonUtils} from "../../../utils";
+import { toast } from 'react-toastify';
 
 class ManagePatient extends Component {
     constructor(props) {
@@ -14,7 +17,12 @@ class ManagePatient extends Component {
         this.state = {
             currentDate: moment().add(1, 'day').toDate(),
             patientList: [],
-            doctorId: '' 
+            doctorId: '' ,
+            isOpenModal: false,
+            email: '',
+            imageBase64: '',
+            selectedPatient: null,
+            isLoading: false
         }
     }
 
@@ -55,14 +63,82 @@ class ManagePatient extends Component {
         });
     }
 
-    handleConfirm = (id) => {
-        alert(`Xác nhận bệnh nhân ID: ${id}`);
+    handleOnChangeImage = async (event) => {
+        let data = event.target.files;
+        let file = data[0];
+        if(file){
+            let base64 = await CommonUtils.getBase64(file);
+            this.setState({
+                imageBase64: base64
+            })
+        }
+    }
+
+    handleToggle = () => {
+        this.setState({
+            isOpenModal: !this.state.isOpenModal,
+            email: '',
+            imageBase64: '',
+            selectedPatient: null
+        })
+    }
+
+    handleConfirm = (patient) => {
+        this.setState({
+            isOpenModal: true,
+            email: patient.patientData?.email || '',
+            selectedPatient: patient
+        })
+    }
+
+    handleSubmit = async () => {
+        try {
+            if (!this.state.imageBase64) {
+                toast.error('Vui lòng chọn file hóa đơn!');
+                return;
+            }
+
+            if (!this.state.selectedPatient) {
+                toast.error('Không tìm thấy thông tin bệnh nhân!');
+                return;
+            }
+
+            this.setState({ isLoading: true });
+
+            let { selectedPatient, imageBase64, doctorId } = this.state;
+            let { language} = this.props;
+
+            let requestData = {
+                email: selectedPatient.patientData?.email,
+                patientName: `${selectedPatient.patientData?.lastName || ''} ${selectedPatient.patientData?.firstName || ''}`,
+                language: language,
+                billImage: imageBase64,
+                id: selectedPatient.id,
+            };
+
+            let res = await confirmPatientAppointment(requestData);
+            
+            if (res && res.errCode === 0) {
+                toast.success('Xác nhận thành công và đã gửi hóa đơn qua email cho bệnh nhân!');
+                this.handleToggle();
+                this.fetchAllPatient(doctorId, moment(this.state.currentDate).format('YYYY-MM-DD'));
+            } else {
+                toast.error(res.message || 'Có lỗi xảy ra khi xác nhận!');
+            }
+        } catch (error) {
+            console.error('Error confirming appointment:', error);
+            toast.error('Có lỗi xảy ra khi xác nhận!');
+        } finally {
+           this.setState({ isLoading: false }); 
+        }
     }
 
     render() {
         let { patientList } = this.state;
         let { language } = this.props;
+        console.log("check ",this.state.selectedPatient)
         return (
+        <>
             <div className="manage-patient-container">
                 <h2 className="title">QUẢN LÝ BỆNH NHÂN KHÁM BỆNH</h2>
 
@@ -73,7 +149,6 @@ class ManagePatient extends Component {
                             onChange={this.handleOnChangeDatePicker}
                             className="form-control"
                             value={this.state.currentDate}
-                            minDate={moment().startOf('day').toDate()}
                         />
                     </div>
                 </div>
@@ -104,9 +179,9 @@ class ManagePatient extends Component {
                                         <td>
                                             <button
                                                 className="btn-confirm"
-                                                onClick={() => this.handleConfirm(item.id)}
+                                                onClick={() => this.handleConfirm(item)}
                                             >
-                                                Xác nhận
+                                                <FormattedMessage id="manage-patient.confirm" />
                                             </button>
                                         </td>
                                     </tr>
@@ -120,6 +195,59 @@ class ManagePatient extends Component {
                     </table>
                 </div>
             </div>
+            <Modal className='manage-patient-modal-container' 
+                    isOpen= {this.state.isOpenModal} 
+                    toggle={() => {this.handleToggle()}} 
+                    centered
+                    size='lg'
+                    > 
+                <div className='manage-patient-modal-content'>
+                    <div className='manage-patient-modal-header'>
+                        <span className='left'>
+                            <FormattedMessage id="manage-patient.modal-title" />
+                        </span>
+                        <span className='right' onClick={() => {this.handleToggle()}}>
+                            <i className='fas fa-times'></i>
+                        </span>
+                    </div>
+                    <div className='manage-patient-modal-body'>
+                        <div className='row'>
+                            <div className='col-6 form-group'>
+                                <label>
+                                    <FormattedMessage id="manage-patient.email" />
+                                </label>
+                                <input className='form-control'  
+                                value={this.state.email}
+                                disabled={true}/>
+                            </div>
+                            <div className='col-6 form-group'>
+                                <label>
+                                    <FormattedMessage id="manage-patient.bill" />
+                                </label>
+                                <input className='form-control-file' type='file'
+                                    accept="image/*,.pdf"
+                                    onChange={(event) => this.handleOnChangeImage(event)}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className='manage-patient-modal-footer'>
+                        <button onClick={() => {this.handleSubmit()}} className='btn-manage-patient-confirm'>
+                            <FormattedMessage id="manage-patient.confirm" />
+                        </button>
+                        <button onClick={() => {this.handleToggle()}} className='btn-manage-patient-cancel'>
+                            <FormattedMessage id="manage-patient.cancel" />
+                        </button>
+                    </div>
+                </div>
+           </Modal>
+            {this.state.isLoading && (
+                <div className="loading-overlay">
+                    <div className="spinner"></div>
+                    <span>Đang xử lý, vui lòng chờ...</span>
+                </div>
+            )}
+        </>
         )
     }
 }

@@ -71,11 +71,7 @@ class AllDoctor extends Component {
                 <div className="doctor-list">
                 {doctors && doctors.length > 0 &&
                     doctors.map((doctor, index) => {
-                        let imageBase64 = '';
-                        if (doctor.image) {
-                            imageBase64 = Buffer.from(doctor.image, 'base64').toString('binary');
-                        }
-
+                    
                         let doctorSpecialties = specialties.filter(s => s.doctorId === doctor.id);
 
                         return (
@@ -86,7 +82,7 @@ class AllDoctor extends Component {
                             >
                             <div
                                 className="doctor-img"
-                                style={{ backgroundImage: `url(${imageBase64})` }}
+                                style={{ backgroundImage: `url(${doctor.image})` }}
                             ></div>
                             <div className="doctor-info">
                                 <h3>

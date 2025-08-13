@@ -29,6 +29,7 @@ import DetailHandbook from './Patients/Handbook/DetailHandbook.js';
 import AllHandbook from './HomePage/Section/AllHandbook.js';
 import HandbookTest from './Patients/Handbook/HandbookTest.js';
 import HandbookTestResult from './Patients/Handbook/HandbookTestResult.js';
+import SearchPage from './Patients/Search/SearchPage.js';
 
 class App extends Component {
 
@@ -75,6 +76,7 @@ class App extends Component {
                                 <Route path={path.ALL_HANDBOOK} component={AllHandbook} />
                                 <Route path={path.HANDBOOK_TEST} component={HandbookTest} />
                                 <Route path={path.HANDBOOK_TEST_RESULT} component={HandbookTestResult} />
+                                <Route path={path.SEARCH} component={SearchPage} />
                             </Switch>
                          </CustomScrollbars>
                         </div>

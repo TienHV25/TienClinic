@@ -184,7 +184,7 @@ class ManageSchedule extends Component {
                            onChange={this.handleOnChangeDatePicker}
                            className="form-control"
                            value={this.state.currentDate}
-                           minDate={moment().startOf('day').toDate()}
+                           minDate={moment().add(1, 'day').startOf('day').toDate()}
                          />
                     </div>
                     </div>

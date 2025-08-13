@@ -177,5 +177,12 @@
         "choose_doctor": "Choose doctor:",
         "choose_date": "Choose date:",
         "save_schedule": "Save schedule"
+    },
+    "manage-patient":{
+        "modal-title": "Send medical examination bill",
+        "email": "Patient's email",
+        "bill": "Select prescription file",
+        "confirm": "Confirm",
+        "cancel": "Cancel"
     }
 }

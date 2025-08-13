@@ -15,8 +15,30 @@ class HomeHeader extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            show: false
+            show: false,
+            placeholderIndex: 0
         };
+        this.placeholders = [
+            "Tìm kiếm bác sĩ",
+            "Tìm kiếm chuyên khoa",
+            "Tìm kiếm phòng khám",
+            "Tìm kiếm cẩm nang"
+        ];
+        this.intervalId = null;
+    }
+
+    componentDidMount() {
+        this.intervalId = setInterval(() => {
+            this.setState(prevState => ({
+                placeholderIndex: (prevState.placeholderIndex + 1) % this.placeholders.length
+            }));
+        }, 2000);
+    }
+
+    componentWillUnmount() {
+        if (this.intervalId) {
+            clearInterval(this.intervalId);
+        }
     }
 
     ChangeLanguage = (language) => {
@@ -98,7 +120,7 @@ class HomeHeader extends Component {
 
     render() {
         let { userInfo } = this.props;
-        let { show } = this.state;
+        let { show, placeholderIndex } = this.state;
 
         return (
             <React.Fragment>
@@ -165,9 +187,9 @@ class HomeHeader extends Component {
                     <div className='content-up'>
                         <div className='title'><FormattedMessage id="banner.healthcareplatform"/></div>
                         <div className='sub-title'><FormattedMessage id="banner.comprehensive"/></div>
-                        <div className='search'>
+                        <div className='search' onClick={() => this.props.navigate('/search')}>
                             <i className='fas fa-search'></i>
-                            <input type='text' placeholder='Tìm chuyên khoa khám bệnh'/>
+                            <input type='text'  placeholder={this.placeholders[placeholderIndex]} />
                         </div>
                     </div>
                     <div className='content-down'>

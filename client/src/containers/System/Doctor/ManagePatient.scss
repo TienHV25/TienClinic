@@ -70,3 +70,88 @@
         }
     }
 }
+.manage-patient-modal-content{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .manage-patient-modal-header{
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+
+        .left{
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .right{
+            float: right;
+            font-size: 18px;
+        }
+    }
+
+    .manage-patient-modal-body{
+        height: 100%;
+        padding: 15px;
+        
+    }
+
+    .manage-patient-modal-footer{
+        border-top: 1px solid #ccc;
+        padding: 10px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 20px;
+
+        button{
+            border: none;
+            outline: none;
+            padding: 5px 8px;
+            border-radius: 3px;
+        }
+
+        .btn-manage-patient-confirm{
+            background-color: orange;
+            &:hover{
+                background-color: rgb(69, 195, 210);
+                color: white;
+            }
+        }
+
+        .btn-manage-patient-cancel{
+            background-color: #ccc;
+            &:hover{
+                background-color: red;
+                color: white;
+            }
+        }
+    }
+}
+.loading-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    z-index: 9999;
+
+    .spinner {
+        border: 5px solid rgba(255,255,255,0.3);
+        border-top: 5px solid #fff;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin-bottom: 10px;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+}

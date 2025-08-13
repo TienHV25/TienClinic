@@ -31,8 +31,8 @@ const handleGetCode = (userType) => {
    return axios.get(`/api/allcode/?type=${userType}`);
 }
 
-const handleGetTopDoctorHome = (limit) => {
-   return axios.get(`/api/top-doctor-home/?limit=${limit}`);
+const handleGetTopDoctorHome = (limit, keyword) => {
+   return axios.get(`/api/top-doctor-home?limit=${limit}&keyword=${keyword || ''}`);
 }
 
 const handleGetAllDoctors = () => {
@@ -80,12 +80,12 @@ const createNewClinic = (data) => {
 }
 
 
-const getAllSpecialty = (limit) => {
-   return axios.get(`/api/get-specialty?limit=${limit}`);
+const getAllSpecialty = (limit, keyword) => {
+   return axios.get(`/api/get-specialty?limit=${limit}&keyword=${keyword || ''}`);
 }
 
-const getAllClinic = (limit) => {
-   return axios.get(`/api/get-clinic?limit=${limit}`);
+const getAllClinic = (limit, keyword) => {
+   return axios.get(`/api/get-clinic?limit=${limit}&keyword=${keyword || ''}`);
 }
 
 const getDoctorOfSpecialty = (specialtyId) => {
@@ -132,12 +132,16 @@ const createHandbook = (data) => {
    return axios.post('/api/create-new-handbook',data);
 }
 
-const getAllHandbook = (limit) => {
-   return axios.get(`/api/get-handbook?limit=${limit}`);
+const getAllHandbook = (limit, keyword) => { 
+   return axios.get(`/api/get-handbook?limit=${limit}&keyword=${keyword || ''}`);
 }
 
 const getHandbookDetail = (id) => {
    return axios.get(`/api/get-handbook-detail/?id=${id}`);
+}
+
+const confirmPatientAppointment = (data) => {
+    return axios.post(`/api/confirm-patient-appointment`, data);
 }
 
 export {
@@ -174,5 +178,6 @@ export {
    getHandbookTestDetail,
    createHandbook,
    getAllHandbook,
-   getHandbookDetail
+   getHandbookDetail,
+   confirmPatientAppointment
 }

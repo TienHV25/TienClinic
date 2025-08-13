@@ -1,6 +1,7 @@
 import { where } from 'sequelize';
 import db from '../models/index';
 const { Buffer } = require('buffer');
+const { Op } = require('sequelize');
 
 
 let createSpecialty = (data) => {
@@ -29,25 +30,37 @@ let createSpecialty = (data) => {
     })
 }
 
-let getAllSpecialty = (limit) => {
-    return new Promise(async (resolve,reject) => {
+let getAllSpecialty = (limit, keyword) => {
+    return new Promise(async (resolve, reject) => {
         try {
-        let data = await db.Specialty.findAll({limit:limit})
-        if(data && data.length > 0){
-           data = data.map(item => {item.image = Buffer.from(item.image,'base64').toString('binary')
-           return item
-           })
-        }
-        resolve({
-            errCode : 0,
-            message : "Create specialty succedd !",
-            data: data 
-        })
+            let whereCondition = {};
+            if (keyword) {
+                const keywordNormalized = keyword.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
+                whereCondition.name = { [Op.like]: `%${keywordNormalized}%` };
+            }
+
+            let data = await db.Specialty.findAll({
+                where: whereCondition,
+                limit: limit || undefined
+            });
+
+            if (data && data.length > 0) {
+                data = data.map(item => {
+                    item.image = Buffer.from(item.image, 'base64').toString('binary');
+                    return item;
+                });
+            }
+
+            resolve({
+                errCode: 0,
+                message: "Get specialty success!",
+                data: data
+            });
         } catch (error) {
             reject(error);
         }
-    })
-}
+    });
+};
 
 let getDoctorOfSpecialty = (specialtyId) => {
     return new Promise(async (resolve,reject) => {

@@ -13,20 +13,21 @@ let createClinic = async (req,res) => {
      }
 }
 
-let getAllClinic = async (req,res) => {
-     try {
-        let limit = +req.query.limit;
-        if(!limit) limit = 10;
-        let infors = await clinicService.getAllClinic(limit);
+let getAllClinic = async (req, res) => {
+    try {
+        let limit = +req.query.limit || 10;
+        let keyword = req.query.keyword || null;
+
+        let infors = await clinicService.getAllClinic(limit, keyword);
         return res.status(200).json(infors);
-     } catch (error) {
-        console.log(error)
+    } catch (error) {
+        console.log(error);
         return res.status(500).json({
             errCode: -1,
             message: "Error from server"
-        })
-     }
-}
+        });
+    }
+};
 
 let getDoctorOfClinic = async(req,res) => {
    try {

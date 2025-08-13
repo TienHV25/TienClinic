@@ -1,6 +1,7 @@
 import { where } from 'sequelize';
 import db from '../models/index';
 const { Buffer } = require('buffer');
+const { Op } = require('sequelize');
 
 let createClinic = (data) => {
     return new Promise(async (resolve,reject) => {
@@ -29,25 +30,37 @@ let createClinic = (data) => {
     })
 }
 
-let getAllClinic = (limit) => {
-    return new Promise(async (resolve,reject) => {
+let getAllClinic = (limit, keyword) => {
+    return new Promise(async (resolve, reject) => {
         try {
-        let data = await db.Clinic.findAll({limit:limit})
-        if(data && data.length > 0){
-           data = data.map(item => {item.image = Buffer.from(item.image,'base64').toString('binary')
-           return item
-           })
-        }
-        resolve({
-            errCode : 0,
-            message : "Get all clinic succedd !",
-            data: data 
-        })
+            let whereCondition = {};
+            if (keyword) {
+                const keywordNormalized = keyword.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
+                whereCondition.name = { [Op.like]: `%${keywordNormalized}%` };
+            }
+
+            let data = await db.Clinic.findAll({
+                where: whereCondition,
+                limit: limit || undefined
+            });
+
+            if (data && data.length > 0) {
+                data = data.map(item => {
+                    item.image = Buffer.from(item.image, 'base64').toString('binary');
+                    return item;
+                });
+            }
+
+            resolve({
+                errCode: 0,
+                message: "Get clinic success!",
+                data: data
+            });
         } catch (error) {
             reject(error);
         }
-    })
-}
+    });
+};
 
 let getDoctorOfClinic = (clinicId) => {
     return new Promise(async (resolve,reject) => {
