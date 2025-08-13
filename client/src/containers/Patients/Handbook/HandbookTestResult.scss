@@ -1,0 +1,58 @@
+.handbook-test-result-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    text-align: center;
+
+    .result-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #00bfa5;
+        margin-bottom: 20px;
+    }
+
+    .result-box {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+
+        .total-score {
+            font-size: 20px;
+            margin-bottom: 10px;
+
+            span {
+                font-weight: bold;
+                font-size: 28px;
+                color: #003366;
+            }
+        }
+
+        .evaluation {
+            font-size: 18px;
+            font-weight: 500;
+            color: #333;
+        }
+    }
+
+    .note {
+        font-size: 14px;
+        color: #777;
+        margin-bottom: 20px;
+    }
+
+    .download-btn {
+        padding: 10px 20px;
+        background: #00bfa5;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+
+        &:hover {
+            background: #009688;
+        }
+    }
+}

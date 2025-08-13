@@ -60,6 +60,8 @@
         "save":"Lưu"
     },
     "handbook":{
+        "handbook":"Cẩm nang",
+        "viewmore":"Xem thêm",
         "handbook_manage":"Quản lý cẩm nang",
         "handbook_name":"Tên cẩm nang",
         "handbook_image":"Ảnh cẩm nang",

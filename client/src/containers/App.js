@@ -25,6 +25,10 @@ import SignUp from './Auth/SignUp.js';
 import AllDoctor from './HomePage/Section/AllDoctor.js';
 import AllSpecialty from './HomePage/Section/AllSpecialty.js';
 import AllClinic from './HomePage/Section/AllClinic.js';
+import DetailHandbook from './Patients/Handbook/DetailHandbook.js';
+import AllHandbook from './HomePage/Section/AllHandbook.js';
+import HandbookTest from './Patients/Handbook/HandbookTest.js';
+import HandbookTestResult from './Patients/Handbook/HandbookTestResult.js';
 
 class App extends Component {
 
@@ -62,11 +66,15 @@ class App extends Component {
                                 <Route path={path.HOMEPAGE} component={(HomePage)} />
                                 <Route path={path.DETAIL_DOCTOR} component={(DetailDoctor)} />
                                 <Route path={path.DETAIL_SPECIALTY} component={(DetailSpecialty)} />
+                                <Route path={path.DETAIL_HANDBOOK} component={(DetailHandbook)} />
                                 <Route path={path.DETAIL_CLINIC} component={(DetailClinic)} />
                                 <Route path={path.VERIFY_EMIAL_BOOKING} component={(VerifyEmail)} />
                                 <Route path={path.ALL_DOCTOR} component={AllDoctor} />
                                 <Route path={path.ALL_SPECIALTY} component={AllSpecialty} />
                                 <Route path={path.ALL_CLINIC} component={AllClinic} />
+                                <Route path={path.ALL_HANDBOOK} component={AllHandbook} />
+                                <Route path={path.HANDBOOK_TEST} component={HandbookTest} />
+                                <Route path={path.HANDBOOK_TEST_RESULT} component={HandbookTestResult} />
                             </Switch>
                          </CustomScrollbars>
                         </div>

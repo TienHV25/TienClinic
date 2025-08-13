@@ -184,7 +184,7 @@ class HomeHeader extends Component {
                                 <div className='icon-child'><i className='fas fa-user-md'></i></div>
                                 <div className='text-child'><FormattedMessage id="banner.doctorconsultation"/></div>
                             </div>
-                            <div className='option-child' onClick={() => this.props.navigate('/all-clinic')}>
+                            <div className='option-child' onClick={() => this.props.navigate('/all-handbook')}>
                                 <div className='icon-child'><i className="fas fa-book-medical"></i></div>
                                 <div className='text-child'><FormattedMessage id="banner.medicalhandbook"/></div>
                             </div>

@@ -20,7 +20,7 @@ class ManageHanbookTests extends Component {
             ],
             listTests: [],
             title: '',
-            description: ''
+            evaluationName: ''
         }
     }
 
@@ -81,7 +81,7 @@ class ManageHanbookTests extends Component {
     handleSaveNewhandbook = async () => {
         let payload = {
             title: this.state.title,
-            description: this.state.description,
+            evaluationName: this.state.evaluationName,
             questions: this.state.questions
         };
         let res = await createHandbookTest(payload);
@@ -89,7 +89,7 @@ class ManageHanbookTests extends Component {
             toast.success("Tạo bộ câu hỏi thành công!");
             this.setState({
                 title: '',
-                description: '',
+                evaluationName: '',
                 questions: [{ questionText: '', options: [{ optionText: '', score: 0 }] }]
             });
             await this.fetchAllTests();
@@ -111,9 +111,9 @@ class ManageHanbookTests extends Component {
                         />
                     </div>
                     <div className='col-6 form-group'>
-                        <label>Mô tả:</label>
-                        <input className='form-control' type='text' value={this.state.description}
-                            onChange={(event) => this.handleOnChangeInput(event, 'description')}
+                        <label>Tên hội chứng:</label>
+                        <input className='form-control' type='text' value={this.state.evaluationName}
+                            onChange={(event) => this.handleOnChangeInput(event, 'evaluationName')}
                         />
                     </div>
 
@@ -171,7 +171,7 @@ class ManageHanbookTests extends Component {
                         {this.state.listTests && this.state.listTests.length > 0 &&
                             this.state.listTests.map((item, index) => (
                                 <li key={index}>
-                                    <strong>{item.title}</strong> - {item.description}
+                                    <strong>{item.title}</strong> - {item.evaluationName}
                                 </li>
                             ))
                         }

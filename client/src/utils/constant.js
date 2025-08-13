@@ -8,11 +8,15 @@ export const path = {
     DETAIL_DOCTOR: '/detail-doctor/:id',
     DETAIL_SPECIALTY: '/detail-specialty/:id',
     DETAIL_CLINIC: '/detail-clinic/:id',
+    DETAIL_HANDBOOK: '/detail-handbook/:id',
     DOCTOR: '/doctor',
     VERIFY_EMIAL_BOOKING: '/verify-booking',
     ALL_DOCTOR: '/all-doctor',
     ALL_SPECIALTY: '/all-specialty',
-    ALL_CLINIC: '/all-clinic'
+    ALL_CLINIC: '/all-clinic',
+    ALL_HANDBOOK: '/all-handbook',
+    HANDBOOK_TEST: '/handbook-test/:id',
+    HANDBOOK_TEST_RESULT: '/handbook-test-result'
 };
 
 export const LANGUAGE = {

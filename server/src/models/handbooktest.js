@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   const HandbookTest = sequelize.define('HandbookTest', {
     title: DataTypes.STRING,
-    description: DataTypes.TEXT
+    evaluationName: DataTypes.TEXT
   }, {});
 
   HandbookTest.associate = function(models) {

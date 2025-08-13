@@ -60,6 +60,8 @@
         "save": "Save"
     },
     "handbook":{
+        "handbook":"Handbook",
+        "viewmore":"View more",
         "handbook_manage":"Manage Handbook",
         "handbook_name":"Handbook Name",
         "handbook_image":"Handbook Image",

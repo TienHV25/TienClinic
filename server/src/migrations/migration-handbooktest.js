@@ -13,9 +13,9 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      description: {
+      evaluationName: {
         type: Sequelize.TEXT,
-        allowNull: true
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

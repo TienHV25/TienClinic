@@ -3,7 +3,7 @@ import db from '../models/index.js';
 let createHandbookTest = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!data.title || !data.questions || !Array.isArray(data.questions)) {
+            if (!data.title || !data.questions || !data.evaluationName || !Array.isArray(data.questions)) {
                 resolve({
                     errCode: 1,
                     message: "Missing input parameter"
@@ -12,7 +12,7 @@ let createHandbookTest = (data) => {
                 
                 let newTest = await db.HandbookTest.create({
                     title: data.title,
-                    description: data.description || ""
+                    evaluationName: data.evaluationName 
                 });
 
                 
@@ -60,24 +60,54 @@ let getAllHandbookTests = () => {
 let getHandbookTestDetail = (id) => {
     return new Promise(async (resolve, reject) => {
         try {
+
             let test = await db.HandbookTest.findOne({
                 where: { id },
-                include: [
-                    {
-                        model: db.HandbookQuestion,
-                        include: [db.HandbookOption]
-                    }
-                ]
+                raw: true
             });
+
+            if (!test) {
+                return resolve({
+                    errCode: 1,
+                    errMessage: 'Test not found'
+                });
+            }
+
+            
+            let questions = await db.HandbookQuestion.findAll({
+                where: { testId: id },
+                raw: true
+            });
+
+            
+            let questionIds = questions.map(q => q.id);
+            let options = await db.HandbookOption.findAll({
+                where: { questionId: questionIds },
+                raw: true
+            });
+
+            
+            let questionsWithOptions = questions.map(q => {
+                return {
+                    ...q,
+                    options: options.filter(o => o.questionId === q.id)
+                };
+            });
+
+            
             resolve({
                 errCode: 0,
-                data: test
+                data: {
+                    ...test,
+                    questions: questionsWithOptions
+                }
             });
+
         } catch (error) {
             reject(error);
         }
     });
-}
+};
 
 let createHandbook = (data) => {
     return new Promise(async (resolve,reject) => {
