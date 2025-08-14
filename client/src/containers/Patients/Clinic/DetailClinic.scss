@@ -268,3 +268,172 @@ $font-size-xl: 28px;
     
   }
 }
+
+// Tablet: 768px – 1023px
+@media screen and (max-width: 1023px) and (min-width: 768px) {
+  .detail-clinic-container {
+    padding: 20px 10px;
+
+    .clinic-banner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+      margin: 12px 15px;
+      padding: 15px;
+
+      .clinic-text {
+        h1 {
+          font-size: 22px;
+        }
+        p {
+          font-size: 15px;
+        }
+      }
+
+      .clinic-menu {
+        margin-left: 0;
+        gap: 30px;
+        font-size: 16px;
+      }
+    }
+
+    .detail-clinic-infor {
+      margin: 12px 15px;
+      padding: 20px;
+      & > * {
+        font-size: 15px;
+      }
+    }
+
+    .detail-clinic-map {
+      margin: 12px 15px;
+      padding: 20px;
+
+      span {
+        font-size: 22px;
+      }
+
+      .map {
+        height: 220px;
+      }
+    }
+
+    .detail-clinic-doctor-content {
+      padding: 10px;
+
+      .detail-clinic-doctor {
+        flex-direction: column;
+        margin: 10px 15px;
+        padding: 20px;
+
+        .detail-clinic-doctor-left,
+        .detail-clinic-doctor-right {
+          width: 100%;
+        }
+
+        .detail-clinic-doctor-right {
+          .detail-clinic-doctor-right-up,
+          .detail-clinic-doctor-right-down {
+            border-left: none;
+            padding: 10px;
+          }
+        }
+      }
+    }
+
+    .sticky-footer-button {
+      padding: 10px;
+      .booking-button {
+        font-size: 15px;
+        padding: 10px;
+      }
+    }
+  }
+}
+
+// Mobile: ≤767px
+@media screen and (max-width: 767px) {
+  .detail-clinic-container {
+    padding: 10px 5px;
+
+    .clinic-banner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+      margin: 10px 5px;
+      padding: 12px;
+
+      .clinic-text {
+        h1 {
+          font-size: 20px;
+        }
+        p {
+          font-size: 14px;
+        }
+      }
+
+      .clinic-menu {
+        flex-wrap: wrap;
+        gap: 15px;
+        font-size: 14px;
+        margin-left: 0;
+      }
+    }
+
+    .detail-clinic-infor {
+      margin: 10px 5px;
+      padding: 15px;
+      & > * {
+        font-size: 14px;
+      }
+    }
+
+    .detail-clinic-map {
+      margin: 10px 5px;
+      padding: 15px;
+
+      span {
+        font-size: 20px;
+      }
+
+      .map {
+        height: 180px;
+      }
+    }
+
+    .detail-clinic-doctor-content {
+      padding: 5px;
+
+      .detail-clinic-doctor {
+        flex-direction: column;
+        margin: 8px 5px;
+        padding: 15px;
+
+        .detail-clinic-doctor-left,
+        .detail-clinic-doctor-right {
+          width: 100%;
+        }
+
+        .detail-clinic-doctor-left {
+          margin-bottom: 10px;
+        }
+
+        .detail-clinic-doctor-right {
+          .detail-clinic-doctor-right-up,
+          .detail-clinic-doctor-right-down {
+            border-left: none;
+            padding: 8px;
+          }
+        }
+      }
+    }
+
+    .sticky-footer-button {
+      padding: 8px;
+      .booking-button {
+        font-size: 14px;
+        padding: 8px;
+      }
+    }
+  }
+}

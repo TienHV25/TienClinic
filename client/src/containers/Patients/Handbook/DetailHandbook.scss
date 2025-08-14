@@ -41,3 +41,46 @@
         }
         }
 }
+
+// Tablet: 768px – 1023px
+@media (max-width: 1023px) and (min-width: 768px) {
+  .detail-handbook-container {
+    .detail-handbook-infor {
+      margin: 0 30px;
+      padding: 25px;
+    }
+
+    .start-btn-container {
+      margin-top: 15px;
+
+      .start-btn {
+        width: 50%;
+        font-size: 18px;
+        padding: 12px 40px;
+      }
+    }
+  }
+}
+
+// Mobile: ≤767px
+@media (max-width: 767px) {
+  .detail-handbook-container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    .detail-handbook-infor {
+      margin: 0 15px;
+      padding: 20px;
+    }
+
+    .start-btn-container {
+      margin-top: 15px;
+
+      .start-btn {
+        width: 70%;
+        font-size: 16px;
+        padding: 10px 20px;
+      }
+    }
+  }
+}

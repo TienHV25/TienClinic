@@ -72,3 +72,99 @@
         }
     }
 }
+
+// Tablet: 768px – 1023px
+@media screen and (max-width: 1023px) and (min-width: 768px) {
+  .detail-specialty-container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    .detail-specialty-infor {
+      margin: 12px 15px;
+      padding: 20px;
+    }
+
+    .detail-specialty-doctor-content {
+      .detail-specialty-select {
+        width: 40%;
+        margin: 10px 15px;
+      }
+
+      .no-doctor-message {
+        margin: 10px 15px;
+      }
+
+      .detail-specialty-doctor {
+        flex-direction: column;
+        margin: 10px 15px;
+        padding: 20px;
+
+        .detail-specialty-doctor-left,
+        .detail-specialty-doctor-right {
+          width: 100%;
+        }
+
+        .detail-specialty-doctor-left {
+          margin: 0 0 20px;
+        }
+
+        .detail-specialty-doctor-right {
+          .detail-specialty-doctor-right-up,
+          .detail-specialty-doctor-right-down {
+            border-left: none;
+            padding: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Mobile: ≤767px
+@media screen and (max-width: 767px) {
+  .detail-specialty-container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    .detail-specialty-infor {
+      margin: 10px 5px;
+      padding: 15px;
+    }
+
+    .detail-specialty-doctor-content {
+      .detail-specialty-select {
+        width: 100%;
+        margin: 10px 5px;
+      }
+
+      .no-doctor-message {
+        margin: 10px 5px;
+        font-size: 14px;
+      }
+
+      .detail-specialty-doctor {
+        flex-direction: column;
+        margin: 8px 5px;
+        padding: 15px;
+
+        .detail-specialty-doctor-left,
+        .detail-specialty-doctor-right {
+          width: 100%;
+          margin: 0 0 20px;
+        }
+
+        .detail-specialty-doctor-left {
+          margin-bottom: 10px;
+        }
+
+        .detail-specialty-doctor-right {
+          .detail-specialty-doctor-right-up,
+          .detail-specialty-doctor-right-down {
+            border-left: none;
+            padding: 8px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -15,3 +15,48 @@
         }
     }
 }
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .Footer-container {
+        height: auto;
+
+        .Footer-contain {
+            height: auto;
+            padding: 20px;
+
+            span {
+                font-size: 13px;
+                display: block; 
+                a {
+                    display: inline-block;
+                    margin-top: 5px;
+                }
+            }
+        }
+    }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+    .Footer-container {
+        height: auto;
+
+        .Footer-contain {
+            height: auto;
+            padding: 15px 10px;
+            text-align: center;
+
+            span {
+                font-size: 12px;
+                display: block; 
+                line-height: 1.4;
+
+                a {
+                    display: block;
+                    margin-top: 8px;
+                }
+            }
+        }
+    }
+}

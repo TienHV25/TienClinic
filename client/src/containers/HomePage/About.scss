@@ -1,31 +1,183 @@
-.About-container{
+.About-container {
     height: auto;
     background-image: url('../../assets/Doctor-Background.png');
-    .About-contain{
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 20px 0;
+
+    .About-contain {
+        max-width: 1200px;
+        margin: 0 auto;
         text-align: center;
-        padding: 40px 100px;
-        span{
-            font-size: 32px;
+        padding: 40px 20px;
+
+        > span {
+            font-size: clamp(24px, 4vw, 32px);
             font-weight: 600;
             display: block;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            line-height: 1.2;
         }
-        .About-contain-info{
+
+        .About-contain-info {
             display: flex;
-            gap: 25px;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            max-width: 100%;
 
             iframe {
-            width: 100%;          
-            max-width: 800px;     
-            height: 450px;       
-            border: none;
+                width: 100%;
+                max-width: 930px;
+                height: auto;
+                aspect-ratio: 16/9;
+                border: none;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             }
 
-            span{
-                font-size: 14px;
-                margin-top: 200px;
+            span {
+                font-size: clamp(12px, 2vw, 16px);
+                line-height: 1.6;
+                max-width: 800px;
+                text-align: justify;
+                margin: 0 auto;
             }
         }
     }
 }
 
+/* Desktop Large: ≥1366px */
+@media (min-width: 1366px) {
+    .About-container {
+        .About-contain {
+            padding: 60px 40px;
+
+            .About-contain-info {
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 40px;
+
+                iframe {
+                    flex: 2;
+                    max-width: 800px;
+                    height: 450px;
+                }
+
+                span {
+                    flex: 1;
+                    margin-top: 0;
+                    text-align: left;
+                    font-size: 16px;
+                    min-width: 300px;
+                }
+            }
+        }
+    }
+}
+
+/* Desktop Medium: 1024px – 1365px */
+@media (max-width: 1365px) and (min-width: 1024px) {
+    .About-container {
+        .About-contain {
+            padding: 50px 30px;
+
+            .About-contain-info {
+                iframe {
+                    max-width: 700px;
+                    height: 394px;
+                }
+
+                span {
+                    font-size: 15px;
+                    max-width: 700px;
+                }
+            }
+        }
+    }
+}
+
+/* Tablet: 768px – 1023px */
+@media (max-width: 1023px) and (min-width: 768px) {
+    .About-container {
+        .About-contain {
+            padding: 40px 25px;
+
+            > span {
+                margin-bottom: 25px;
+            }
+
+            .About-contain-info {
+                gap: 25px;
+
+                iframe {
+                    max-width: 600px;
+                    height: 338px;
+                }
+
+                span {
+                    font-size: 14px;
+                    max-width: 600px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
+
+/* Mobile Large: 576px – 767px */
+@media (max-width: 767px) and (min-width: 576px) {
+    .About-container {
+        .About-contain {
+            padding: 30px 20px;
+
+            > span {
+                margin-bottom: 20px;
+            }
+
+            .About-contain-info {
+                gap: 20px;
+
+                iframe {
+                    height: 250px;
+                }
+
+                span {
+                    font-size: 13px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
+
+/* Mobile Small: ≤575px */
+@media (max-width: 575px) {
+    .About-container {
+        padding: 10px 0;
+
+        .About-contain {
+            padding: 20px 15px;
+
+            > span {
+                margin-bottom: 15px;
+            }
+
+            .About-contain-info {
+                gap: 15px;
+
+                iframe {
+                    height: 200px;
+                    border-radius: 4px;
+                }
+
+                span {
+                    font-size: 12px;
+                    text-align: center;
+                    line-height: 1.5;
+                }
+            }
+        }
+    }
+}

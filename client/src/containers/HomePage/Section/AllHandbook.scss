@@ -55,3 +55,56 @@
         }
     }
 }
+
+// Tablet: 768px – 1023px
+@media (max-width: 1023px) and (min-width: 768px) {
+    .all-handbook-container {
+        padding: 20px 40px;
+
+        .title {
+            font-size: 22px;
+            margin-bottom: 25px;
+        }
+
+        .handbook-list {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+
+            .handbook-item {
+                .handbook-name {
+                    font-size: 15px;
+                    padding: 8px;
+                }
+            }
+        }
+    }
+}
+
+// Mobile: ≤767px
+@media (max-width: 767px) {
+    .all-handbook-container {
+        padding: 15px 15px;
+
+        .title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .handbook-list {
+            grid-template-columns: 1fr;
+            gap: 15px;
+
+            .handbook-item {
+                .handbook-name {
+                    font-size: 14px;
+                    padding: 8px;
+                }
+
+                .handbook-img {
+                    padding-top: 50%;
+                }
+            }
+        }
+    }
+}

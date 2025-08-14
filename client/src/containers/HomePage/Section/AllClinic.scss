@@ -68,3 +68,56 @@
         }
     }
 }
+
+// Tablet: 768px – 1023px
+@media (max-width: 1023px) and (min-width: 768px) {
+    .all-clinic-container {
+        padding: 20px 40px;
+
+        .title {
+            font-size: 22px;
+            margin-bottom: 25px;
+        }
+
+        .clinic-list {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+
+            .clinic-item {
+                .clinic-name {
+                    font-size: 15px;
+                    padding: 8px;
+                }
+            }
+        }
+    }
+}
+
+// Mobile: ≤767px
+@media (max-width: 767px) {
+    .all-clinic-container {
+        padding: 15px 15px;
+
+        .title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .clinic-list {
+            grid-template-columns: 1fr;
+            gap: 15px;
+
+            .clinic-item {
+                .clinic-name {
+                    font-size: 14px;
+                    padding: 8px;
+                }
+
+                .clinic-img {
+                    padding-top: 50%;
+                }
+            }
+        }
+    }
+}

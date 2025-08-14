@@ -109,12 +109,10 @@ class Doctor extends Component {
                 <div
                   className='img-customize'
                   key={index}
-                >
-                  <div
-                    className='img-doctor'
-                    style={{ backgroundImage: `url(${doctor.image})` }}
-                    onClick={() => this.handleViewDetailDoctor(doctor)}
-                  ></div>
+                >  
+                  <div className='img-doctor'>
+                      <img src={doctor.image} alt="doctor Logo" onClick={() => this.handleViewDetailDoctor(doctor)} />
+                  </div>
 
                   <h3 onClick={() => this.handleViewDetailDoctor(doctor)}>
                     {this.props.language === 'vi'

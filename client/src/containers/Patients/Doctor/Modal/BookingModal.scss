@@ -1,110 +1,199 @@
-.booking-modal-container{
-        padding: 20px 30px;
-        max-width: 600px;
-        margin: 0 auto; 
-        box-sizing: border-box;
-    .booking-modal-content{
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
+.booking-modal-container {
+  padding: 20px 30px;
+  max-width: 600px;
+  margin: 0 auto;
+  box-sizing: border-box;
 
-        .booking-modal-header{
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-
-            .left{
-                font-size: 16px;
-                font-weight: 600;
-                color: #333;
-            }
-
-            .right{
-                float: right;
-                font-size: 18px;
-            }
-        }
-
-        .booking-modal-body{
-            height: 100%;
-            padding: 15px;
-            
-            .doctor-info{
-                span{
-                  font-weight: 600;
-                 }
-            }
-
-            .price{
-                  font-weight: 600;
-                  margin-bottom: 5px;
-            }
-
-            select{
-                border-bottom: 1px solid #ddd;
-                cursor: pointer;
-               
-                option{
-                 cursor: pointer; 
-                }
-            }
-        }
-
-        .booking-modal-footer{
-            border-top: 1px solid #ccc;
-            padding: 10px;
-            display: flex;
-            justify-content: flex-end;
-            gap: 20px;
-
-            button{
-                border: none;
-                outline: none;
-                padding: 5px 8px;
-                border-radius: 3px;
-            }
-
-            .btn-booking-confirm{
-                background-color: orange;
-                &:hover{
-                    background-color: rgb(69, 195, 210);
-                    color: white;
-                }
-            }
-
-            .btn-booking-cancel{
-                background-color: #ccc;
-                &:hover{
-                    background-color: red;
-                    color: white;
-                }
-            }
-        }
-    }
-}
-.loading-overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    background: rgba(0,0,0,0.4);
+  .booking-modal-content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    z-index: 9999;
+    gap: 15px;
 
-    .spinner {
-        border: 5px solid rgba(255,255,255,0.3);
-        border-top: 5px solid #fff;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        animation: spin 1s linear infinite;
-        margin-bottom: 10px;
+    .booking-modal-header {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+
+      .left {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+      }
+
+      .right {
+        float: right;
+        font-size: 18px;
+      }
     }
 
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+    .booking-modal-body {
+      height: 100%;
+      padding: 15px;
+
+      .doctor-info {
+        span {
+          font-weight: 600;
+        }
+      }
+
+      .price {
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+
+      select {
+        border-bottom: 1px solid #ddd;
+        cursor: pointer;
+
+        option {
+          cursor: pointer;
+        }
+      }
     }
+
+    .booking-modal-footer {
+      border-top: 1px solid #ccc;
+      padding: 10px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 20px;
+
+      button {
+        border: none;
+        outline: none;
+        padding: 5px 8px;
+        border-radius: 3px;
+      }
+
+      .btn-booking-confirm {
+        background-color: orange;
+        &:hover {
+          background-color: rgb(69, 195, 210);
+          color: white;
+        }
+      }
+
+      .btn-booking-cancel {
+        background-color: #ccc;
+        &:hover {
+          background-color: red;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+// Tablet: 768px – 1023px
+@media (max-width: 1023px) and (min-width: 768px) {
+  .booking-modal-container {
+    max-width: 500px;
+    padding: 15px 20px;
+
+    .booking-modal-content {
+      gap: 12px;
+
+      .booking-modal-header {
+        .left {
+          font-size: 15px;
+        }
+        .right {
+          font-size: 16px;
+        }
+      }
+
+      .booking-modal-body {
+        padding: 12px;
+
+        .doctor-info {
+          span {
+            font-size: 14px;
+          }
+        }
+
+        .price {
+          font-size: 14px;
+        }
+
+        input.form-control,
+        select.form-control {
+          font-size: 14px;
+          padding: 5px;
+        }
+      }
+
+      .booking-modal-footer {
+        gap: 15px;
+
+        button {
+          padding: 4px 7px;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+// Mobile: ≤767px
+@media (max-width: 767px) {
+  .booking-modal-container {
+    max-width: 95%;
+    padding: 200px 15px;
+
+    .booking-modal-content {
+      gap: 10px;
+
+      .booking-modal-header {
+        flex-direction: column;
+        align-items: flex-start;
+        .left {
+          font-size: 14px;
+          margin-bottom: 5px;
+        }
+        .right {
+          float: none;
+          font-size: 16px;
+          align-self: flex-end;
+        }
+      }
+
+      .booking-modal-body {
+        padding: 10px;
+
+        .doctor-info {
+          flex-direction: column;
+          span {
+            font-size: 13px;
+            margin-top: 5px;
+          }
+        }
+
+        .price {
+          font-size: 13px;
+          margin-bottom: 5px;
+        }
+
+        input.form-control,
+        select.form-control {
+          font-size: 13px;
+          padding: 4px;
+        }
+
+        .form-group {
+          margin-bottom: 10px;
+        }
+      }
+
+      .booking-modal-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+
+        button {
+          width: 100%;
+          padding: 6px 0;
+          font-size: 14px;
+        }
+      }
+    }
+  }
 }
