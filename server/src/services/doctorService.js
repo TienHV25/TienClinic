@@ -251,22 +251,25 @@ let bulkCreateSchedule = (data) => {
     )
 }
 
-let getScheduleByDate = (doctorID,date) => {
-    return new Promise((async (resolve,reject) => {
+let getScheduleByDate = (doctorID, date) => {
+    return new Promise(async (resolve, reject) => {
         try {
             if(!doctorID || !date) {
                 resolve({
                     errCode: 1,
-                    message: "Missing requried parameter"
-                })
+                    message: "Missing required parameter"
+                });
             } else {
+                const start = moment(date).startOf('day').toDate();
+                const end = moment(date).endOf('day').toDate();
+
                 let data = await db.Schedule.findAll({
-                    where:{
+                    where: {
                         doctorID: doctorID,
-                        date: date
+                        date: { [Op.between]: [start, end] }
                     },
                     include: [
-                    {model: db.Allcode, as: 'timeTypeData', attributes: ['valueEn','valueVi']},
+                        {model: db.Allcode, as: 'timeTypeData', attributes: ['valueEn','valueVi']},
                     ],
                     raw: false,
                     nest: true
@@ -278,12 +281,12 @@ let getScheduleByDate = (doctorID,date) => {
                     errCode: 0,
                     message: 'Get schedule successfully',
                     data: data
-                })
+                });
             }
         } catch (error) {
             reject(error);
         }
-    }))
+    });
 }
 
 let getExtraInforDoctorById = (doctorId) =>{
