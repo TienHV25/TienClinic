@@ -260,8 +260,8 @@ let getScheduleByDate = (doctorID, date) => {
                     message: "Missing required parameter"
                 });
             } else {
-                const start = moment(date).startOf('day').toDate();
-                const end = moment(date).endOf('day').toDate();
+                const start = moment(date).utcOffset(7).startOf('day').toDate();
+                const end   = moment(date).utcOffset(7).endOf('day').toDate();
 
                 let data = await db.Schedule.findAll({
                     where: {
