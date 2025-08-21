@@ -56,6 +56,7 @@ let bulkCreateSchedule = async(req,res) => {
        let infors = await doctorService.bulkCreateSchedule(req.body);
        return res.status(200).json(infors);
     } catch (error) {
+        console.log(error)
         return res.status(500).json({
             errCode: -1,
             message: "Error from server"

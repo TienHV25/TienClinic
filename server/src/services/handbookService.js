@@ -139,17 +139,21 @@ let createHandbook = (data) => {
     })
 }
 
+function removeAccents(str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
 let getAllHandbook = (limit, keyword) => {
     return new Promise(async (resolve, reject) => {
         try {
             let whereCondition = {};
+            
             if (keyword) {
-                const keywordLower = keyword.toLowerCase();
-                    whereCondition = where(
-                    fn('LOWER', col('name')),
-                    {
-                        [Op.like]: `%${keywordLower}%`
-                    }
+                const keywordNormalized = removeAccents(keyword.toLowerCase());
+                
+                whereCondition = where(
+                    fn('unaccent', fn('LOWER', col('name'))),
+                    { [Op.like]: `%${keywordNormalized}%` }
                 );
             }
 
@@ -160,7 +164,9 @@ let getAllHandbook = (limit, keyword) => {
 
             if (data && data.length > 0) {
                 data = data.map(item => {
-                    item.image = Buffer.from(item.image, 'base64').toString('binary');
+                    if (item.image) {
+                        item.image = Buffer.from(item.image, 'base64').toString('binary');
+                    }
                     return item;
                 });
             }

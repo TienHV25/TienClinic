@@ -30,16 +30,20 @@ let createSpecialty = (data) => {
     })
 }
 
+function removeAccents(str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
 let getAllSpecialty = (limit, keyword) => {
     return new Promise(async (resolve, reject) => {
         try {
             let whereCondition = {};
             if (keyword) {
-                const keywordLower = keyword.toLowerCase();
+                const keywordNormalized = removeAccents(keyword.toLowerCase());
                 whereCondition = where(
                 fn('unaccent',fn('LOWER', col('name'))),
                 {
-                    [Op.like]: `%${keywordLower}%`
+                    [Op.like]: `%${keywordNormalized}%`
                 }
                 );
             }
