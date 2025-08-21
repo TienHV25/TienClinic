@@ -30,7 +30,12 @@
         "logout": "Đăng xuất",
         "manage-system": "Quản lý hệ thống",
         "manage-schedule": "Quản lý lịch khám",
-        "manage-patient": "Quản lý bệnh nhân"
+        "manage-patient": "Quản lý bệnh nhân",
+        "doctor-search": "Tìm kiếm bác sĩ",
+        "specialty-search": "Tìm kiếm chuyên khoa",
+        "clinic-search": "Tìm kiếm phòng khám",
+        "handbook-search": "Tìm kiếm cẩm nang",
+        "all-search": "Tìm kiếm tất cả"
     },
     "banner":{
         "healthcareplatform":"NỀN TẢNG Y TẾ",
@@ -100,7 +105,8 @@
         "examination-price-label": "Giá khám",
         "view-detail": "Xem chi tiết",
         "hide-price": "Ẩn bảng giá",
-        "payment-methods-text": "Phòng khám có các hình thức thanh toán:"
+        "payment-methods-text": "Phòng khám có các hình thức thanh toán:",
+        "manage-patient": "QUẢN LÝ BỆNH NHÂN KHÁM BỆNH"
     },
     "booking": {
         "modal-title": "Thông tin đặt lịch khám",
@@ -183,6 +189,27 @@
         "email": "Email bệnh nhân",
         "bill": "Chọn file đơn thuốc",
         "confirm": "Xác nhận",
-        "cancel": "Hủy"
+        "cancel": "Hủy",
+        "index": "STT",
+        "time": "Thời gian",
+        "fullname": "Họ và tên",
+        "address": "Địa chỉ",
+        "gender": "Giới tính",
+        "actions": "Hành động"
+    },
+    "manage-handbook":{
+        "handbook_manage": "Quản lý bộ câu hỏi",
+        "title_test": "Tiêu đề Test:",
+        "evaluation_name": "Tên hội chứng:",
+        "question_list": "Danh sách câu hỏi",
+        "question_placeholder": "Câu hỏi {index}",
+        "option_placeholder": "Đáp án {index}",
+        "score_placeholder": "Điểm",
+        "add_option": "+ Thêm đáp án",
+        "remove_question": "Xóa câu hỏi",
+        "add_question": "+ Thêm câu hỏi",
+        "save": "Lưu bộ câu hỏi",
+        "create_success": "Tạo bộ câu hỏi thành công!",
+        "create_failed": "Tạo bộ câu hỏi thất bại!"
     }
 }

@@ -30,7 +30,12 @@
         "logout": "Log out",
         "manage-system": "Manage system",
         "manage-schedule": "Manage schedule",
-        "manage-patient": "Manage patient"
+        "manage-patient": "Manage patient",
+        "doctor-search": "Search doctor",
+        "specialty-search": "Search specialty",
+        "clinic-search": "Search clinic",
+        "handbook-search": "Search handbook",
+        "all-search": "Search all"
     },
      "banner":{
         "healthcareplatform":"HEALTHCARE PLATFORM",
@@ -100,7 +105,8 @@
         "examination-price-label": "Examination price",
         "view-detail": "View detail",
         "hide-price": "Hide price table",
-        "payment-methods-text": "The clinic has the following payment methods:"
+        "payment-methods-text": "The clinic has the following payment methods:",
+        "manage-patient": "MANAGE PATIENT"
     },
     "booking": {
         "modal-title": "Appointment Booking Information",
@@ -183,6 +189,27 @@
         "email": "Patient's email",
         "bill": "Select prescription file",
         "confirm": "Confirm",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "index": "No.",
+        "time": "Time",
+        "fullname": "Full Name",
+        "address": "Address",
+        "gender": "Gender",
+        "actions": "Actions"
+    },
+    "manage-handbook":{
+        "handbook_manage": "Manage Handbook Tests",
+        "title_test": "Test Title:",
+        "evaluation_name": "Evaluation Name:",
+        "question_list": "List of Questions",
+        "question_placeholder": "Question {index}",
+        "option_placeholder": "Option {index}",
+        "score_placeholder": "Score",
+        "add_option": "+ Add Option",
+        "remove_question": "Remove Question",
+        "add_question": "+ Add Question",
+        "save": "Save Test",
+        "create_success": "Test created successfully!",
+        "create_failed": "Failed to create test!"
     }
 }

@@ -8,7 +8,7 @@ class HomeFooter extends Component {
           <div className='Footer-container'>
             <div className='Footer-contain'>
                 <span>&copy; 2025 TienClinic.More Information,can visit another website.
-                    <a target="blank" href='http://localhost:4000/'>
+                    <a target="blank" href='https://tien-tech4-u.vercel.app/'>
                         &#8594; Click here &#8592;
                     </a>
                 </span>

@@ -122,13 +122,13 @@ class Login extends Component {
                         </span>
                     </div>
 
-                    <div style={{display:'flex',marginTop:'90px',textAlign:'center',fontSize:'14px',marginLeft:'100px'}}>
-                        <div style={{color:'rgb(120, 120, 120)'}}>
+                    <div className="signup-redirect">
+                        <div className="signup-text">
                             <FormattedMessage id="homeheader.noaccount" />
                         </div>
                         <div 
+                            className="signup-link"
                             onClick={() => this.props.navigate('/sign-up')} 
-                            style={{color:'rgb(13, 92, 182)',cursor:'pointer',marginLeft:'5px'}}
                         >
                             <FormattedMessage id="homeheader.creccount" />
                         </div>

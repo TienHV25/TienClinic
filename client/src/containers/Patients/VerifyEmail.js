@@ -24,7 +24,6 @@ class VerifyEmail extends Component {
             token: token,
             doctorId: doctorID
         }) 
-        console.log("check res",res)
         if(res && res.errCode === 0) {
                 this.setState({
                     statusVerify: true,
@@ -46,7 +45,6 @@ class VerifyEmail extends Component {
 
     render() {
         let {statusVerify,errCode} = this.state;
-        console.log("check",statusVerify,errCode)
         return (
             <>
              <HomeHeader />

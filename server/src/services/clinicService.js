@@ -1,7 +1,7 @@
 import { where } from 'sequelize';
 import db from '../models/index';
 const { Buffer } = require('buffer');
-const { Op } = require('sequelize');
+const { Op, fn, col } = require('sequelize');
 
 let createClinic = (data) => {
     return new Promise(async (resolve,reject) => {
@@ -35,8 +35,13 @@ let getAllClinic = (limit, keyword) => {
         try {
             let whereCondition = {};
             if (keyword) {
-                const keywordNormalized = keyword.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
-                whereCondition.name = { [Op.like]: `%${keywordNormalized}%` };
+                const keywordLower = keyword.toLowerCase();
+                whereCondition = where(
+                fn('LOWER', col('name')),
+                {
+                    [Op.like]: `%${keywordLower}%`
+                }
+                );
             }
 
             let data = await db.Clinic.findAll({

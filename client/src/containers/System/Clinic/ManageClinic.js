@@ -64,6 +64,14 @@ class ManageClinic extends Component {
         let res = await  createNewClinic(this.state)
         if(res && res.errCode === 0){
            toast.success("Add new clinic succedd !");
+           if(this.imageInput) this.imageInput.value = null;
+           this.setState({
+                name: '',
+                imageBase64: '',
+                address: '',
+                descriptionHTML: '',
+                descriptionMarkdown: ''
+            });
         }else{
            toast.error("Add new clinic failed !");
         }
@@ -82,7 +90,7 @@ class ManageClinic extends Component {
                  </div>
                  <div className='col-6 form-group'>
                     <label><FormattedMessage id={"clinic.clinic_image"} />:</label>
-                    <input className='form-control-file' type='file'
+                    <input ref={el => this.imageInput = el} className='form-control-file' type='file'
                         onChange={(event) => this.handleOnChangeImage(event)}
                      />
                  </div>
@@ -94,7 +102,7 @@ class ManageClinic extends Component {
                  </div>
                  <div className='col-12'>
                     <MdEditor style={{ height: '300px' }} renderHTML={text => mdParser.render(text)} 
-                        onChange={this.handleEditorChange} value={this.state.contentMarkdown} />
+                        onChange={this.handleEditorChange} value={this.state.descriptionMarkdown} />
                 </div>
                 <div className='col-12'>
                     <button className='btn-save-clinic'

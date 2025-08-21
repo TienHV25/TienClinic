@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import "./ManageHanbookTests.scss";
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { createHandbookTest, getAllHandbookTests } from '../../../services/userService';
 import { toast } from 'react-toastify';
 
@@ -86,7 +86,9 @@ class ManageHanbookTests extends Component {
         };
         let res = await createHandbookTest(payload);
         if (res && res.errCode === 0) {
-            toast.success("Tạo bộ câu hỏi thành công!");
+            toast.success(this.props.language === 'vi'
+                ? "Tạo bộ câu hỏi thành công!"
+                : "Test created successfully!");
             this.setState({
                 title: '',
                 evaluationName: '',
@@ -94,36 +96,55 @@ class ManageHanbookTests extends Component {
             });
             await this.fetchAllTests();
         } else {
-            toast.error("Tạo bộ câu hỏi thất bại!");
+            toast.error(this.props.language === 'vi'
+                ? "Tạo bộ câu hỏi thất bại!"
+                : "Failed to create test!");
         }
     }
 
     render() {
+        const { intl } = this.props; 
         return (
             <div className='manage-handbook-container'>
-                <div className='ms-title'><FormattedMessage id={"handbook.handbook_manage"} /></div>
+                <div className='ms-title'>
+                    <FormattedMessage id="manage-handbook.handbook_manage" />
+                </div>
                 <div className='add-new-handbook row'>
 
                     <div className='col-6 form-group'>
-                        <label>Tiêu đề Test:</label>
-                        <input className='form-control' type='text' value={this.state.title}
+                        <label>
+                            <FormattedMessage id="manage-handbook.title_test" />
+                        </label>
+                        <input
+                            className='form-control'
+                            type='text'
+                            value={this.state.title}
                             onChange={(event) => this.handleOnChangeInput(event, 'title')}
+                            placeholder={intl.formatMessage({ id: 'manage-handbook.title_test' })}
                         />
                     </div>
                     <div className='col-6 form-group'>
-                        <label>Tên hội chứng:</label>
-                        <input className='form-control' type='text' value={this.state.evaluationName}
+                        <label>
+                            <FormattedMessage id="manage-handbook.evaluation_name" />
+                        </label>
+                        <input
+                            className='form-control'
+                            type='text'
+                            value={this.state.evaluationName}
                             onChange={(event) => this.handleOnChangeInput(event, 'evaluationName')}
+                            placeholder={intl.formatMessage({ id: 'manage-handbook.evaluation_name' })}
                         />
                     </div>
 
                     <div className='col-12 mt-3'>
-                        <h5>Danh sách câu hỏi</h5>
+                        <h5>
+                            <FormattedMessage id="manage-handbook.question_list" />
+                        </h5>
                         {this.state.questions.map((q, qIndex) => (
                             <div key={qIndex} className='question-block'>
                                 <input
                                     type="text"
-                                    placeholder={`Câu hỏi ${qIndex + 1}`}
+                                    placeholder={intl.formatMessage({ id: 'manage-handbook.question_placeholder' }, { index: qIndex + 1 })}
                                     value={q.questionText}
                                     onChange={(e) => this.handleQuestionChange(e, qIndex)}
                                     className='form-control mb-2'
@@ -132,14 +153,14 @@ class ManageHanbookTests extends Component {
                                     <div key={oIndex} className='d-flex mb-2'>
                                         <input
                                             type="text"
-                                            placeholder={`Đáp án ${oIndex + 1}`}
+                                            placeholder={intl.formatMessage({ id: 'manage-handbook.option_placeholder' }, { index: oIndex + 1 })}
                                             value={opt.optionText}
                                             onChange={(e) => this.handleOptionChange(e, qIndex, oIndex, 'optionText')}
                                             className='form-control mr-2'
                                         />
                                         <input
                                             type="number"
-                                            placeholder="Điểm"
+                                            placeholder={intl.formatMessage({ id: 'manage-handbook.score_placeholder' })}
                                             value={opt.score}
                                             onChange={(e) => this.handleOptionChange(e, qIndex, oIndex, 'score')}
                                             className='form-control mr-2'
@@ -147,35 +168,27 @@ class ManageHanbookTests extends Component {
                                         <button onClick={() => this.removeOption(qIndex, oIndex)} className='btn btn-danger'>X</button>
                                     </div>
                                 ))}
-                                <div style={{display:'flex',gap:'5px'}}>
-                                    <button onClick={() => this.addOption(qIndex)} className='btn btn-sm btn-primary mb-3'>+ Thêm đáp án</button>
-                                    <button onClick={() => this.removeQuestion(qIndex)} className='btn btn-sm btn-warning mb-3'>Xóa câu hỏi</button>
+                                <div style={{ display: 'flex', gap: '5px' }}>
+                                    <button onClick={() => this.addOption(qIndex)} className='btn btn-sm btn-primary mb-3'>
+                                        <FormattedMessage id="manage-handbook.add_option" />
+                                    </button>
+                                    <button onClick={() => this.removeQuestion(qIndex)} className='btn btn-sm btn-warning mb-3'>
+                                        <FormattedMessage id="manage-handbook.remove_question" />
+                                    </button>
                                 </div>
                                 <hr />
                             </div>
                         ))}
-                        <button onClick={this.addQuestion} className='btn btn-success mt-2'>+ Thêm câu hỏi</button>
+                        <button onClick={this.addQuestion} className='btn btn-success mt-2'>
+                            <FormattedMessage id="manage-handbook.add_question" />
+                        </button>
                     </div>
 
                     <div className='col-12'>
-                        <button className='btn-save-handbook'
-                            onClick={this.handleSaveNewhandbook}>
-                            <FormattedMessage id={"handbook.save"} />
+                        <button className='btn-save-handbook' onClick={this.handleSaveNewhandbook}>
+                            <FormattedMessage id="manage-handbook.save" />
                         </button>
                     </div>
-                </div>
-
-                <div className='list-handbook-tests mt-4'>
-                    <h5>Danh sách bài test cẩm nang </h5>
-                    <ul>
-                        {this.state.listTests && this.state.listTests.length > 0 &&
-                            this.state.listTests.map((item, index) => (
-                                <li key={index}>
-                                    <strong>{item.title}</strong> - {item.evaluationName}
-                                </li>
-                            ))
-                        }
-                    </ul>
                 </div>
             </div>
         )
@@ -188,4 +201,5 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps)(ManageHanbookTests);
+
+export default connect(mapStateToProps)(injectIntl(ManageHanbookTests));

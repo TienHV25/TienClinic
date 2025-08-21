@@ -110,6 +110,14 @@ class ManageHanbook extends Component {
         })
         if(res && res.errCode === 0){
            toast.success("Add new Handbook succedd !");
+           if(this.imageInput) this.imageInput.value = null;
+           this.setState({
+                name: '',
+                imageBase64: '',
+                descriptionHTML: '',
+                descriptionMarkdown: '',
+                selectedTest: '',
+            });
         }else{
            toast.error("Add new Handbook failed !");
         }
@@ -136,7 +144,7 @@ class ManageHanbook extends Component {
                  </div>
                  <div className='col-6 form-group'>
                     <label><FormattedMessage id={"handbook.handbook_image"} />:</label>
-                    <input className='form-control-file' type='file'
+                    <input ref={el => this.imageInput = el} className='form-control-file' type='file'
                         onChange={(event) => this.handleOnChangeImage(event)}
                      />
                  </div>
@@ -151,7 +159,7 @@ class ManageHanbook extends Component {
                  </div>
                  <div className='col-12'>
                     <MdEditor style={{ height: '300px' }} renderHTML={text => mdParser.render(text)} 
-                        onChange={this.handleEditorChange} value={this.state.contentMarkdown} />
+                        onChange={this.handleEditorChange} value={this.state.descriptionMarkdown} />
                 </div>
                 <div className='col-12'>
                     <button className='btn-save-Handbook'

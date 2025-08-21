@@ -10,6 +10,7 @@ import * as actions from "../../store/actions";
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { push } from "connected-react-router";
 import { USER_ROLE} from '../../utils';
+import { injectIntl } from 'react-intl';
 
 class HomeHeader extends Component {
     constructor(props) {
@@ -19,10 +20,10 @@ class HomeHeader extends Component {
             placeholderIndex: 0
         };
         this.placeholders = [
-            "Tìm kiếm bác sĩ",
-            "Tìm kiếm chuyên khoa",
-            "Tìm kiếm phòng khám",
-            "Tìm kiếm cẩm nang"
+            "homeheader.doctor-search",
+            "homeheader.specialty-search",
+            "homeheader.clinic-search",
+            "homeheader.handbook-search",
         ];
         this.intervalId = null;
     }
@@ -119,7 +120,7 @@ class HomeHeader extends Component {
     };
 
     render() {
-        let { userInfo } = this.props;
+        let { userInfo,intl } = this.props;
         let { show, placeholderIndex } = this.state;
 
         return (
@@ -189,7 +190,7 @@ class HomeHeader extends Component {
                         <div className='sub-title'><FormattedMessage id="banner.comprehensive"/></div>
                         <div className='search' onClick={() => this.props.navigate('/search')}>
                             <i className='fas fa-search'></i>
-                            <input type='text'  placeholder={this.placeholders[placeholderIndex]} />
+                            <input type='text' placeholder={intl.formatMessage({ id: this.placeholders[placeholderIndex]})} />
                         </div>
                     </div>
                     <div className='content-down'>
@@ -236,4 +237,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HomeHeader));
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(withRouter(HomeHeader)));

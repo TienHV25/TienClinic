@@ -9,6 +9,8 @@ import {
   handleGetTopDoctorHome,
 } from "../../../services/userService";
 import HomeHeader from "../../HomePage/HomeHeader";
+import { injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 class SearchPage extends Component {
   constructor(props) {
@@ -140,6 +142,7 @@ class SearchPage extends Component {
       clinics,
       handbooks,
     } = this.state;
+    let { intl } = this.props;
 
     return (
       <>
@@ -153,14 +156,14 @@ class SearchPage extends Component {
                 value={keyword}
                 placeholder={
                   selectedCategory === "all"
-                    ? "Tìm tất cả"
+                    ? intl.formatMessage({ id: "homeheader.all-search" })
                     : selectedCategory === "specialty"
-                    ? "Tìm chuyên khoa"
+                    ? intl.formatMessage({ id: "homeheader.specialty-search" })
                     : selectedCategory === "doctor"
-                    ? "Tìm bác sĩ"
+                    ? intl.formatMessage({ id: "homeheader.doctor-search" })
                     : selectedCategory === "clinic"
-                    ? "Tìm cơ sở y tế"
-                    : "Tìm cẩm nang"
+                    ? intl.formatMessage({ id: "homeheader.clinic-search" })
+                    : intl.formatMessage({ id: "homeheader.handbook-search" })
                 }
                 onChange={this.handleSearchInputChange}
                 onKeyPress={this.handleKeyPress}
@@ -170,32 +173,32 @@ class SearchPage extends Component {
               value={selectedCategory}
               onChange={this.handleCategoryChange}
             >
-              <option value="all">Tất cả</option>
-              <option value="specialty">Chuyên khoa</option>
-              <option value="doctor">Bác sĩ</option>
-              <option value="clinic">Cơ sở y tế</option>
-              <option value="handbook">Cẩm nang</option>
+              <option value="all">{intl.formatMessage({ id: "homeheader.all-search" })}</option>
+              <option value="specialty">{intl.formatMessage({ id: "homeheader.specialty-search" })}</option>
+              <option value="doctor">{intl.formatMessage({ id: "homeheader.doctor-search" })}</option>
+              <option value="clinic">{intl.formatMessage({ id: "homeheader.clinic-search" })}</option>
+              <option value="handbook">{intl.formatMessage({ id: "homeheader.handbook-search" })}</option>
             </select>
           </div>
 
           <div className="search-result">
             {selectedCategory === "all" && (
               <>
-                {this.renderSection("Chuyên khoa", specialties, "specialty")}
-                {this.renderSection("Bác sĩ", doctors, "doctor")}
-                {this.renderSection("Cơ sở y tế", clinics, "clinic")}
-                {this.renderSection("Cẩm nang", handbooks, "handbook")}
+                {this.renderSection(<FormattedMessage id="specialty.specialty"/>, specialties, "specialty")}
+                {this.renderSection(<FormattedMessage id="doctor.title"/>, doctors, "doctor")}
+                {this.renderSection(<FormattedMessage id="clinic.clinic"/>, clinics, "clinic")}
+                {this.renderSection(<FormattedMessage id="handbook.handbook"/>, handbooks, "handbook")}
               </>
             )}
 
             {selectedCategory === "specialty" &&
-              this.renderSection("Chuyên khoa", specialties, "specialty")}
+              this.renderSection(<FormattedMessage id="specialty.specialty"/>, specialties, "specialty")}
             {selectedCategory === "doctor" &&
-              this.renderSection("Bác sĩ", doctors, "doctor")}
+              this.renderSection(<FormattedMessage id="doctor.title"/>, doctors, "doctor")}
             {selectedCategory === "clinic" &&
-              this.renderSection("Cơ sở y tế", clinics, "clinic")}
+              this.renderSection(<FormattedMessage id="clinic.clinic"/>, clinics, "clinic")}
             {selectedCategory === "handbook" &&
-              this.renderSection("Cẩm nang", handbooks, "handbook")}
+              this.renderSection(<FormattedMessage id="handbook.handbook"/>, handbooks, "handbook")}
           </div>
         </div>
       </>
@@ -203,4 +206,4 @@ class SearchPage extends Component {
   }
 }
 
-export default withRouter(connect()(SearchPage));
+export default injectIntl(connect()(withRouter(SearchPage)));

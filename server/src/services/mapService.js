@@ -1,12 +1,13 @@
 const axios = require('axios');
 
+
 async function callGeocodeApi(address) {
   const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json&limit=1`;
 
  
   const response = await axios.get(url, {
     headers: {
-      'User-Agent': 'TienClinic/1.0 (hvtienjv2005@gmail.com)'
+      'User-Agent': 'TienClinic/2.0 (hvtienjv2005@gmail.com)'
     }
   });
 

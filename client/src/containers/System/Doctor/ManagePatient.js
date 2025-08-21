@@ -136,11 +136,10 @@ class ManagePatient extends Component {
     render() {
         let { patientList } = this.state;
         let { language } = this.props;
-        console.log("check ",this.state.selectedPatient)
         return (
         <>
             <div className="manage-patient-container">
-                <h2 className="title">QUẢN LÝ BỆNH NHÂN KHÁM BỆNH</h2>
+                <h2 className="title"><FormattedMessage id="doctor.manage-patient" /></h2>
 
                 <div className='row'>
                     <div className='col-3 form-group'>
@@ -157,12 +156,12 @@ class ManagePatient extends Component {
                     <table className="patient-table">
                         <thead>
                             <tr>
-                                <th>STT</th>
-                                <th>Thời gian</th>
-                                <th>Họ và tên</th>
-                                <th>Địa chỉ</th>
-                                <th>Giới tính</th>
-                                <th>Actions</th>
+                                <th><FormattedMessage id="manage-patient.index" defaultMessage="STT" /></th>
+                                <th><FormattedMessage id="manage-patient.time" defaultMessage="Thời gian" /></th>
+                                <th><FormattedMessage id="manage-patient.fullname" defaultMessage="Họ và tên" /></th>
+                                <th><FormattedMessage id="manage-patient.address" defaultMessage="Địa chỉ" /></th>
+                                <th><FormattedMessage id="manage-patient.gender" defaultMessage="Giới tính" /></th>
+                                <th><FormattedMessage id="manage-patient.actions" defaultMessage="Actions" /></th>
                             </tr>
                         </thead>
                         <tbody>

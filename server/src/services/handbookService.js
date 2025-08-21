@@ -1,5 +1,6 @@
 import db from '../models/index.js';
-const { Op } = require('sequelize');
+const { Op, fn, col } = require('sequelize');
+import { where } from 'sequelize';
 
 let createHandbookTest = (data) => {
     return new Promise(async (resolve, reject) => {
@@ -143,8 +144,13 @@ let getAllHandbook = (limit, keyword) => {
         try {
             let whereCondition = {};
             if (keyword) {
-                const keywordNormalized = keyword.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
-                whereCondition.name = { [Op.like]: `%${keywordNormalized}%` };
+                const keywordLower = keyword.toLowerCase();
+                    whereCondition = where(
+                    fn('LOWER', col('name')),
+                    {
+                        [Op.like]: `%${keywordLower}%`
+                    }
+                );
             }
 
             let data = await db.Handbook.findAll({

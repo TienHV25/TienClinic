@@ -188,13 +188,13 @@ class SignUp extends Component {
                             </button>
                         </div>
 
-                        <div style={{ display: 'flex', marginTop: '20px', marginLeft: '100px', textAlign: 'center', fontSize: '14px', justifyContent: 'center' }}>
-                            <div style={{ color: 'rgb(120, 120, 120)' }}>
+                        <div className="already-account">
+                            <div className="text-gray">
                                 <FormattedMessage id="homeheader.alreadyAccount" />
                             </div>
                             <div
                                 onClick={() => this.props.navigate('/login')}
-                                style={{ color: 'rgb(13, 92, 182)', cursor: 'pointer', marginLeft: '5px' }}
+                                className="text-login"
                             >
                                 <FormattedMessage id="homeheader.login" />
                             </div>
